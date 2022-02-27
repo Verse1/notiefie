@@ -1,5 +1,9 @@
 # User Experience Design
 
+## App Map
+
+<img src="ux-design/app-map.png" alt="sign in page" width="600"/>
+
 ## Prototype
 
 [Click here](https://www.figma.com/proto/VtGV21hUhiRFdOg1DgfULI/Wireframe?node-id=504%3A343&scaling=scale-down&page-id=480%3A341&starting-point-node-id=504%3A343) to view the hosted version of our prototype live on Figma.
