@@ -1,19 +1,32 @@
 # Project Repository
 
-This repository will be used for team projects.
+## Notiefi Vision Statement
 
-Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
+For the student who wants to be better prepared for future or current enrollment, Notiefi is an app that allows students from the same university to upload notes for other current or future students in their classes. 
 
-1. See the [App Map & Wireframes](instructions-0a-app-map-wireframes.md) and [Prototyping](./instructions-0b-prototyping.md) instructions for the requirements of the initial user experience design of the app.
+The Themes for the MVP of Notiefi are as follows:
+- A user to post notes
+- A user to access notes
+- A user to browse through classes
 
-1. Delete the contents of this file and replace with the contents of a proper README.md, as described in the [project setup instructions](./instructions-0c-project-setup.md)
+The Features for the MVP of Notiefi are as follows:
+- A profile page for each user that contains their name, school, and bio. A user will also be able to see the notes that they have saved from other students, as well as the notes that they have posted themselves. 
+- A home page with all of a users saved classes.
+- A classes page, where a user will be able to search through and save any classes from their university.
+- A class page, which contains the posted notes for each class organized by number of likes/upvotes. 
+- A Note page, which will contain attachments related to the notes and display the likes/upvotes and comments on that specific posted note. 
+- The ability to search through any class on the home page and classes page.
+- A notifications page, for a user to see if any other users have liked or commented on their posted note. 
+- The ability for a user to post their notes onto a specific class page. 
 
-1. See the [Sprint Planning instructions](instructions-0d-sprint-planning.md) for the requirements of Sprint Planning for each Sprint.
+## Core Team Members
 
-1. See the [Front-End Development instructions](./instructions-1-front-end.md) for the requirements of the initial Front-End Development.
+* Isabelle: [github](https://github.com/isabelleoktay)
+* Mehul: [github](https://github.com/Mehul-Aneja)
+* Nawaf: [github](https://github.com/Verse1)
+* Nick: [github](https://github.com/Star3Lord)
+* Mike: [github](https://github.com/mgt306)
 
-1. See the [Back-End Development instructions](./instructions-2-back-end.md) for the requirements of the initial Back-End Development.
+## Contributing
 
-1. See the [Database Integration instructions](./instructions-3-database.md) for the requirements of integrating a database into the back-end.
-
-1. See the [Deployment instructions](./instructions-4-deployment.md) for the requirements of deploying an app.
+[Click here](CONTRIBUTING.md) to see how you can contribute to Notiefi.
