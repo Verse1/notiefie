@@ -24,7 +24,7 @@ The Features for the MVP of Notiefi are as follows:
 * Isabelle: [github](https://github.com/isabelleoktay)
 * Mehul: [github](https://github.com/Mehul-Aneja)
 * Nawaf: [github](https://github.com/Verse1)
-* Nick: [github](https://github.com/Star3Lord)
+* Nikhil: [github](https://github.com/Star3Lord)
 * Mike: [github](https://github.com/mgt306)
 
 ## Contributing
