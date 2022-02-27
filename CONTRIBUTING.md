@@ -15,7 +15,7 @@ Each team sprint will take on average 2 weeks. Each sprint will have a backlog o
 ## Daily standups
 
 
-Daily standups will occur every Monday, Wednesday, and Friday of the week. The standups will last around 15 minutes to not last too long, but will give enough time for each team member to discuss their work and any concerns they have. Members must attend these meetings and if it appears that a member has not made any progress on their work without asking for help will be reported. 
+Daily standups will occur every Monday, Wednesday, and Friday of the week. The standups will last around 15 minutes to not last too long, but will give enough time for each team member to discuss their work and any concerns they have. Members must attend these meetings. If it appears that a member has not made any progress on their work and has not asked for help, the team member will be reported. 
 
 ## Git workflow
 
