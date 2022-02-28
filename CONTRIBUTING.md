@@ -40,3 +40,7 @@ Team members should strive to give informative commit messages.
 Team members should use the git workflow.
 
 Team members should give descriptive variable and function names.
+
+## Development environment
+
+To develop the project, the team will use Visual Studio Code. However, any text editor will work. Node.js needs to be installed. Since the project will be built using the MERN stack, mongoDB will be used as the database. It can be run locally or on a server. Finally, all node modules must be installed using npm from the package.json file.
