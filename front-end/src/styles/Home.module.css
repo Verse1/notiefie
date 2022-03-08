@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center; */
-  @apply min-h-screen py-16 px-0 flex-[1] flex flex-col justify-center items-center;
+  @apply flex min-h-screen flex-[1] flex-col items-center justify-center py-16 px-0;
 }
 
 .footer {
