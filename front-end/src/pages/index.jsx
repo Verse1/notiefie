@@ -6,7 +6,7 @@ import ClassCard from '@/components/ClassCard';
 
 export default function Home() {
   return (
-    <div className="grid h-screen place-items-center cursor-wait">
+    <div className="grid h-screen place-items-center">
       <ClassCard
         title="Introduction to Computer Science"
         enrolled="2"
