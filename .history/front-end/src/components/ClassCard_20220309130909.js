@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
-function ClassCard (props) {
+function ClassCard(props) {
   const router = useRouter();
 
   return (
@@ -14,7 +14,7 @@ function ClassCard (props) {
       <image src={props.image} />
       <h1>{props.title}</h1>
       <p>{props.description}</p>
-      <p>Enrolled: {props.enrolled}</p>
+      <p className='sora'>Enrolled: {props.enrolled}</p>
     </div>
   );
 }

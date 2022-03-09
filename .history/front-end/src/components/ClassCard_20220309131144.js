@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
-function ClassCard (props) {
+function ClassCard(props) {
   const router = useRouter();
 
   return (
     <div
-      className="fixed rounded-xl bg-blue-200 p-4 transition-all ease-in hover:rounded-md hover:bg-blue-400 cursor-pointer"
+      className="fixed rounded-xl bg-blue-200 p-4 transition-all ease-in hover:rounded-md hover:bg-blue-400 cursor-pointer sora"
       onClick={() => {
         router.push(`/class/${props.title}`);
       }}>
