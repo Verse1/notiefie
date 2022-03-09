@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import '../styles/Navigation.css'
 
 function Navigation(props) {
   const router = useRouter();
