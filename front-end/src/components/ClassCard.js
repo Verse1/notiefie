@@ -7,7 +7,7 @@ function ClassCard (props) {
 
   return (
     <div
-      className="fixed rounded-xl bg-blue-200 p-4 transition-all ease-in hover:rounded-md hover:bg-blue-400 cursor-pointer"
+      className="fixed cursor-pointer rounded-xl bg-blue-200 p-4 font-sans transition-all ease-in hover:rounded-md hover:bg-blue-400"
       onClick={() => {
         router.push(`/class/${props.title}`);
       }}>
