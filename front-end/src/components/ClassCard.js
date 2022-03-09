@@ -6,9 +6,8 @@ function ClassCard(props) {
   const router = useRouter();
 
   return (
-    // when div is clicked redirect to the class page with the class title as the url
     <div
-      className="fixed rounded-xl bg-blue-200 p-4 transition-all ease-linear hover:rounded-md hover:bg-blue-400"
+      className="fixed rounded-xl bg-blue-200 p-4 transition-all ease-in hover:rounded-md hover:bg-blue-400"
       onClick={() => {
         router.push(`/class/${props.title}`);
       }}>
