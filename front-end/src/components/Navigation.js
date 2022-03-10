@@ -22,7 +22,7 @@ function Navigation(props) {
                     <a className="link" href="#">Browse Classes</a>
                   </li>
                     <li className="mr-3">
-                    <a className="link" href="#">Notifications</a>
+                    <a className="link" href="Notifications">Notifications</a>
                   </li>
                 </ul>
             </div>
