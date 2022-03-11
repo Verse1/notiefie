@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import Image from 'next/image'
+import profilelogo from '/public/newlogo.png'
 
 function Navigation(props) {
   const router = useRouter();
@@ -22,7 +24,12 @@ function Navigation(props) {
                     <a className="link" href="#">Browse Classes</a>
                   </li>
                     <li className="mr-3">
-                    <a className="link" href="#">Notifications</a>
+                    <a className="link" href="Notifications">Notifications</a>
+                  </li>
+                  <li className="mr-3">
+                    <a className="link" href="Profile">
+                      <Image src={profilelogo} alt="Profile" width="45px" height="45px"/>
+                    </a>
                   </li>
                 </ul>
             </div>
