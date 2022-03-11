@@ -12,13 +12,6 @@ export default function Home() {
       </Head>
 
       <Navigation />
-      
-
-      <ClassCard
-        title="Introduction to Computer Science"
-        enrolled="2"
-        description="This is a description WOAH"
-      />
     </div>
   );
 }

@@ -5,12 +5,12 @@ import { useRouter } from 'next/router';
 function Notifications(props) {
   const router = useRouter();
 
-  return(
+  return (
     <div>
-        <hi>Notifications Page!</hi>
+      <h1>Notifications Page!</h1>
     </div>
   );
 }
 
 Notifications.propTypes = {};
-export default Notifications
+export default Notifications;
