@@ -13,7 +13,7 @@ const config = {
     },
   },
 
-  plugins: [require('@tailwindcss/aspect-ratio')],
+  plugins: [],
 };
 
 module.exports = config;

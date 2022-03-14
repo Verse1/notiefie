@@ -6,14 +6,10 @@ const config = {
       fontFamily: {
         Sora: ['Sora'],
       },
-      padding: {
-        '1/2': '50%',
-        full: '100%',
-      },
     },
   },
 
-  plugins: [require('@tailwindcss/aspect-ratio')],
+  plugins: [],
 };
 
 module.exports = config;
