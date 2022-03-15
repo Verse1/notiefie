@@ -34,7 +34,7 @@ function BrowseClasses(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navigation bold={'font-black'}/>
+      <Navigation decoration={'font-black text-[#bc13fe]'}/>
 
       <div class="max-w-screen-lg mx-auto p-4 mt-20">
         <div class="grid grid-cols-[repeat(4,_minmax(200px,_1fr))] gap-4 mt-12 h-1/3">

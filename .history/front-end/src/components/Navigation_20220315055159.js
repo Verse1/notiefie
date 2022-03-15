@@ -16,7 +16,7 @@ function Navigation(props) {
                 </a>
             </div>
             <div className="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
-                <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
+                <ul className="list-reset flex justify-between flex-1 md:flex-none items-center space-x-[20px]">
                   <li className="mr-3">
                     <a className="link" href="#">Upload Notes</a>
                   </li>

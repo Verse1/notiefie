@@ -21,7 +21,7 @@ function Navigation(props) {
                     <a className="link" href="#">Upload Notes</a>
                   </li>
                   <li className="mr-3">
-                    <a className={`link ${props.bold}`} href="BrowseClasses">Browse Classes</a>
+                    <a className={`link`} href="BrowseClasses">Browse Classes</a>
                   </li>
                     <li className="mr-3">
                     <a className="link" href="Notifications">Notifications</a>
