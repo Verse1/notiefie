@@ -11,6 +11,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <ClassCard title="Intro to CS" description="CS is just the description" enrolled="600" />
+
       <Navigation />
     </div>
   );
