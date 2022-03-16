@@ -10,14 +10,16 @@ function ClassCard(props) {
 
   const handlePin = () => {
     setPin(!pin);
+
   };
 
   return (
-    <div className="fixed cursor-pointer rounded-xl bg-blue-200 p-4 font-sans transition-all ease-in hover:rounded-lg hover:bg-blue-400">
+    <>
+    <div className={`cursor-pointer rounded-3xl bg-sky-500 p-7 font-sans transition-all linear hover:rounded-xl hover:bg-sky-400 relative my-3 text-x order-${props.order}`}>
 
       <button >
         {pin ? (
-          <AiFillPushpin onClick={() => handlePin()} />
+          <AiFillPushpin onClick={() => handlePin()}/>
         ) : (
           <AiOutlinePushpin
             onClick={() => handlePin()}
@@ -30,7 +32,8 @@ function ClassCard(props) {
       <h1>{props.title}</h1>
       <p>{props.description}</p>
       <p>Enrolled: {props.enrolled}</p>
-    </div>
+      </div>
+    </>
   );
 }
 

@@ -1,19 +1,31 @@
 import React from 'react';
-import Head from 'next/head';
+
 import ClassCard from '@/components/ClassCard';
-import Navigation from '@/components/Navigation';
 
 export default function Home() {
   return (
-    <div className="grid h-screen place-items-center">
-      <Head>
-        <title>Notiefi</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className="grid place-items-center">
 
-      <ClassCard title="Intro to CS" description="CS is just the description" enrolled="600" />
+      <ClassCard
+        title="Intro to CO"
+        description="CS is just the description"
+        enrolled="600"
+        order="last"
+      />
 
-      <Navigation />
+      <ClassCard
+        title="Intro to CS"
+        description="CS is just the description"
+        enrolled="700"
+        order="0"
+      />
+
+      {/* <ClassCard
+        title="Intro to CS"
+        description="CS is just the description"
+        enrolled="600"
+        order="0"
+      /> */}
     </div>
   );
 }

@@ -8,7 +8,7 @@ function Navigation(props) {
   const router = useRouter();
     
   return(
-    <nav className="bg-indigo-800 p-2 mt-0 fixed w-full z-10 top-0">
+    <nav className="bg-indigo-800 p-2 mt-0 fixed w-full z-10 top-0 relative">
         <div className="container mx-auto flex flex-wrap items-center">
             <div className="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
                 <a className="text-white no-underline hover:text-white hover:no-underline" href="#">
@@ -24,7 +24,7 @@ function Navigation(props) {
                     <a className="link" href="#">Browse Classes</a>
                   </li>
                     <li className="mr-3">
-                    <a className="link" href="Notifications">Notifications</a>
+                    <a className="link" href="notifications">Notifications</a>
                   </li>
                   <li className="mr-3">
                     <a className="link" href="Profile">
