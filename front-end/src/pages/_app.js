@@ -1,17 +1,20 @@
-import React from 'react';
+import 'tailwindcss/tailwind.css';
 import Head from 'next/head';
-import ClassCard from '@/components/ClassCard';
+import '../styles/globals.css';
+import '../styles/Navigation.css';
 import Navigation from '@/components/Navigation';
 
-export default function Home() {
+function MyApp({ Component, pageProps }) {
   return (
-    <div className="grid h-screen place-items-center">
+    <>
       <Head>
         <title>Notiefi</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Navigation />
-    </div>
+      <Component {...pageProps} />
+    </>
   );
 }
+
+export default MyApp;
