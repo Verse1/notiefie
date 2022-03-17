@@ -1,23 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
 * {
-  box-sizing: border-box;
   font-family: Sora, sans-serif;
+}
+
+body{
+  @apply bg-gradient-to-r from-green-400 to-blue-500
 }
