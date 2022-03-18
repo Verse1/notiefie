@@ -8,7 +8,7 @@ function Navigation(props) {
   const router = useRouter();
 
   return (
-    <nav className="relative top-0 z-10  mt-0 w-full bg-indigo-800 p-2">
+    <nav className="relative top-0 z-10 mt-0 mb-8 w-full bg-indigo-800 p-2">
       <div className="container mx-auto flex flex-wrap items-center">
         <div className="flex w-full justify-center font-extrabold text-white md:w-1/2 md:justify-start">
           <a
@@ -27,7 +27,7 @@ function Navigation(props) {
               </a>
             </li>
             <li className="mr-3">
-              <a className="link" href="browse">
+              <a className={`link ${props.bold}`} href="browse">
                 Browse Classes
               </a>
             </li>

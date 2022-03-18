@@ -37,7 +37,6 @@ function ClassCard(props) {
             />
           )}
         </button>
-
         <h1>{props.title}</h1>
         <p>{props.description}</p>
         <p>Enrolled: {props.enrolled}</p>
