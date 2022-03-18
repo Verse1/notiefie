@@ -1,6 +1,6 @@
 function login() {
   return (
-    <div className="grid h-screen place-items-center">
+    <div className="grid h-[88vh] place-items-center">
       <div className="bg inline-block rounded-3xl bg-white p-7">
         <h1 className="mb-7 text-center text-2xl">Login to your account</h1>
         <form className="text-center">

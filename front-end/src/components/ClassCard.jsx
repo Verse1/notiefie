@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { AiFillPushpin, AiOutlinePushpin } from 'react-icons/ai';
+import placeholder from '/public/placeholder.jpg';
 
 function ClassCard(props) {
   const router = useRouter();
@@ -10,28 +12,35 @@ function ClassCard(props) {
 
   const handlePin = () => {
     setPin(!pin);
-
+    props.changeOrder(props.id);
   };
 
   return (
     <>
-    <div className={`cursor-pointer rounded-3xl bg-sky-500 p-7 font-sans transition-all linear hover:rounded-xl hover:bg-sky-400 relative my-3 text-x order-${props.order}`}>
+      <div
+        className={`linear relative my-3 cursor-pointer rounded-3xl bg-sky-500 p-8 font-sans text-lg transition-all hover:rounded-xl hover:bg-sky-400 order-${props.order}`}>
+        <Image
+          src={placeholder}
+          width={40}
+          height={40}
+          alt="placeholder"
+          className="float-left rounded-full"
+        />
+        <button className="float-right">
+          {pin ? (
+            <AiFillPushpin onClick={() => handlePin()} size={22} />
+          ) : (
+            <AiOutlinePushpin
+              onClick={() => handlePin()}
+              className="hover:fill-blue-500"
+              size={22}
+            />
+          )}
+        </button>
 
-      <button >
-        {pin ? (
-          <AiFillPushpin onClick={() => handlePin()}/>
-        ) : (
-          <AiOutlinePushpin
-            onClick={() => handlePin()}
-            className="hover:fill-blue-500"
-          />
-        )}
-      </button>
-
-      <image src={props.image} />
-      <h1>{props.title}</h1>
-      <p>{props.description}</p>
-      <p>Enrolled: {props.enrolled}</p>
+        <h1>{props.title}</h1>
+        <p>{props.description}</p>
+        <p>Enrolled: {props.enrolled}</p>
       </div>
     </>
   );
