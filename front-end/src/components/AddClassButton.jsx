@@ -29,7 +29,7 @@ function AddClassButton(props) {
 
   return (
     <button
-      className={`${color} ${hover} mb-5 mr-5 inline-flex items-center rounded py-2 px-4 font-bold text-gray-100`}
+      className={`${color} ${hover} mb-5 mr-5 inline-flex items-center rounded-3xl py-2 px-4 font-bold text-gray-100`}
       onClick={handleClick}>
       {added ? (
         <svg
