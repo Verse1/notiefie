@@ -1,4 +1,6 @@
-function login() {
+import React from 'react';
+
+export default function login() {
   return (
     <div className="grid h-[88vh] place-items-center">
       <div className="bg inline-block rounded-3xl bg-white p-7">
@@ -23,5 +25,3 @@ function login() {
     </div>
   );
 }
-
-export default login;
