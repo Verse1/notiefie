@@ -8,7 +8,7 @@ const IndividualClass = props => {
 
     return (
         <div>
-            <ClassHeader color="bg-sky-500" name="Intro to Computer Science" code="CS101"/>
+            <ClassHeader color="bg-sky-500" name="Intro to Computer Science" code="CS101" posts="10" enrolled="60"/>
         </div>
     )
 
