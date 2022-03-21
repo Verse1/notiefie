@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import ClassCard from '@/components/ClassCard';
+import ClassCard from '../components/ClassCard';
 
 export default function Home() {
   const changeOrder = (e) => {

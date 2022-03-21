@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import AddClassButton from '@/components/AddClassButton';
+import AddClassButton from './AddClassButton';
 
 function BrowseClassCard(props) {
   const router = useRouter();

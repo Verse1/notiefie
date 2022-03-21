@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import BrowseClassCard from '@/components/BrowseClassCard';
-import Navigation from '@/components/Navigation';
+import BrowseClassCard from '../components/BrowseClassCard';
+import Navigation from '../components/Navigation';
 import Head from 'next/head';
 
 function BrowseClasses(props) {

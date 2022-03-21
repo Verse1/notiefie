@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css';
 import Head from 'next/head';
 import '../styles/globals.css';
 import '../styles/Navigation.css';
-import Navigation from '@/components/Navigation';
+import Navigation from '../components/Navigation';
 
 
 function MyApp({ Component, pageProps }) {
