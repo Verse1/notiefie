@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import profilelogo from '/public/newlogo.png';
+import { VscAccount } from 'react-icons/vsc';
 
 function Navigation(props) {
   const router = useRouter();
@@ -37,13 +37,8 @@ function Navigation(props) {
               </a>
             </li>
             <li className="mr-3">
-              <a className="link" href="Profile">
-                <Image
-                  src={profilelogo}
-                  alt="Profile"
-                  width="45px"
-                  height="45px"
-                />
+              <a className="link" href="profile">
+                <VscAccount size={28} />
               </a>
             </li>
           </ul>
@@ -54,4 +49,5 @@ function Navigation(props) {
 }
 
 Navigation.propTypes = {};
+
 export default Navigation;
