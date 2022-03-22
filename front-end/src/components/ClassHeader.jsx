@@ -52,15 +52,20 @@ const ClassHeader = props => {
 
     return (
         <div className="grid place-items-center ">
-            <div className={`${props.color} relative h-auto rounded-3xl text-white p-5 content-center min-w-[500] max-w-[60%] relative`}>
-                <div>
+            <div className={`${props.color} relative h-auto rounded-3xl text-white p-5 content-center min-w-[700px] w-[100%] max-w-[60%]`}>
+                <div className='mb-10'>
                   <h1 className={`text-3xl font-extrabold inline-block mr-5 mt-5`}>{props.name}</h1>
-                  <AddClassButton className="inline-block mt-2"/>
-                  <h2 className={`text-2xl -mt-5 mb-5`}>{props.code}</h2>
-
-                  <div className="inline-block mb-20">
-                    <span className="mr-5 font-bold text-purple-700 drop-shadow-md">Enrolled: {props.enrolled}</span>
-                    <span className="font-bold text-purple-700 drop-shadow-md">Total Posts: {props.posts}</span>
+                  <div className="block mt-5 -mb-5 float-right">
+                      <AddClassButton/>
+                  </div>
+                  
+                  <div className="my-4">
+                    <span className={`text-2xl`}>{props.code}</span>
+                    <div className="inline-block float-right mr-5">
+                      <span className="mr-5 font-bold text-purple-700 drop-shadow-md">Enrolled: {props.enrolled}</span>
+                      <span className="font-bold text-purple-700 drop-shadow-md">Total Posts: {props.posts}</span>  
+                    </div>
+                </div>    
                   </div>
                   {notes.map((note, i) => (
                     <NotesCard
@@ -69,7 +74,7 @@ const ClassHeader = props => {
                       description={note.description}
                     />
                   ))}
-                </div>
+                
                 
             </div>
         </div>
