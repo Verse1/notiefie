@@ -2,22 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import HeartButton from './HeartButton';
-import { FaRegHeart } from 'react-icons/fa'
 import Link from 'next/link';
 
 const NotesCard = props => {
   const router = useRouter();
-
-  const [liked, setLiked] = useState(false)
-  const [fill, setFill] = useState("none")
-
-  const handleClick = ev => {
-    ev.preventDefault();
-    const nextLiked = liked ? false : true;
-    const nextFill = fill === "none" ? "currentColor" : "none"
-    setLiked(nextLiked)
-    setFill(nextFill)
-  }
 
   return (
     <div className={` px-10 py-5 rounded-3xl bg-slate-100 mb-10`}>
@@ -25,7 +13,7 @@ const NotesCard = props => {
             <Link href='note'>
               <h1 className="text-xl font-bold my-3 cursor-pointer">{props.title}</h1>
             </Link>
-            <FaRegHeart onClick={handleClick} value={{color: `${fill}`}}/>
+            <HeartButton/>
         </div>
         <p className="text-slate-800">{props.description}</p>
     </div>
