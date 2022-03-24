@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import HeartButton from './HeartButton';
+import { AiOutlineDownload } from 'react-icons/ai'
 import Attachment from './Attachment';
 import Comment from './Comment';
 
@@ -31,8 +32,12 @@ const NoteHeader = props => {
               <p className='pb-10'>{props.text}</p>
 
               <div className='bg-slate-800 text-slate-100 p-5 rounded-3xl'>
-                  <p className='text-lg mb-10 ml-10'>Attachments</p>
-                  <div className='overflow-x-scroll overflow-y-hidden w-[100%] h-[150px] inline-block whitespace-nowrap	'>
+                  <div className='flex justify-between mx-10 mb-5'>
+                    <p className='text-lg'>Attachments</p>
+                    <AiOutlineDownload size={28} className="hover:fill-emerald-400"/>
+                  </div>
+                  
+                  <div className='overflow-x-scroll overflow-y-hidden w-[100%] h-[100px] inline-block whitespace-nowrap	'>
                     <Attachment/>
                     <Attachment/>
                     <Attachment/>
