@@ -40,7 +40,7 @@ function Navigation(props) {
             <li className="mr-3">
               <Link href="profile">
                 <a className="link">
-                  <VscAccount size={28} />
+                  <VscAccount size={28}  className="mt-1"/>
                 </a>
               </Link>
             </li>
