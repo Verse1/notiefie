@@ -18,7 +18,7 @@ function upload(props) {
                         </select>
                     </div>
                     <div className="p-2">
-                        <textarea required rows="2" maxLength="220" placeholder="Add a title..." className="pl-1 shadow-md hover:shadow-lg w-full bg-white rounded-xl placeholder:italic placeholder:text-slate-500 border"/> 
+                        <textarea required rows="2" maxLength="220" placeholder="Add a title..." className="resize-none pl-1 shadow-md hover:shadow-lg w-full bg-white rounded-xl placeholder:italic placeholder:text-slate-500 border"/> 
                     </div>
                     <div className="p-2">
                     <textarea required rows="15" maxLength="4000" placeholder="Add text..." className="pl-1 shadow-md hover:shadow-lg w-full bg-white rounded-xl placeholder:italic placeholder:text-slate-500"/> 
