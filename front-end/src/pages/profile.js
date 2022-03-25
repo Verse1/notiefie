@@ -51,7 +51,7 @@ export default function Profile({ picture }) {
         </div>
 
         <div className="p-5 text-center text-white">
-          <h1 className="text-left ">Foo Barstein </h1>
+          <h1 className="text-left ">Foo</h1>
           <p className="flex text-right">New York University</p>
 
           <p>204 Upvotes</p>
