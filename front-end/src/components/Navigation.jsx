@@ -1,23 +1,26 @@
-import React from 'react';
+import { React, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+
 import { VscAccount } from 'react-icons/vsc';
-import { FaBell } from 'react-icons/fa';
+
 import Link from 'next/link';
+import NavigationBell from './NotificationsBell';
 
 function Navigation(props) {
   const router = useRouter();
+
+  
 
   return (
     <nav className="relative top-0 z-10 mt-0 mb-8 w-full bg-indigo-800 p-2">
       <div className="container mx-auto flex flex-wrap items-center">
         <div className="flex w-full justify-center font-extrabold text-white md:w-1/2 md:justify-start">
           <Link href="/">
-          <a className="text-white no-underline hover:text-white hover:no-underline">
-              
-            <span className="pl-2 text-2xl">
-              <i className="em em-grinning"></i> Notiefi
-            </span>
+            <a className="text-white no-underline hover:text-white hover:no-underline">
+              <span className="pl-2 text-2xl">
+                <i className="em em-grinning"></i> Notiefi
+              </span>
             </a>
           </Link>
         </div>
@@ -32,11 +35,7 @@ function Navigation(props) {
               </Link>
             </li>
             <li className="mr-3">
-              <Link href="notifications">
-                <a className="link">
-                  <FaBell size={20} />
-                </a>
-              </Link>
+              <NavigationBell/>
             </li>
             <li className="mr-3">
               <Link href="profile">
