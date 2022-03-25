@@ -106,7 +106,7 @@ export default function Profile({ picture }) {
 
 export async function getServerSideProps() {
   const picture = await axios
-    .get(process.env.PICTURE_API, {
+    .get("https://picsum.photos/200/300", {
       responseType: 'arraybuffer',
     })
     .then((response) =>

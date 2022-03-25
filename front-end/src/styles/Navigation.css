@@ -1,3 +1,7 @@
-  .link {
-    @apply inline-block py-2 px-4 text-white no-underline hover:text-violet-400;
-  }
+.link {
+  @apply inline-block py-2 px-4 text-white no-underline hover:text-violet-400;
+}
+
+.search-bar {
+  @apply flex w-full items-stretch justify-between gap-0 overflow-hidden rounded-lg bg-white;
+}
