@@ -21,8 +21,12 @@ function Navigation(props) {
             </a>
           </Link>
         </div>
-        <div className="flex w-full content-center justify-between pt-2 md:w-1/2 md:justify-end">
-          <ul className="list-reset flex flex-1 items-center justify-between md:flex-none">
+
+        <div className="col-span-8 lg:col-span-5 mr-3 lg:mr-0">
+        <Search />
+      </div>
+        <div className="col-span-full flex content-center justify-between pt-2 lg:col-span-5 lg:justify-end">
+          <ul className="list-reset flex flex-1 items-center justify-between lg:flex-none">
             <li className="mr-3">
               <Link href="upload">
                 <a className="link">Upload Notes</a>
