@@ -10,8 +10,6 @@ import NavigationBell from './NotificationsBell';
 function Navigation(props) {
   const router = useRouter();
 
-  
-
   return (
     <nav className="relative top-0 z-10 mt-0 mb-8 w-full bg-indigo-800 p-2">
       <div className="container mx-auto flex flex-wrap items-center">
@@ -35,12 +33,12 @@ function Navigation(props) {
               </Link>
             </li>
             <li className="mr-3">
-              <NavigationBell/>
+              <NavigationBell />
             </li>
             <li className="mr-3">
               <Link href="profile">
                 <a className="link">
-                  <VscAccount size={28}  className="mt-1"/>
+                  <VscAccount size={28} className="mt-1" />
                 </a>
               </Link>
             </li>

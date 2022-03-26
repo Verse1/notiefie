@@ -65,8 +65,8 @@ export default function NavigationBell() {
                   ))}
                 </div>
                 <Link href="notifications" passHref>
-                <p className="text-coolGray-500 p-3 text-center space-x-1 text-xs cursor-pointer font-normal leading-4 underline">
-                  View More
+                  <p className="text-coolGray-500 cursor-pointer space-x-1 p-3 text-center text-xs font-normal leading-4 underline">
+                    View More
                   </p>
                 </Link>
               </div>
