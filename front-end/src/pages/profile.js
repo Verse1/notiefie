@@ -4,6 +4,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
+import { profileUrl } from '../constants/api';
 
 export default function Profile({ picture }) {
   let [notes] = useState({
@@ -44,14 +45,18 @@ export default function Profile({ picture }) {
             className="float-left rounded-full pr-11"
           />
           <Link href="settings">
-              <a>
-                <RiSettings4Fill size={42} className="float-right" color="white" />
-              </a>
+            <a>
+              <RiSettings4Fill
+                size={42}
+                className="float-right"
+                color="white"
+              />
+            </a>
           </Link>
         </div>
 
         <div className="p-5 text-center text-white">
-          <h1 className="text-left ">Foo Barstein </h1>
+          <h1 className="text-left ">Foo</h1>
           <p className="flex text-right">New York University</p>
 
           <p>204 Upvotes</p>
@@ -104,9 +109,9 @@ export default function Profile({ picture }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const picture = await axios
-    .get(process.env.PICTURE_API, {
+    .get(profileUrl, {
       responseType: 'arraybuffer',
     })
     .then((response) =>
