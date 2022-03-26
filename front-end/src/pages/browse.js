@@ -9,8 +9,6 @@ import axios from 'axios';
 function BrowseClasses({ classes }) {
   return (
     <div>
-      {console.log(classes)}
-
       <div className="mx-auto mt-20 max-w-screen-lg p-4">
         <div className="mt-12 grid h-1/3 grid-cols-[repeat(4,_minmax(200px,_1fr))] gap-4">
           {classes.map((classCard) => (
