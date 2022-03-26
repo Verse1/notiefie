@@ -11,8 +11,6 @@ import Search from './SearchBar';
 function Navigation(props) {
   const router = useRouter();
 
-  
-
   return (
     <nav className="relative top-0 z-10 mt-0 mb-8 w-full bg-indigo-800 p-2">
     <div className="w-full grid grid-cols-12 items-center">
@@ -37,14 +35,14 @@ function Navigation(props) {
           <Link href="browse">
                 <a className={`link ${props.bold}`}>Browse Classes</a>
               </Link>
-          </li>
-          <li className="mr-3">
-          <NavigationBell/>
-          </li>
-          <li className="mr-3 last:mr-0">
-          <Link href="profile">
+            </li>
+            <li className="mr-3">
+              <NavigationBell />
+            </li>
+            <li className="mr-3">
+              <Link href="profile">
                 <a className="link">
-                  <VscAccount size={28} />
+                  <VscAccount size={28} className="mt-1" />
                 </a>
               </Link>
           </li>

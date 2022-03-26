@@ -4,82 +4,45 @@ import { useRouter } from 'next/router';
 import AddClassButton from './AddClassButton';
 import NotesCard from './NotesCard';
 
-const ClassHeader = props => {
-    const router = useRouter();
+const ClassHeader = (props) => {
+  const router = useRouter();
 
-    const notes = [
-        {
-          title: 'First lecture notes!',
-          description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-        },
-        {
-            title: 'First lecture notes!',
-            description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-          },
-        {
-          title: 'First lecture notes!',
-          description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-        },
-        {
-            title: 'First lecture notes!',
-            description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-          },
-        {
-          title: 'First lecture notes!',
-          description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-        },
-        {
-            title: 'First lecture notes!',
-            description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-          },
-        {
-          title: 'First lecture notes!',
-          description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-        },
-        {
-            title: 'First lecture notes!',
-            description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-          },
-        {
-          title: 'First lecture notes!',
-          description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-        },
-        {
-            title: 'First lecture notes!',
-            description: 'Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class.',
-          },
-      ];
+  return (
+    <div className="grid place-items-center ">
+      <div
+        className={`${props.color} relative h-auto w-[100%] min-w-[700px] max-w-[60%] content-center rounded-3xl p-5 text-white`}>
+        <div className="mb-10">
+          <h1 className={`mr-5 mt-5 inline-block text-3xl font-extrabold`}>
+            {props.name}
+          </h1>
+          <div className="float-right mt-5 -mb-5 block">
+            <AddClassButton />
+          </div>
 
-    return (
-        <div className="grid place-items-center ">
-            <div className={`${props.color} relative h-auto rounded-3xl text-white p-5 content-center min-w-[700px] w-[100%] max-w-[60%]`}>
-                <div className='mb-10'>
-                  <h1 className={`text-3xl font-extrabold inline-block mr-5 mt-5`}>{props.name}</h1>
-                  <div className="block mt-5 -mb-5 float-right">
-                      <AddClassButton/>
-                  </div>
-                  
-                  <div className="my-4">
-                    <span className={`text-2xl`}>{props.code}</span>
-                    <div className="inline-block float-right mr-5">
-                      <span className="mr-5 font-bold text-purple-700 drop-shadow-md">Enrolled: {props.enrolled}</span>
-                      <span className="font-bold text-purple-700 drop-shadow-md">Total Posts: {props.posts}</span>  
-                    </div>
-                </div>    
-                  </div>
-                  {notes.map((note, i) => (
-                    <NotesCard
-                      key={i.toString()}
-                      title={note.title}
-                      description={note.description}
-                    />
-                  ))}
-                
-                
+          <div className="my-4">
+            <span className={`text-2xl`}>{props.code}</span>
+            <div className="float-right mr-5 inline-block">
+              <span className="mr-5 font-bold text-purple-700 drop-shadow-md">
+                Enrolled: {props.enrolled}
+              </span>
+              <span className="font-bold text-purple-700 drop-shadow-md">
+                Total Posts: {props.posts}
+              </span>
             </div>
+          </div>
         </div>
-    )
-}
+        {props.notes.map((note) => (
+          <NotesCard
+            key={note.id}
+            title={note.title}
+            description={note.description}
+          />
+        ))}
+        {console.log(props.notes)}
+      </div>
+    </div>
+  );
+};
 
 ClassHeader.propTypes = {};
 export default ClassHeader;

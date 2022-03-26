@@ -33,7 +33,7 @@ function AddClassButton(props) {
       onClick={handleClick}>
       {added ? (
         <svg
-          className="h-6 w-6 mr-2"
+          className="mr-2 h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -46,7 +46,7 @@ function AddClassButton(props) {
         </svg>
       ) : (
         <svg
-          className="h-6 w-6 mr-2"
+          className="mr-2 h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

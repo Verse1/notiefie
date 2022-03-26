@@ -45,9 +45,13 @@ export default function Profile({ picture }) {
             className="float-left rounded-full pr-11"
           />
           <Link href="settings">
-              <a>
-                <RiSettings4Fill size={42} className="float-right" color="white" />
-              </a>
+            <a>
+              <RiSettings4Fill
+                size={42}
+                className="float-right"
+                color="white"
+              />
+            </a>
           </Link>
         </div>
 
@@ -105,7 +109,7 @@ export default function Profile({ picture }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const picture = await axios
     .get(profileUrl, {
       responseType: 'arraybuffer',
