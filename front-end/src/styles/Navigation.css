@@ -3,5 +3,5 @@
 }
 
 .search-bar {
-  @apply flex w-full items-stretch justify-between gap-0 overflow-hidden rounded-lg bg-white;
+  @apply flex w-4/12 items-stretch justify-between gap-0 overflow-hidden rounded-xl bg-white;
 }
