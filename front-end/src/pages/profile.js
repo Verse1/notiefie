@@ -4,7 +4,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
-import { profileUrl } from '../constants/api';
+import process from 'process';
 
 export default function Profile({ picture }) {
   let [notes] = useState({
@@ -111,7 +111,7 @@ export default function Profile({ picture }) {
 
 export async function getStaticProps() {
   const picture = await axios
-    .get(profileUrl, {
+    .get(process.env.PICTURE_API, {
       responseType: 'arraybuffer',
     })
     .then((response) =>
