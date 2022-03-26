@@ -22,17 +22,21 @@ function Navigation(props) {
               </span>
             </a>
           </Link>
-      </div>
-      <div className="col-span-8 lg:col-span-5 mr-3 lg:mr-0">
+        </div>
+
+        <div className="col-span-8 lg:col-span-5 mr-3 lg:mr-0">
         <Search />
       </div>
-      <div className="col-span-full flex content-center justify-between pt-2 lg:col-span-5 lg:justify-end">
-        <ul className="list-reset flex flex-1 items-center justify-between lg:flex-none">
-          <li className="mr-3">
-          <a className="link">Upload Notes</a>
-          </li>
-          <li className="mr-3">
-          <Link href="browse">
+        <div className="col-span-full flex content-center justify-between pt-2 lg:col-span-5 lg:justify-end">
+          <ul className="list-reset flex flex-1 items-center justify-between lg:flex-none">
+            <li className="mr-3">
+              <Link href="upload">
+                <a className="link">Upload Notes</a>
+              </Link>
+            </li>
+            <li className="mr-3">
+              <Link href="browse">
+
                 <a className={`link ${props.bold}`}>Browse Classes</a>
               </Link>
             </li>
