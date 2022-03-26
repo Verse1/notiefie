@@ -4,6 +4,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
+import { profileUrl } from '../constants/api';
 
 export default function Profile({ picture }) {
   let [notes] = useState({
@@ -106,7 +107,7 @@ export default function Profile({ picture }) {
 
 export async function getServerSideProps() {
   const picture = await axios
-    .get("https://picsum.photos/200/300", {
+    .get(profileUrl, {
       responseType: 'arraybuffer',
     })
     .then((response) =>
