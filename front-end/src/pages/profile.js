@@ -108,7 +108,7 @@ export default function Profile({ picture }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const picture = await axios
     .get(process.env.PICTURE_API, {
       responseType: 'arraybuffer',
