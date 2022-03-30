@@ -4,7 +4,6 @@ import '../styles/globals.css';
 import '../styles/Navigation.css';
 import Navigation from '../components/Navigation';
 
-
 function MyApp({ Component, pageProps }) {
   return (
     <>
