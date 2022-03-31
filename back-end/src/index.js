@@ -8,6 +8,6 @@ const port = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/api', require('./routes/routes'));
+app.use('/api', require('./routes'));
 
 app.listen(port);
