@@ -11,3 +11,5 @@ app.use(express.json());
 app.use('/api', require('./routes/routes'));
 
 app.listen(port);
+
+module.exports = app;
