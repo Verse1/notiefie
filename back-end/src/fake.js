@@ -24,6 +24,59 @@ function users(n) {
   return users;
 }
 
+function notes(n) {
+  const notes = [];
+
+  for (let i = 1; i <= n; i++) {
+    notes.push({
+      id: faker.datatype.uuid(),
+      class: faker.datatype.uuid(),
+      title: faker.lorem.words(),
+      user: faker.datatype.uuid(),
+      text: faker.lorem.sentence(5),
+      comments: comments(faker.datatype.number({ max: 10 })),
+      attachments: attachments(faker.datatype.number({ max: 10 })),
+      likes: faker.datatype.number({ max: 1000 }),
+      createdAt: faker.date.past(),
+    });
+  }
+  notes.push({
+    id: '2ca5a3e5-e774-40ee-9c2d-b7f8c7081b01',
+    class: 'Test Class',
+    title: 'Test Title',
+    user: '11118469-f8b7-4204-b1a9-b875dd5a775b',
+    text: 'posted these test notes!',
+    comments: comments(faker.datatype.number({ max: 10 })),
+    attachments: attachments(faker.datatype.number({ max: 10 })),
+    likes: faker.datatype.number({ max: 1000 }),
+    createdAt: '2019-01-01T00:00:00.000Z',
+  })
+
+  return notes;
+}
+
+function comments(n) {
+  const comments = [];
+
+  for (let i = 1; i <= n; i++) {
+    comments.push({
+      user: faker.datatype.uuid(),
+      comment: faker.lorem.sentence(1),
+      likes: faker.datatype.number({ max: 100 }),
+    });
+  }
+  return comments;
+}
+
+function attachments(n) {
+  const attachments = [];
+
+  for (let i = 1; i <= n; i++) {
+    attachments.push(faker.image.abstract());
+  }
+  return attachments;
+}
+
 function classes(n) {
     const classes = [];
   
@@ -48,5 +101,6 @@ function classes(n) {
 
 module.exports = {
   users,
+  notes,
   classes,
 };
