@@ -1,9 +1,11 @@
 const fake = require('../fake');
+const axios = require('axios');
 
 const users = fake.users(10);
 const faker = require('faker');
 
 module.exports = {
+  // /users
   get: (req, res) => {
     res.send(users);
   },
@@ -21,6 +23,7 @@ module.exports = {
     res.send(user);
   },
 
+  // /users/:id
   getById: (req, res) => {
     let user = users.find((user) => user.id === req.params.id);
     if (user) {
@@ -48,4 +51,22 @@ module.exports = {
       res.status(404).send('User not found');
     }
   },
+
+  // /users/:id/notes
+
+  getNotes: (req, res) => {
+    let user = users.find((user) => user.id === req.params.id);
+
+    if (user) {
+      res.send(user.notes);
+    } else {
+      res.status(404).send('User not found');
+    }
+
+    const notes = await axios.get(process.env.API+'/api/notes').data;
+    
+    let usersNotes = notes.filter((note) => note.userId === req.params.id);
+    res.send(usersNotes);
+
+  }
 };

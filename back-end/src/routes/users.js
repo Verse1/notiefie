@@ -15,4 +15,9 @@ router
   .route('/create')
   .post(controller.post);
 
+router
+  .route('/:id/notes')
+  .get(controller.getNotes)
+  .get(controller.getSavedNotes)
+
 module.exports = router;
