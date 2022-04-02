@@ -21,7 +21,7 @@ const IndividualClass = ({ notes }) => {
   );
 };
 export const getStaticProps = async () => {
-  const res = await axios.get(process.env.API_URL + '/notes');
+  const res = await axios.get('http://localhost:3001/api/notes/');
   const notes = await res.data;
   return { props: { notes } };
 };

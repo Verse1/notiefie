@@ -35,7 +35,7 @@ const ClassHeader = (props) => {
           <NotesCard
             key={note.id}
             title={note.title}
-            description={note.description}
+            description={note.text}
           />
         ))}
         {console.log(props.notes)}
