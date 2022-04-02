@@ -36,6 +36,7 @@ const ClassHeader = (props) => {
             key={note.id}
             title={note.title}
             description={note.text}
+            likes={note.likes}
           />
         ))}
         {console.log(props.notes)}
