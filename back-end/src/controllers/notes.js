@@ -16,12 +16,12 @@ module.exports = {
       title: req.body.title,
       user: req.body.user,
       text: req.body.text,
-      comments: req.body.comments,
       attachments: req.body.attachments,
+      likes: 1,
       createdAt: faker.date.past(),
     };
     notes.push(note);
-    res.send(note);
+    res.redirect('http://localhost:3000/class');
   },
 
   getById: (req, res) => {
