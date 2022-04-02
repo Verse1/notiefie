@@ -15,8 +15,9 @@ const HeartButton = (props) => {
 
   return (
     <button>
+      <p>{props.likes}</p>
       {liked ? (
-        <AiFillHeart onClick={handleClick} className="fill-red-600" />
+        <AiFillHeart onClick={handleClick} className="fill-purple-600" />
       ) : (
         <AiOutlineHeart onClick={handleClick} />
       )}
