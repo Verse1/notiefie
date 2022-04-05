@@ -99,7 +99,7 @@ function classes(n) {
   return classes;
 }
 
-const notifications = (n) => {
+function notifications(n) {
   const notifications = [];
 
   for (let i = 1; i <= n; i++) {
@@ -122,11 +122,15 @@ const notifications = (n) => {
   });
 
   return notifications;
-};
+}
 
+const fakeUsers = users(10);
+const fakeNotes = notes(10);
+const fakeClasses = classes(10);
+const fakeNotifications = notifications(10);
 module.exports = {
-  users,
-  notes,
-  classes,
-  notifications,
+  fakeUsers,
+  fakeNotes,
+  fakeClasses,
+  fakeNotifications,
 };

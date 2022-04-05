@@ -1,6 +1,6 @@
 const fake = require('../fake');
 
-const notes = fake.notes(10);
+const notes = fake.fakeNotes;
 const faker = require('faker');
 const users = require('./users');
 

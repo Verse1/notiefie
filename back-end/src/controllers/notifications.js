@@ -1,6 +1,6 @@
 const fake = require('../fake');
 
-const notifications = fake.notifications(10);
+const notifications = fake.fakeNotifications;
 const faker = require('faker');
 
 const get = (req, res) => {

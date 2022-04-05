@@ -1,7 +1,8 @@
 const fake = require('../fake');
-const axios = require('axios');
 
-const users = fake.users(10);
+const users = fake.fakeUsers;
+const notes = fake.fakeNotes;
+
 const faker = require('faker');
 
 module.exports = {
@@ -54,18 +55,16 @@ module.exports = {
 
   // /users/:id/notes
 
-  getNotes: async (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  getNotes: (req, res) => {
 
-    if (user) {
-      res.send(user.notes);
-    } else {
-      res.status(404).send('User not found');
-    }
-
-    const notes = await axios.get(process.env.API + '/api/notes').data;
+    console.log(notes);
 
     let usersNotes = notes.filter((note) => note.userId === req.params.id);
-    res.send(usersNotes);
+
+    if (usersNotes.length > 0) {
+      res.send(usersNotes);
+    } else {
+      res.send('User has no notes');
+    }
   },
 };
