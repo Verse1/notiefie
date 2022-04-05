@@ -39,7 +39,6 @@ const ClassHeader = (props) => {
             likes={note.likes}
           />
         ))}
-        {console.log(props.notes)}
       </div>
     </div>
   );

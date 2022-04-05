@@ -7,15 +7,17 @@ const HeartButton = (props) => {
   const router = useRouter();
 
   const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(props.likes);
 
   const handleClick = (ev) => {
     ev.preventDefault();
     setLiked(!liked);
+    setLikes(liked ? likes - 1 : likes + 1);
   };
 
   return (
     <button>
-      <p>{props.likes}</p>
+      <p>{likes}</p>
       {liked ? (
         <AiFillHeart onClick={handleClick} className="fill-purple-600" />
       ) : (
