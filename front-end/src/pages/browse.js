@@ -26,31 +26,30 @@ function BrowseClasses({ classes }) {
 }
 
 function randomColor() {
-  const rndInt = Math.floor(Math.random() * 4)
+  const rndInt = Math.floor(Math.random() * 4);
   const colors = ['bg-teal-', 'bg-cyan-', 'bg-indigo-', 'bg-pink-'];
 
   if (rndInt === 0) {
     return {
       color: colors[0] + '400',
       hover: 'hover:' + colors[0] + '300',
-    }
+    };
   } else if (rndInt === 1) {
     return {
       color: colors[1] + '400',
       hover: 'hover:' + colors[1] + '300',
-    }
+    };
   } else if (rndInt === 2) {
     return {
       color: colors[2] + '400',
       hover: 'hover:' + colors[2] + '300',
-    }
+    };
   } else if (rndInt === 3) {
     return {
       color: colors[3] + '400',
       hover: 'hover:' + colors[3] + '300',
-    }
+    };
   }
-
 }
 
 export const getStaticProps = async () => {
