@@ -27,6 +27,7 @@ module.exports = {
   // /users/:id
   getById: (req, res) => {
     let user = users.find((user) => user.id === req.params.id);
+    console.log(req.params.id);
     if (user) {
       res.send(user);
     } else {
@@ -57,11 +58,21 @@ module.exports = {
 
   getNotes: (req, res) => {
     let usersNotes = notes.filter((note) => note.user === req.params.id);
-
     if (usersNotes.length > 0) {
       res.send(usersNotes);
     } else {
-      res.send('User has no notes');
+      res.status(404).send('User has no notes');
+    }
+  },
+
+  deleteNotes: (req, res) => {
+    let usersNotes = notes.filter((note) => note.user === req.params.id);
+
+    if (usersNotes.length > 0) {
+      notes = notes.filter((note) => note.id !== req.params.noteId);
+      res.send('Notes deleted');
+    } else {
+      res.status(404).send('User has no notes');
     }
   },
 };

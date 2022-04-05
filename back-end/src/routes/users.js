@@ -17,4 +17,7 @@ router.route('/create').post(controller.post);
 // GET users notes
 router.route('/:id/notes').get(controller.getNotes);
 
+// DELETE users notes
+router.route('/:id/notes/:noteId').delete(controller.deleteNotes);
+
 module.exports = router;

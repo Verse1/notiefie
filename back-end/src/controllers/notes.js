@@ -18,10 +18,12 @@ module.exports = {
       text: req.body.text,
       attachments: req.body.attachments,
       likes: 1,
+      comments: {},
       createdAt: faker.date.past(),
     };
     notes.push(note);
-    res.redirect('http://localhost:3000/class');
+    res.send(note);
+    // res.redirect('http://localhost:3000/class');
   },
 
   getById: (req, res) => {
