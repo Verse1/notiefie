@@ -9,7 +9,10 @@ const searchClient = algoliasearch(
 const Hit = ({ hit }) => {
   return (
     <div>
-      <div>{hit.name}</div>
+      <br />
+      <div className=" mt-12 absolute grid gap-8 break-normal p-7 lg:grid-cols-1">
+        {hit.name}
+      </div>
     </div>
   );
 };
@@ -18,17 +21,14 @@ const NewSearch = () => {
   const [showHits, setShowHits] = useState(false);
 
   return (
-    <InstantSearch
-      searchClient={searchClient}
-      indexName="classes"
-      appId=""
-      apiKey="">
+    <InstantSearch searchClient={searchClient} indexName="classes">
       <SearchBox
         translations={{ placeholder: 'Search for a class' }}
         onFocus={() => setShowHits(true)}
         onBlur={() => setShowHits(false)}
       />
       {showHits ? <Hits hitComponent={Hit} /> : null}
+      {/* <Hits hitComponent={Hit} /> */}
     </InstantSearch>
   );
 };
