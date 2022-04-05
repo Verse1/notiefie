@@ -86,17 +86,16 @@ describe('Users API', () => {
         done();
       });
   });
- it('should get all users notes', (done) => {
-   chai
-     .request(server)
-     .get('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/notes')
-     .end((err, res) => {
-       assert.equal(res.status, 200);
-       assert.isArray(res.body);
-       done();
-     });
- });
-
+  it('should get all users notes', (done) => {
+    chai
+      .request(server)
+      .get('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/notes')
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.isArray(res.body);
+        done();
+      });
+  });
 
   it('should delete user notes', (done) => {
     chai
@@ -121,16 +120,14 @@ describe('Users API', () => {
         done();
       });
   });
-    it('should delete user by id', (done) => {
-      chai
-        .request(server)
-        .delete('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6')
-        .end((err, res) => {
-          assert.equal(res.status, 200);
-          assert.equal(res.text, 'User deleted');
-          done();
-        });
-    });
-
-   
+  it('should delete user by id', (done) => {
+    chai
+      .request(server)
+      .delete('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6')
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.text, 'User deleted');
+        done();
+      });
+  });
 });
