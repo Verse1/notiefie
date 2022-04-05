@@ -44,7 +44,7 @@ function notes(n) {
     id: '2ca5a3e5-e774-40ee-9c2d-b7f8c7081b01',
     class: 'Test Class',
     title: 'Test Title',
-    user: '11118469-f8b7-4204-b1a9-b875dd5a775b',
+    user: '2005b873-dd55-4ebe-8165-76ce6d9b83a6',
     text: 'posted these test notes!',
     comments: comments(faker.datatype.number({ max: 10 })),
     attachments: attachments(faker.datatype.number({ max: 10 })),

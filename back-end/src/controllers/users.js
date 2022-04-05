@@ -56,10 +56,7 @@ module.exports = {
   // /users/:id/notes
 
   getNotes: (req, res) => {
-
-    console.log(notes);
-
-    let usersNotes = notes.filter((note) => note.userId === req.params.id);
+    let usersNotes = notes.filter((note) => note.user === req.params.id);
 
     if (usersNotes.length > 0) {
       res.send(usersNotes);
