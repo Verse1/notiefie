@@ -11,4 +11,6 @@ router
 
 router.route('/create').post(controller.post);
 
+router.route('/:id/like').put(controller.like);
+
 module.exports = router;

@@ -57,4 +57,23 @@ module.exports = {
       res.status(404).send('Note not found');
     }
   },
+
+  like: (req, res) => {
+    let note = notes.find((note) => note.id === req.params.id);
+    let liked = req.body.liked;
+
+    if (note && liked) {
+      note.likes += 1;
+      console.log(note.likes);
+
+      res.send(note);
+    } else if (note && !liked) {
+      note.likes -= 1;
+      console.log(note.likes);
+
+      res.send(note);
+    } else {
+      res.status(404).send('Note not found');
+    }
+  },
 };
