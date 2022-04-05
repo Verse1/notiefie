@@ -33,10 +33,7 @@ const SelectClass = ({ classes }) => {
             onChange={(e) => setQuery(e.target.value)}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-4">
-            <FaAngleDown
-              className="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
+            <FaAngleDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
           </Combobox.Button>
         </div>
         <Transition

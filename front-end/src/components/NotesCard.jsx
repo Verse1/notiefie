@@ -15,7 +15,7 @@ const NotesCard = (props) => {
             {props.title}
           </h1>
         </Link>
-        <HeartButton likes={props.likes}/>
+        <HeartButton likes={props.likes} />
       </div>
       <p className="text-slate-800">{props.description}</p>
     </div>

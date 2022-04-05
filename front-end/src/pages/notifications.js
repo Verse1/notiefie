@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Notification from '../components/Notification';
 import axios from 'axios';
 
-
 const Notifications = (notifications) => {
   return (
     <>
