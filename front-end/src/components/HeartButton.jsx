@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import axios from 'axios';
 
 const HeartButton = (props) => {
   const router = useRouter();
@@ -9,10 +10,14 @@ const HeartButton = (props) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(props.likes);
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
+  const handleClick = async (e) => {
+    e.preventDefault();
     setLiked(!liked);
     setLikes(liked ? likes - 1 : likes + 1);
+
+    await axios.put(`http://localhost:3001/api/notes/${props.id}/like`, {
+      liked: !liked,
+    });
   };
 
   return (
