@@ -23,6 +23,7 @@ function users(n) {
   });
   return users;
 }
+const fakeUsers = users(10);
 
 function notes(n) {
   const notes = [];
@@ -60,7 +61,9 @@ function comments(n) {
 
   for (let i = 1; i <= n; i++) {
     comments.push({
-      user: faker.datatype.uuid(),
+      user: fakeUsers[
+        faker.datatype.number({ min: 0, max: fakeUsers.length - 1 })
+      ],
       comment: faker.lorem.sentence(1),
       likes: faker.datatype.number({ max: 100 }),
     });
@@ -72,7 +75,7 @@ function attachments(n) {
   const attachments = [];
 
   for (let i = 1; i <= n; i++) {
-    attachments.push({attachment: faker.image.abstract()});
+    attachments.push({ attachment: faker.image.abstract() });
   }
   return attachments;
 }
@@ -124,7 +127,6 @@ function notifications(n) {
   return notifications;
 }
 
-const fakeUsers = users(10);
 const fakeNotes = notes(10);
 const fakeClasses = classes(10);
 const fakeNotifications = notifications(10);

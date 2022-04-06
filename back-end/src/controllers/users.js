@@ -27,7 +27,6 @@ module.exports = {
   // /users/:id
   getById: (req, res) => {
     let user = users.find((user) => user.id === req.params.id);
-    console.log(req.params.id);
     if (user) {
       res.send(user);
     } else {

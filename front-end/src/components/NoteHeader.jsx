@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import HeartButton from './HeartButton';
@@ -8,14 +7,13 @@ import {
   AiOutlineDownload,
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
+import axios from 'axios';
 import { MdFileDownloadDone } from 'react-icons/md';
 import Attachment from './Attachment';
 import Comment from './Comment';
 import Link from 'next/link';
 
 const NoteHeader = (props) => {
-  const router = useRouter();
-
   const [downloaded, setDownloaded] = useState(false);
 
   const handleBigDownload = () => {
@@ -92,10 +90,11 @@ const NoteHeader = (props) => {
               </div>
             </div>
           </form>
+
           {props.comments.map((c) => {
             return (
               <Comment
-                username={c.user}
+                username={c.user.name}
                 comment={c.comment}
                 likes={c.likes}
                 id={props.id}

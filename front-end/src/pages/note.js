@@ -4,9 +4,8 @@ import { useRouter } from 'next/router';
 import NoteHeader from '../components/NoteHeader';
 import axios from 'axios';
 
-const Note = ({note}) => {
+const Note = ({ note }) => {
   const router = useRouter();
-  console.log(note.attachments);
 
   return (
     <div>
