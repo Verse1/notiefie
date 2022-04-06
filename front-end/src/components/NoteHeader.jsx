@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import HeartButton from './HeartButton';
-import { AiFillPropertySafety, AiOutlineDownload } from 'react-icons/ai';
+import {
+  AiFillPropertySafety,
+  AiOutlineDownload,
+  AiOutlineArrowLeft,
+} from 'react-icons/ai';
 import { MdFileDownloadDone } from 'react-icons/md';
 import Attachment from './Attachment';
 import Comment from './Comment';
@@ -24,14 +28,12 @@ const NoteHeader = (props) => {
         className={`${props.color} relative h-auto w-[100%] min-w-[700px] max-w-[60%] content-center rounded-3xl p-5 text-white`}>
         <div className="width-[100%] my-10 -mx-5 bg-purple-600 p-5">
           <Link href="class" passHref>
-            <p className="cursor-pointer px-5 hover:text-slate-200">
-              {props.name}
-            </p>
+            <AiOutlineArrowLeft className=" left-0 top-0 mr-5 cursor-pointer" />
           </Link>
         </div>
         <div className="flex justify-between px-5 pb-5 text-2xl">
           <p>{props.title}</p>
-          <HeartButton likes={props.likes} id={props.id}/>
+          <HeartButton likes={props.likes} id={props.id} />
         </div>
 
         <div className="rounded-3xl bg-white p-5 text-slate-800">
@@ -56,30 +58,50 @@ const NoteHeader = (props) => {
             </div>
 
             <div className="inline-block h-[100px] w-[100%] overflow-y-hidden overflow-x-scroll whitespace-nowrap	">
-              {console.log(props.attachments)}
-              {props.attachments.map( (a, i) => {
-                return <Attachment bigDownloaded={downloaded} attachment={a.attachment} key={i}/> 
+              {props.attachments.map((a, i) => {
+                return (
+                  <Attachment
+                    bigDownloaded={downloaded}
+                    attachment={a.attachment}
+                    key={i}
+                  />
+                );
               })}
-
             </div>
           </div>
         </div>
         <div className="mt-20">
-          <form className="w-full bg-white rounded-2xl px-4 pt-2">
-            <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full md:w-full px-3 mb-2 mt-2">
-                <textarea className="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-400 focus:outline-none focus:bg-white text-black" name="body" placeholder='Add comment...' required></textarea>
+          <form className="w-full rounded-2xl bg-white px-4 pt-2">
+            <div className="-mx-3 mb-6 flex flex-wrap">
+              <div className="mb-2 mt-2 w-full px-3 md:w-full">
+                <textarea
+                  className="h-20 w-full resize-none rounded border border-gray-400 bg-gray-100 py-2 px-3 font-medium leading-normal text-black placeholder-gray-400 focus:bg-white focus:outline-none"
+                  name="body"
+                  placeholder="Add comment..."
+                  required></textarea>
               </div>
 
-              <div className="w-full md:w-full flex items-start md:w-full px-3">
+              <div className="flex w-full items-start px-3 md:w-full">
                 <div className="-mr-1 mb-5">
-                  <input type='submit' className="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='Post'/>
+                  <input
+                    type="submit"
+                    className="mr-1 rounded-lg border border-gray-400 bg-white py-1 px-4 font-medium tracking-wide text-gray-700 hover:bg-gray-100"
+                    value="Post"
+                  />
                 </div>
               </div>
             </div>
           </form>
-          {props.comments.map(c => {
-            return <Comment username={c.user} comment={c.comment} likes={c.likes} id={props.id}/>
+          {props.comments.map((c) => {
+            return (
+              <Comment
+                username={c.user}
+                comment={c.comment}
+                likes={c.likes}
+                id={props.id}
+                key={props.id}
+              />
+            );
           })}
         </div>
       </div>

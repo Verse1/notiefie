@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 import HeartButton from './HeartButton';
 import Link from 'next/link';
 
 const NotesCard = (props) => {
-  const router = useRouter();
 
   return (
     <div className={` mb-10 rounded-3xl bg-slate-100 px-10 py-5`}>
