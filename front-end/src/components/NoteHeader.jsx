@@ -25,7 +25,7 @@ const NoteHeader = (props) => {
       <div
         className={`${props.color} relative h-auto w-[100%] min-w-[700px] max-w-[60%] content-center rounded-3xl p-5 text-white`}>
         <div className="width-[100%] my-10 -mx-5 bg-purple-600 p-5">
-          <Link href="class" passHref>
+          <Link href="/class" passHref>
             <AiOutlineArrowLeft className=" left-0 top-0 mr-5 cursor-pointer" />
           </Link>
         </div>
