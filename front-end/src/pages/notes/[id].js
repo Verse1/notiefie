@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import NoteHeader from '../components/NoteHeader';
+import NoteHeader from '../../components/NoteHeader';
 import axios from 'axios';
 
 const Note = ({ note }) => {
@@ -24,7 +24,8 @@ const Note = ({ note }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const data = context.query.data;
+  const data = context.query.id;
+  console.log(data);
   const res = await axios.get(`http://localhost:3001/api/notes/${data}`);
   const note = await res.data;
   return { props: { note } };
