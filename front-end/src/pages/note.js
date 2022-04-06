@@ -2,20 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import NoteHeader from '../components/NoteHeader';
+import axios from 'axios';
 
-const Note = (props) => {
+const Note = ({note}) => {
   const router = useRouter();
+  console.log(note.attachments);
 
   return (
     <div>
       <NoteHeader
         color="bg-sky-500"
-        name="Intro to Computer Science"
-        title="First lecture notes!"
-        text="Topics include an historical perspective, evolving hardware and software, using the Internet, creating web pages, social implications, and using a modern programming language. Problem solving and algorithm development are important themes of the class."
+        name={note.class}
+        title={note.title}
+        text={note.text}
+        comments={note.comments}
+        likes={note.likes}
+        attachments={note.attachments}
+        id={note.id}
       />
     </div>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  const data = context.query.data;
+  const res = await axios.get(`http://localhost:3001/api/notes/${data}`);
+  const note = await res.data;
+  return { props: { note } };
 };
 
 Note.propTypes = {};

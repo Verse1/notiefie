@@ -10,7 +10,7 @@ const NotesCard = (props) => {
   return (
     <div className={` mb-10 rounded-3xl bg-slate-100 px-10 py-5`}>
       <div className="flex justify-between align-top text-purple-600">
-        <Link href="note" passHref>
+        <Link href={ {pathname: `note`, query: {data: props.id}}} passHref>
           <h1 className="my-3 cursor-pointer text-xl font-bold hover:text-purple-700">
             {props.title}
           </h1>

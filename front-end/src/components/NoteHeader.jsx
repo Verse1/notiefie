@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import HeartButton from './HeartButton';
-import { AiOutlineDownload } from 'react-icons/ai';
+import { AiFillPropertySafety, AiOutlineDownload } from 'react-icons/ai';
 import { MdFileDownloadDone } from 'react-icons/md';
 import Attachment from './Attachment';
 import Comment from './Comment';
@@ -31,7 +31,7 @@ const NoteHeader = (props) => {
         </div>
         <div className="flex justify-between px-5 pb-5 text-2xl">
           <p>{props.title}</p>
-          <HeartButton />
+          <HeartButton likes={props.likes} id={props.id}/>
         </div>
 
         <div className="rounded-3xl bg-white p-5 text-slate-800">
@@ -56,12 +56,11 @@ const NoteHeader = (props) => {
             </div>
 
             <div className="inline-block h-[100px] w-[100%] overflow-y-hidden overflow-x-scroll whitespace-nowrap	">
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
+              {console.log(props.attachments)}
+              {props.attachments.map( (a, i) => {
+                return <Attachment bigDownloaded={downloaded} attachment={a.attachment} key={i}/> 
+              })}
+
             </div>
           </div>
         </div>
@@ -79,7 +78,9 @@ const NoteHeader = (props) => {
               </div>
             </div>
           </form>
-          <Comment username="foobar" comment="great notes!" />
+          {props.comments.map(c => {
+            return <Comment username={c.user} comment={c.comment} likes={c.likes} id={props.id}/>
+          })}
         </div>
       </div>
     </div>

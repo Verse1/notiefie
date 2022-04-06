@@ -72,7 +72,7 @@ function attachments(n) {
   const attachments = [];
 
   for (let i = 1; i <= n; i++) {
-    attachments.push(faker.image.abstract());
+    attachments.push({attachment: faker.image.abstract()});
   }
   return attachments;
 }
