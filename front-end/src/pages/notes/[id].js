@@ -25,7 +25,6 @@ const Note = ({ note }) => {
 
 export const getServerSideProps = async (context) => {
   const data = context.query.id;
-  console.log(data);
   const res = await axios.get(`http://localhost:3001/api/notes/${data}`);
   const note = await res.data;
   return { props: { note } };

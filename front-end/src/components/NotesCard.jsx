@@ -6,7 +6,6 @@ import Link from 'next/link';
 const NotesCard = (props) => {
   let url = `/notes/${props.id}`;
   return (
-    
     <div className={` mb-10 rounded-3xl bg-slate-100 px-10 py-5`}>
       <div className="flex justify-between align-top text-purple-600">
         <Link href={url} passHref>
