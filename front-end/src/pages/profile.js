@@ -33,7 +33,6 @@ export default function Profile({ picture, user, userNotes }) {
     return classes.filter(Boolean).join(' ');
   }
 
-  console.log(user);
   return (
     <div className="grid place-items-center">
       <div className={`relative h-auto w-[28%] rounded-3xl bg-sky-500 text-lg`}>

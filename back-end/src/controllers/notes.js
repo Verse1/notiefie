@@ -64,12 +64,10 @@ module.exports = {
 
     if (note && liked) {
       note.likes += 1;
-      console.log(note.likes);
 
       res.send(note);
     } else if (note && !liked) {
       note.likes -= 1;
-      console.log(note.likes);
 
       res.send(note);
     } else {

@@ -4,7 +4,6 @@ import { FaSearch } from 'react-icons/fa';
 const Search = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ search: e.target.search.value });
   };
   return (
     <Fragment>
