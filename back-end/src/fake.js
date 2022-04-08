@@ -10,6 +10,7 @@ function users(n) {
       university: faker.address.cityName() + ' University',
       email: faker.internet.email(),
       password: faker.internet.password(),
+      classes: classes(faker.datatype.number({ max: 10 })),
       createdAt: faker.date.past(),
     });
   }
@@ -19,6 +20,7 @@ function users(n) {
     university: 'Test University',
     email: 'test@test.com',
     password: 'test',
+    classes: classes(faker.datatype.number({ max: 10 })),
     createdAt: '2019-01-01T00:00:00.000Z',
   });
   return users;
