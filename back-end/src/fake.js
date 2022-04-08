@@ -8,7 +8,11 @@ function users(n) {
       id: faker.datatype.uuid(),
       name: faker.name.findName(),
       university: faker.address.cityName() + ' University',
+
       likes: notes(faker.datatype.number({ max: 10 })),
+
+      classes: [],
+
       email: faker.internet.email(),
       password: faker.internet.password(),
       createdAt: faker.date.past(),
@@ -18,7 +22,11 @@ function users(n) {
     id: '2005b873-dd55-4ebe-8165-76ce6d9b83a6',
     name: 'Test',
     university: 'Test University',
+
     likes: notes(faker.datatype.number({ max: 10 })),
+
+    classes: [],
+
     email: 'test@test.com',
     password: 'test',
     createdAt: '2019-01-01T00:00:00.000Z',
@@ -91,6 +99,8 @@ function classes(n) {
       name: faker.lorem.words() + '101',
       classCode: faker.random.word() + '-101',
       university: faker.address.cityName() + ' University',
+      enrolled: faker.datatype.number({ max: 1000 }),
+      notes: fakeNotes,
       createdAt: faker.date.past(),
     });
   }

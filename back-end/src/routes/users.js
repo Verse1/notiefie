@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { getRouteRegex } = require('next/dist/shared/lib/router/utils');
 const controller = require('../controllers/users');
 
 // GET /users
@@ -20,8 +21,13 @@ router.route('/:id/notes').get(controller.getNotes);
 // DELETE users notes
 router.route('/:id/notes/:noteId').delete(controller.deleteNotes);
 
+
 // GET users likes
 
 router.route('/:id/likes').get(controller.getLikes);
+
+router.route('/:id/add-class').post(controller.addClass);
+router.route('/:id/delete-class').post(controller.deleteClass);
+
 
 module.exports = router;
