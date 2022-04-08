@@ -6,7 +6,7 @@ import { Tab } from '@headlessui/react';
 import Link from 'next/link';
 import process from 'process';
 
-export default function Profile({ picture }) {
+export default function Profile({ picture, user, userNotes }) {
   let [notes] = useState({
     saved: [
       {
@@ -60,7 +60,7 @@ export default function Profile({ picture }) {
           <p className="flex text-right">New York University</p>
 
           <p>204 Upvotes</p>
-          <p>Joined February 27,2022</p>
+          <p>Joined {user.createdAt}</p>
         </div>
         <div className="px-6 pb-10">
           <Tab.Group>
@@ -109,7 +109,7 @@ export default function Profile({ picture }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const picture = await axios
     .get(process.env.PICTURE_API, {
       responseType: 'arraybuffer',
@@ -118,5 +118,17 @@ export async function getStaticProps() {
       Buffer.from(response.data, 'binary').toString('base64')
     );
 
-  return { props: { picture } };
+  const user = await JSON.stringify(
+    axios.get(
+      'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6'
+    )
+  );
+
+  const userNotes = await JSON.stringify(
+    axios.get(
+      'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/notes'
+    )
+  );
+
+  return { props: { picture, user, userNotes } };
 }

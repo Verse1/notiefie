@@ -19,6 +19,8 @@ The Features for the MVP of Notiefi are as follows:
 - A notifications page, for a user to see if any other users have liked or commented on their posted note. 
 - The ability for a user to post their notes onto a specific class page. 
 
+
+
 ## Core Team Members
 
 * [Isabelle](https://github.com/isabelleoktay)
@@ -31,3 +33,19 @@ The Features for the MVP of Notiefi are as follows:
 ## Contributing
 
 [Click here](CONTRIBUTING.md) to see how you can contribute to Notiefi.
+
+# Building and Testing The Project
+## Initial setup
+1. Clone the repository onto your local machine with ```git clone```
+2. Go into the directory with ```cd```
+
+## Frontend 
+1. Go into the ```front-end``` directory
+2. Install all front-end dependencies with ```npm install```
+3. Launch the front-end with ```npm start``` after building with ```npm run build``` or start it with dev mode with ```npm run dev```
+4. Access the site using a browser at ```localhost:3000```
+
+## Backend 
+1. Go into the ```back-end``` directory
+2. Install back-end dependencies with ```npm install```
+3. Launch the back-end with ```npm start``` or start it with dev mode with ```npm run dev```

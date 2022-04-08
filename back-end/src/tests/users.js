@@ -86,27 +86,6 @@ describe('Users API', () => {
         done();
       });
   });
-
-  it('should delete user by id', (done) => {
-    chai
-      .request(server)
-      .delete('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6')
-      .end((err, res) => {
-        assert.equal(res.status, 200);
-        assert.equal(res.text, 'User deleted');
-        done();
-      });
-  });
-  it('should not find deleted user', (done) => {
-    chai
-      .request(server)
-      .get('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6')
-      .end((err, res) => {
-        assert.equal(res.status, 404);
-        assert.equal(res.text, 'User not found');
-        done();
-      });
-  });
   it('should get all users notes', (done) => {
     chai
       .request(server)
@@ -114,13 +93,23 @@ describe('Users API', () => {
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.isArray(res.body);
-        assert.property(res.body[0], 'id');
-        assert.property(res.body[1], 'title');
-        assert.property(res.body[2], 'content');
-        assert.property(res.body[3], 'createdAt');
         done();
       });
   });
+
+  it('should delete user notes', (done) => {
+    chai
+      .request(server)
+      .delete(
+        '/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/notes/2ca5a3e5-e774-40ee-9c2d-b7f8c7081b01'
+      )
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.text, 'Note deleted');
+        done();
+      });
+  });
+
   it('should not return if user has no notes', (done) => {
     chai
       .request(server)
@@ -128,6 +117,16 @@ describe('Users API', () => {
       .end((err, res) => {
         assert.equal(res.status, 404);
         assert.equal(res.text, 'User has no notes');
+        done();
+      });
+  });
+  it('should delete user by id', (done) => {
+    chai
+      .request(server)
+      .delete('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6')
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.text, 'User deleted');
         done();
       });
   });

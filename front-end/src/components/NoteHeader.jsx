@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import HeartButton from './HeartButton';
-import { AiOutlineDownload } from 'react-icons/ai';
+import {
+  AiFillPropertySafety,
+  AiOutlineDownload,
+  AiOutlineArrowLeft,
+} from 'react-icons/ai';
+import axios from 'axios';
 import { MdFileDownloadDone } from 'react-icons/md';
 import Attachment from './Attachment';
 import Comment from './Comment';
 import Link from 'next/link';
 
 const NoteHeader = (props) => {
-  const router = useRouter();
-
   const [downloaded, setDownloaded] = useState(false);
 
   const handleBigDownload = () => {
@@ -23,15 +25,13 @@ const NoteHeader = (props) => {
       <div
         className={`${props.color} relative h-auto w-[100%] min-w-[700px] max-w-[60%] content-center rounded-3xl p-5 text-white`}>
         <div className="width-[100%] my-10 -mx-5 bg-purple-600 p-5">
-          <Link href="class" passHref>
-            <p className="cursor-pointer px-5 hover:text-slate-200">
-              {props.name}
-            </p>
+          <Link href="/class" passHref>
+            <AiOutlineArrowLeft className=" left-0 top-0 mr-5 cursor-pointer" />
           </Link>
         </div>
         <div className="flex justify-between px-5 pb-5 text-2xl">
           <p>{props.title}</p>
-          <HeartButton />
+          <HeartButton likes={props.likes} id={props.id} />
         </div>
 
         <div className="rounded-3xl bg-white p-5 text-slate-800">
@@ -56,18 +56,52 @@ const NoteHeader = (props) => {
             </div>
 
             <div className="inline-block h-[100px] w-[100%] overflow-y-hidden overflow-x-scroll whitespace-nowrap	">
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
-              <Attachment bigDownloaded={downloaded} />
+              {props.attachments.map((a, i) => {
+                return (
+                  <Attachment
+                    bigDownloaded={downloaded}
+                    attachment={a.attachment}
+                    key={i}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
-        <div className="mt-10">
-          <p className="mb-10 px-5 text-2xl">Comments</p>
-          <Comment username="foobar" comment="great notes!" />
+        <div className="mt-20">
+          <form className="w-full rounded-2xl bg-white px-4 pt-2">
+            <div className="-mx-3 mb-6 flex flex-wrap">
+              <div className="mb-2 mt-2 w-full px-3 md:w-full">
+                <textarea
+                  className="h-20 w-full resize-none rounded border border-gray-400 bg-gray-100 py-2 px-3 font-medium leading-normal text-black placeholder-gray-400 focus:bg-white focus:outline-none"
+                  name="body"
+                  placeholder="Add comment..."
+                  required></textarea>
+              </div>
+
+              <div className="flex w-full items-start px-3 md:w-full">
+                <div className="-mr-1 mb-5">
+                  <input
+                    type="submit"
+                    className="mr-1 rounded-lg border border-gray-400 bg-white py-1 px-4 font-medium tracking-wide text-gray-700 hover:bg-gray-100"
+                    value="Post"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+
+          {props.comments.map((c) => {
+            return (
+              <Comment
+                username={c.user.name}
+                comment={c.comment}
+                likes={c.likes}
+                id={props.id}
+                key={props.id}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

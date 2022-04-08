@@ -1,6 +1,6 @@
 const fake = require('../fake');
 
-const classes = fake.classes(20);
+const classes = fake.fakeClasses;
 const faker = require('faker');
 
 module.exports = {

@@ -8,6 +8,7 @@ function users(n) {
       id: faker.datatype.uuid(),
       name: faker.name.findName(),
       university: faker.address.cityName() + ' University',
+      classes: [],
       email: faker.internet.email(),
       password: faker.internet.password(),
       createdAt: faker.date.past(),
@@ -17,12 +18,14 @@ function users(n) {
     id: '2005b873-dd55-4ebe-8165-76ce6d9b83a6',
     name: 'Test',
     university: 'Test University',
+    classes: [],
     email: 'test@test.com',
     password: 'test',
     createdAt: '2019-01-01T00:00:00.000Z',
   });
   return users;
 }
+const fakeUsers = users(10);
 
 function notes(n) {
   const notes = [];
@@ -44,7 +47,7 @@ function notes(n) {
     id: '2ca5a3e5-e774-40ee-9c2d-b7f8c7081b01',
     class: 'Test Class',
     title: 'Test Title',
-    user: '11118469-f8b7-4204-b1a9-b875dd5a775b',
+    user: '2005b873-dd55-4ebe-8165-76ce6d9b83a6',
     text: 'posted these test notes!',
     comments: comments(faker.datatype.number({ max: 10 })),
     attachments: attachments(faker.datatype.number({ max: 10 })),
@@ -60,7 +63,9 @@ function comments(n) {
 
   for (let i = 1; i <= n; i++) {
     comments.push({
-      user: faker.datatype.uuid(),
+      user: fakeUsers[
+        faker.datatype.number({ min: 0, max: fakeUsers.length - 1 })
+      ],
       comment: faker.lorem.sentence(1),
       likes: faker.datatype.number({ max: 100 }),
     });
@@ -72,7 +77,7 @@ function attachments(n) {
   const attachments = [];
 
   for (let i = 1; i <= n; i++) {
-    attachments.push(faker.image.abstract());
+    attachments.push({ attachment: faker.image.abstract() });
   }
   return attachments;
 }
@@ -86,6 +91,8 @@ function classes(n) {
       name: faker.lorem.words() + '101',
       classCode: faker.random.word() + '-101',
       university: faker.address.cityName() + ' University',
+      enrolled: faker.datatype.number({ max: 1000 }),
+      notes: fakeNotes,
       createdAt: faker.date.past(),
     });
   }
@@ -99,7 +106,7 @@ function classes(n) {
   return classes;
 }
 
-const notifications = (n) => {
+function notifications(n) {
   const notifications = [];
 
   for (let i = 1; i <= n; i++) {
@@ -115,18 +122,21 @@ const notifications = (n) => {
   notifications.push({
     id: '2ca5a3e5-e774-40ee-9c2d-b7f8c7081b01',
     title: 'Welcome to Notiefi',
-    user: '11118469-f8b7-4204-b1a9-b875dd5a775b',
+    user: '2005b873-dd55-4ebe-8165-76ce6d9b83a6',
     seen: false,
     date: '2019-01-01T00:00:00.000Z',
     createdAt: '2019-01-01T00:00:00.000Z',
   });
 
   return notifications;
-};
+}
 
+const fakeNotes = notes(10);
+const fakeClasses = classes(10);
+const fakeNotifications = notifications(10);
 module.exports = {
-  users,
-  notes,
-  classes,
-  notifications,
+  fakeUsers,
+  fakeNotes,
+  fakeClasses,
+  fakeNotifications,
 };

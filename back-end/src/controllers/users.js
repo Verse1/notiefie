@@ -1,7 +1,9 @@
 const fake = require('../fake');
-const axios = require('axios');
 
-const users = fake.users(10);
+const users = fake.fakeUsers;
+const notes = fake.fakeNotes;
+const classes = fake.fakeClasses;
+
 const faker = require('faker');
 
 module.exports = {
@@ -54,18 +56,42 @@ module.exports = {
 
   // /users/:id/notes
 
-  getNotes: async (req, res) => {
+  getNotes: (req, res) => {
+    let usersNotes = notes.filter((note) => note.user === req.params.id);
+    if (usersNotes.length > 0) {
+      res.send(usersNotes);
+    } else {
+      res.status(404).send('User has no notes');
+    }
+  },
+
+  deleteNotes: (req, res) => {
+    let usersNotes = notes.filter((note) => note.user === req.params.id);
+
+    if (usersNotes.length > 0) {
+      notes = notes.filter((note) => note.id !== req.params.noteId);
+      res.send('Notes deleted');
+    } else {
+      res.status(404).send('User has no notes');
+    }
+  },
+
+  addClass: (req, res) => {
     let user = users.find((user) => user.id === req.params.id);
 
-    if (user) {
-      res.send(user.notes);
-    } else {
-      res.status(404).send('User not found');
-    }
+    let classs = classes.find((classCard) => classCard.id === req.body.classId);
 
-    const notes = await axios.get(process.env.API + '/api/notes').data;
 
-    let usersNotes = notes.filter((note) => note.userId === req.params.id);
-    res.send(usersNotes);
+    user.classes.push({name: classs.name, enrolled: classs.notes.length});
+
+    res.send(user);
+  },
+
+  deleteClass: (req, res) => {
+    let user = users.find((user) => user.id === req.params.id);
+
+    user.classes = user.classes.filter((className) => className !== req.params.class);
+
+    res.send(user);
   },
 };

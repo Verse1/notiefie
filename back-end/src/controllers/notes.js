@@ -1,6 +1,6 @@
 const fake = require('../fake');
 
-const notes = fake.notes(10);
+const notes = fake.fakeNotes;
 const faker = require('faker');
 const users = require('./users');
 
@@ -18,10 +18,12 @@ module.exports = {
       text: req.body.text,
       attachments: req.body.attachments,
       likes: 1,
+      comments: {},
       createdAt: faker.date.past(),
     };
     notes.push(note);
-    res.redirect('http://localhost:3000/class');
+    res.send(note);
+    // res.redirect('http://localhost:3000/class');
   },
 
   getById: (req, res) => {
@@ -51,6 +53,23 @@ module.exports = {
     if (note) {
       notes.splice(notes.indexOf(note));
       res.send('Note deleted');
+    } else {
+      res.status(404).send('Note not found');
+    }
+  },
+
+  like: (req, res) => {
+    let note = notes.find((note) => note.id === req.params.id);
+    let liked = req.body.liked;
+
+    if (note && liked) {
+      note.likes += 1;
+
+      res.send(note);
+    } else if (note && !liked) {
+      note.likes -= 1;
+
+      res.send(note);
     } else {
       res.status(404).send('Note not found');
     }

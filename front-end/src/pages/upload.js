@@ -36,7 +36,7 @@ function upload(props) {
             maxLength="4000"
             placeholder="Add text..."
             className="w-full rounded-xl bg-white pl-1 shadow-md placeholder:italic placeholder:text-slate-500 hover:shadow-lg"
-            name='text'
+            name="text"
           />
         </div>
         <div className="p-2">
