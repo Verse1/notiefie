@@ -20,4 +20,8 @@ router.route('/:id/notes').get(controller.getNotes);
 // DELETE users notes
 router.route('/:id/notes/:noteId').delete(controller.deleteNotes);
 
+// GET users likes
+
+router.route('/:id/likes').get(controller.getLikes);
+
 module.exports = router;
