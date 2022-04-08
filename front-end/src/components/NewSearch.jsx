@@ -8,10 +8,9 @@ const searchClient = algoliasearch(
 );
 const Hit = ({ hit }) => {
   return (
-    <div>
-      <br />
-      <div className=" mt-12 absolute grid gap-8 break-normal p-7 lg:grid-cols-1">
-        {hit.name}
+    <div className="flex justify-center">
+      <div className="flex w-4/12  justify-center bg-gradient-to-r from-green-300 to-blue-400 rounded-md p-1 ">
+        <div className="justify-center ">{hit.name}</div>
       </div>
     </div>
   );
@@ -21,15 +20,18 @@ const NewSearch = () => {
   const [showHits, setShowHits] = useState(false);
 
   return (
-    <InstantSearch searchClient={searchClient} indexName="classes">
-      <SearchBox
-        translations={{ placeholder: 'Search for a class' }}
-        onFocus={() => setShowHits(true)}
-        onBlur={() => setShowHits(false)}
-      />
-      {showHits ? <Hits hitComponent={Hit} /> : null}
-      {/* <Hits hitComponent={Hit} /> */}
-    </InstantSearch>
+    <div>
+      <InstantSearch searchClient={searchClient} indexName="classes">
+        <SearchBox
+          translations={{ placeholder: 'Search for a class' }}
+          onFocus={() => setShowHits(true)}
+          onBlur={() => setShowHits(false)}
+          className="flex justify-center rounded-xl drop-shadow-xl"
+        />
+        {/* {showHits ? <Hits hitComponent={Hit} /> : null} */}
+        <Hits hitComponent={Hit} />
+      </InstantSearch>
+    </div>
   );
 };
 

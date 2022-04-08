@@ -26,7 +26,6 @@ function Navigation(props) {
         </div>
 
         <div className="col-span-8 mr-3 lg:col-span-5 lg:mr-0">
-          <NewSearch />
         </div>
         <div className="col-span-full flex content-center justify-between pt-2 lg:col-span-5 lg:justify-end">
           <ul className="list-reset flex flex-1 items-center justify-between lg:flex-none">
