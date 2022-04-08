@@ -20,4 +20,8 @@ router.route('/:id/notes').get(controller.getNotes);
 // DELETE users notes
 router.route('/:id/notes/:noteId').delete(controller.deleteNotes);
 
+// GET all users classes
+
+router.route('/:id/classes').get(controller.getClasses);
+
 module.exports = router;
