@@ -5,7 +5,7 @@
   "scripts": {
     "test": "nyc mocha src/tests/**/*.js --recursive --exit",
     "dev": "nodemon src/index.js",
-    "start": "NODE_ENV=production node src/index.js",
+    "start": "node src/index.js",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "keywords": [],
