@@ -89,6 +89,8 @@ function classes(n) {
       name: faker.lorem.words() + '101',
       classCode: faker.random.word() + '-101',
       university: faker.address.cityName() + ' University',
+      enrolled: faker.datatype.number({ max: 1000 }),
+      notes: notes(faker.datatype.number({ max: 20 })),
       createdAt: faker.date.past(),
     });
   }

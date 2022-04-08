@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import ClassHeader from '../../components/ClassHeader';
 import axios from 'axios';
 
-const IndividualClass = ({ notes, classs }) => {
+const IndividualClass = ({ classs }) => {
   const router = useRouter();
 
   return (
@@ -13,21 +13,19 @@ const IndividualClass = ({ notes, classs }) => {
         color="bg-sky-500"
         name={classs.name}
         code={classs.code}
-        posts="10"
-        enrolled="60"
-        notes={notes}
+        posts={classs.notes.length}
+        enrolled={classs.enrolled}
+        notes={classs.notes}
       />
     </div>
   );
 };
 export const getServerSideProps = async (context) => {
   const id = context.query.id;
-  const res = await axios.get('http://localhost:3001/api/notes/');
-  const notes = await res.data;
-  const res2 = await axios.get(`http://localhost:3001/api/classes/${id}`);
-  const classs = await res2.data;
+  const res = await axios.get(`http://localhost:3001/api/classes/${id}`);
+  const classs = await res.data;
 
-  return { props: { notes, classs } };
+  return { props: { classs } };
 };
 IndividualClass.propTypes = {};
 export default IndividualClass;
