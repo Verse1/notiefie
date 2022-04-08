@@ -54,7 +54,9 @@ function randomColor() {
 }
 
 export const getServerSideProps = async () => {
-  const res = await axios.get('http://localhost:3001/api/classes/');
+  const res = await axios.get(
+    'http://localhost:3001/api/classes'
+  );
   const classes = await res.data;
   return { props: { classes } };
 };

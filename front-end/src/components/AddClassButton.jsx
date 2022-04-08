@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 function AddClassButton(props) {
   const router = useRouter();
@@ -23,6 +24,25 @@ function AddClassButton(props) {
     setColor(nextColor);
     setHover(nextHover);
     setText(nextText);
+
+    if(!added) {
+      axios.post(
+        'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/add-class',
+        {
+          classId: props.classId,
+        }
+      );
+    }
+    else {
+      axios.post(
+        'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/remove-class',
+        {
+          classId: props.classId,
+        }
+      );
+    }
+
+
   };
 
   const handleColorChange = (ev) => {};
@@ -65,4 +85,4 @@ function AddClassButton(props) {
 
 AddClassButton.propTypes = {};
 
-export default AddClassButton;
+export default AddClassButton

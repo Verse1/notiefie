@@ -1,8 +1,10 @@
+import Link from 'next/link';
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import ClassCard from '../components/ClassCard';
 
-export default function Home() {
+export default function Home({ userClasses }) {
   const changeOrder = (e) => {
     const pinnedClass = classes.find((classCard) => classCard.id === e);
 
@@ -16,65 +18,34 @@ export default function Home() {
     setClasses(newClassesState);
   };
 
-  const [classes, setClasses] = useState([
-    {
-      id: 1,
-      title: 'Intro to CS 1',
-      description: 'CS is just the description',
-      enrolled: 600,
-      num: '400',
-      order: 1,
-    },
-    {
-      id: 2,
-      title: 'Intro to CS 2',
-      description: 'CS is just the description',
-      enrolled: 600,
-      num: '400',
-      order: 2,
-    },
-    {
-      id: 3,
-      title: 'Intro to CS 3',
-      description: 'CS is just the description',
-      enrolled: 600,
-      num: '400',
-      order: 3,
-    },
-    {
-      id: 4,
-      title: 'Intro to CS 4',
-      description: 'CS is just the description',
-      enrolled: 600,
-      num: '400',
-      order: 4,
-    },
-    {
-      id: 5,
-      title: 'Intro to CS 5',
-      description: 'CS is just the description',
-      enrolled: 600,
-      num: '400',
-      order: 5,
-    },
-  ]);
+  const [classes, setClasses] = useState(userClasses);
 
   return (
     <div className="grid place-items-center">
       {classes
         .sort((a, b) => a.order - b.order)
         .map((classCard) => (
+          <Link href={`/classes/${classCard.id}`} passHref key={classCard.id}>
           <ClassCard
             key={classCard.id}
             id={classCard.id}
-            title={classCard.title}
+            title={classCard.name}
             description={classCard.description}
             enrolled={classCard.enrolled}
             num={classCard.num}
             order={classCard.order}
             changeOrder={changeOrder}
-          />
+            />
+          </Link>
         ))}
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const res = await axios.get(
+    'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6'
+  );
+  const userClasses = await res.data.classes;
+  return { props: { userClasses } };
+};
