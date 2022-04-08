@@ -8,7 +8,7 @@ function users(n) {
       id: faker.datatype.uuid(),
       name: faker.name.findName(),
       university: faker.address.cityName() + ' University',
-      classes:[],
+      classes: [],
       email: faker.internet.email(),
       password: faker.internet.password(),
       createdAt: faker.date.past(),
@@ -92,7 +92,7 @@ function classes(n) {
       classCode: faker.random.word() + '-101',
       university: faker.address.cityName() + ' University',
       enrolled: faker.datatype.number({ max: 1000 }),
-      notes: notes(faker.datatype.number({ max: 20 })),
+      notes: fakeNotes,
       createdAt: faker.date.past(),
     });
   }

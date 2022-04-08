@@ -81,7 +81,6 @@ module.exports = {
 
     let classs = classes.find((classCard) => classCard.id === req.body.classId);
 
-    console.log(classs);
 
     user.classes.push({name: classs.name, enrolled: classs.notes.length});
 
