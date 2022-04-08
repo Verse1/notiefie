@@ -120,6 +120,18 @@ describe('Users API', () => {
         done();
       });
   });
+
+  it('should return users classes', (done) => {
+    chai
+      .request(server)
+      .get('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/classes')
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.isArray(res.body);
+        done();
+      });
+  });
+
   it('should delete user by id', (done) => {
     chai
       .request(server)
@@ -130,19 +142,4 @@ describe('Users API', () => {
         done();
       });
   });
-
-  it('should return users classes', (done) => {
-    chai
-      .request(server)
-      .get('/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/classes')
-      .end((err, res) => {
-        assert.equal(res.status, 200);
-        assert.isArray(res.body);
-        done();
-      })
-  });
-    
-
-  
-
 });

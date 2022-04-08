@@ -78,11 +78,12 @@ module.exports = {
   // /users/:id/classes
 
   getClasses: (req, res) => {
-    let usersClasses = users.find((user) => user.id === req.params.id).classes;
-    if (usersClasses.length > 0) {
-      res.send(usersClasses);
-    } else {
-      res.status(404).send('User has no classes');
+    let user = users.find((user) => user.id === req.params.id);
+    if (user) {
+      res.send(user.classes);
+    }
+    else {
+      res.status(404).send('User not found');
     }
   },
 };
