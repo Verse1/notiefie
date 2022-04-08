@@ -8,7 +8,7 @@ function BrowseClassCard(props) {
   const router = useRouter();
 
   return (
-    <Link href="class" passHref>
+    <Link href={"/classes/"+props.id} passHref>
       <div
         className={`min-w-150 h-64 min-h-fit w-full rounded-xl shadow-lg ${props.colors.color} ${props.colors.hover} relative cursor-pointer`}>
         <div className="min-h-fit min-w-full">
