@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { getRouteRegex } = require('next/dist/shared/lib/router/utils');
 const controller = require('../controllers/users');
 
 // GET /users
