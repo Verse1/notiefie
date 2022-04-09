@@ -77,16 +77,26 @@ module.exports = {
   },
 
 
+  // /users/:id/classes
+
+  getClasses: (req, res) => {
+    let user = users.find((user) => user.id === req.params.id);
+    if (user) {
+      res.send(user.classes);
+
+
   // /users/:id/likes
 
   getLikes: (req, res) => {
     let user = users.find((user) => user.id === req.params.id);
     if (user) {
       res.send(user.likes);
+
     }
     else {
       res.status(404).send('User not found');
     }
+
 
   addClass: (req, res) => {
     let user = users.find((user) => user.id === req.params.id);
@@ -105,5 +115,6 @@ module.exports = {
     user.classes = user.classes.filter((className) => className !== req.params.class);
 
     res.send(user);
+
   },
 };

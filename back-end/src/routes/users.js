@@ -22,12 +22,16 @@ router.route('/:id/notes').get(controller.getNotes);
 router.route('/:id/notes/:noteId').delete(controller.deleteNotes);
 
 
+// GET all users classes
+
+router.route('/:id/classes').get(controller.getClasses);
+
+
 // GET users likes
 
 router.route('/:id/likes').get(controller.getLikes);
 
 router.route('/:id/add-class').post(controller.addClass);
 router.route('/:id/delete-class').post(controller.deleteClass);
-
 
 module.exports = router;
