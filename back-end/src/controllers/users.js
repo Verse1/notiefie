@@ -2,6 +2,7 @@ const fake = require('../fake');
 
 const users = fake.fakeUsers;
 const notes = fake.fakeNotes;
+const classes = fake.fakeClasses;
 
 const faker = require('faker');
 
@@ -75,15 +76,45 @@ module.exports = {
     }
   },
 
+
   // /users/:id/classes
 
   getClasses: (req, res) => {
     let user = users.find((user) => user.id === req.params.id);
     if (user) {
       res.send(user.classes);
+
+
+  // /users/:id/likes
+
+  getLikes: (req, res) => {
+    let user = users.find((user) => user.id === req.params.id);
+    if (user) {
+      res.send(user.likes);
+
     }
     else {
       res.status(404).send('User not found');
     }
+
+
+  addClass: (req, res) => {
+    let user = users.find((user) => user.id === req.params.id);
+
+    let classs = classes.find((classCard) => classCard.id === req.body.classId);
+
+
+    user.classes.push({name: classs.name, enrolled: classs.notes.length});
+
+    res.send(user);
+  },
+
+  deleteClass: (req, res) => {
+    let user = users.find((user) => user.id === req.params.id);
+
+    user.classes = user.classes.filter((className) => className !== req.params.class);
+
+    res.send(user);
+
   },
 };

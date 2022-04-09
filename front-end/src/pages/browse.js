@@ -16,6 +16,7 @@ function BrowseClasses({ classes }) {
               key={classCard.classCode}
               classCode={classCard.classCode}
               name={classCard.name}
+              id={classCard.id}
               colors={randomColor()}
             />
           ))}
@@ -52,8 +53,10 @@ function randomColor() {
   }
 }
 
-export const getStaticProps = async () => {
-  const res = await axios.get('http://localhost:3001/api/classes/');
+export const getServerSideProps = async () => {
+  const res = await axios.get(
+    'http://localhost:3001/api/classes'
+  );
   const classes = await res.data;
   return { props: { classes } };
 };
