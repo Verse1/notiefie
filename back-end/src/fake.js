@@ -8,14 +8,10 @@ function users(n) {
       id: faker.datatype.uuid(),
       name: faker.name.findName(),
       university: faker.address.cityName() + ' University',
-
       likes: notes(faker.datatype.number({ max: 10 })),
-
       classes: [],
-
       email: faker.internet.email(),
       password: faker.internet.password(),
-      classes: classes(faker.datatype.number({ max: 10 })),
       createdAt: faker.date.past(),
     });
   }
@@ -23,14 +19,10 @@ function users(n) {
     id: '2005b873-dd55-4ebe-8165-76ce6d9b83a6',
     name: 'Test',
     university: 'Test University',
-
     likes: notes(faker.datatype.number({ max: 10 })),
-
     classes: [],
-
     email: 'test@test.com',
     password: 'test',
-    classes: classes(faker.datatype.number({ max: 10 })),
     createdAt: '2019-01-01T00:00:00.000Z',
   });
   return users;
@@ -73,9 +65,7 @@ function comments(n) {
 
   for (let i = 1; i <= n; i++) {
     comments.push({
-      user: fakeUsers[
-        faker.datatype.number({ min: 0, max: fakeUsers.length - 1 })
-      ],
+      user: faker.name.findName(),
       comment: faker.lorem.sentence(1),
       likes: faker.datatype.number({ max: 100 }),
     });

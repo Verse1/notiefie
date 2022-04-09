@@ -28,8 +28,8 @@ const NewSearch = () => {
           onBlur={() => setShowHits(false)}
           className="flex justify-center rounded-xl drop-shadow-xl"
         />
-        {/* {showHits ? <Hits hitComponent={Hit} /> : null} */}
-        <Hits hitComponent={Hit} />
+        {showHits ? <Hits hitComponent={Hit} /> : null}
+        {/* <Hits hitComponent={Hit} /> */}
       </InstantSearch>
     </div>
   );
