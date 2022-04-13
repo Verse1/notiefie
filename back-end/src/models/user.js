@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const c = required('./class');
 const note = require('./note');
 
-const Class = mongoose.model('Class');
-const Note = mongoose.model('Note');
+const Class = mongoose.model('Class', Class);
+const Note = mongoose.model('Note', Note);
 
 const User = new mongoose.Schema({
     id: {type: String, required: true, unique: true},

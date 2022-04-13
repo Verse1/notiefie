@@ -1,27 +1,29 @@
 const fake = require('../fake');
+const Class = mongoose.model('Class', Class);
 
 const classes = fake.fakeClasses;
 const faker = require('faker');
 
 module.exports = {
-  get: (req, res) => {
+  get: async (req, res) => {
+    const classes = await Class.find()
     res.send(classes);
   },
 
-  post: (req, res) => {
-    const c = {
+  post: async (req, res) => {
+    const c = new Class({
       id: faker.datatype.uuid(),
-      name: req.body.name,
+      className: req.body.name,
       classCode: req.body.classCode,
       university: req.body.university,
-      createdAt: faker.date.past(),
-    };
-    classes.push(c);
+      numEnrolled: 0,
+    });
+    await c.save();
     res.send(c);
   },
 
-  getById: (req, res) => {
-    let c = classes.find((c) => c.id === req.params.id);
+  getById: async (req, res) => {
+    const c = await Class.find({id: req.params.classID} );
     if (c) {
       res.send(c);
     } else {
@@ -29,19 +31,18 @@ module.exports = {
     }
   },
 
-  put: (req, res) => {
-    let c = classes.find((c) => c.id === req.params.id);
-
-    c.name = req.body.name;
+  put: async (req, res) => {
+    const c = await Class.find({id: req.params.classID} );
+    c.className = req.body.className;
 
     res.send(c);
   },
 
-  delete: (req, res) => {
-    let c = classes.find((c) => c.id === req.params.id);
+  delete: async (req, res) => {
+    const c = await Class.find({id: req.params.classID} );
 
     if (c) {
-      classes.splice(classes.indexOf(c));
+      await Class.deleteOne({ id: req.params.classID });
       res.send('Class deleted');
     } else {
       res.status(404).send('Class not found');
