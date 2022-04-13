@@ -1,33 +1,33 @@
 const fake = require('../fake');
+const mongoose = require('mongoose');
+const Note = mongoose.model('Note', Note);
 
 const notes = fake.fakeNotes;
 const faker = require('faker');
 const users = require('./users');
 
 module.exports = {
-  get: (req, res) => {
+  get: async(req, res) => {
+    const notes = await Note.find()
     res.send(notes);
   },
 
   post: (req, res) => {
-    const note = {
+    const note = new Note({
       id: faker.datatype.uuid(),
-      class: req.body.class,
-      title: req.body.title,
+      className: req.body.class,
+      noteTitle: req.body.title,
       user: req.body.user,
       text: req.body.text,
       attachments: req.body.attachments,
-      likes: 1,
-      comments: {},
-      createdAt: faker.date.past(),
-    };
-    notes.push(note);
+    });
+    await note.save();
     res.send(note);
     // res.redirect('http://localhost:3000/class');
   },
 
-  getById: (req, res) => {
-    let note = notes.find((note) => note.id === req.params.id);
+  getById: async (req, res) => {
+    const note = await Note.find({id: req.params.noteID});
     if (note) {
       res.send(note);
     } else {
@@ -35,20 +35,22 @@ module.exports = {
     }
   },
 
-  put: (req, res) => {
-    let note = notes.find((note) => (note.id = req.params.id));
+  put: async (req, res) => {
+    const note = await Note.find({id: req.params.noteID});
 
-    if (req.body.title) {
-      note.title = req.body.title;
+    if (req.body.noteTitle) {
+      note.noteTitle = req.body.noteTitle;
+      await note.save(); 
     }
     if (req.body.text) {
       note.text = req.body.text;
+      await note.save(); 
     }
     res.send(note);
   },
 
-  delete: (req, res) => {
-    let note = notes.find((note) => note.id === req.params.id);
+  delete: async (req, res) => {
+    const note = await Note.find({id: req.params.noteID});
 
     if (note) {
       notes.splice(notes.indexOf(note));
@@ -58,16 +60,19 @@ module.exports = {
     }
   },
 
-  like: (req, res) => {
-    let note = notes.find((note) => note.id === req.params.id);
+  like: async (req, res) => {
+    const note = await Note.find({id: req.params.noteID});
     let liked = req.body.liked;
 
     if (note && liked) {
       note.likes += 1;
+      await note.save();
 
       res.send(note);
+      
     } else if (note && !liked) {
       note.likes -= 1;
+      await note.save();
 
       res.send(note);
     } else {

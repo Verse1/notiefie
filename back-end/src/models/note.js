@@ -14,7 +14,8 @@ const Note = new mongoose.Schema({
     className: {type: String, required: true, unique: true},
     noteTitle: {type: String, required: true},
     user: User,
-    likes: {type: Number, required: true, default: 0},
+    text: {type: String},
+    likes: {type: Number, required: true, default: 1},
     comments: [Comment],
     attachments: [File],
     createdAt: {type: Date, default: Date.now}

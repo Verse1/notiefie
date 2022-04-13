@@ -4,11 +4,6 @@ const userModel = require('./models/user');
 const User = mongoose.model('User', User);
 const Note = mongoose.model('Note', Note);
 const Class = mongoose.model('Class', Class);
-
-const users = fake.fakeUsers;
-const notes = fake.fakeNotes;
-const classes = fake.fakeClasses;
-
 const faker = require('faker');
 
 module.exports = {
@@ -73,6 +68,7 @@ module.exports = {
 
   deleteNotes: async (req, res) => {
     const usersNotes = await Note.find({id: req.params.userID});
+    const notes = await Note.find();
 
     if (usersNotes.length > 0) {
       notes = await Note.deleteMany({user: {id: req.params.userID}});
