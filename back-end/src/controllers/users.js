@@ -58,7 +58,7 @@ module.exports = {
   // /users/:id/notes
 
   getNotes: async (req, res) => {
-    const usersNotes = await Note.find({id: req.params.userID});
+    const usersNotes = await Note.find({user: {id: req.params.userID}});
     if (usersNotes.length > 0) {
       res.send(usersNotes);
     } else {
@@ -67,11 +67,10 @@ module.exports = {
   },
 
   deleteNotes: async (req, res) => {
-    const usersNotes = await Note.find({id: req.params.userID});
-    const notes = await Note.find();
+    const usersNotes = await Note.find({user: {id: req.params.userID}});
 
     if (usersNotes.length > 0) {
-      notes = await Note.deleteMany({user: {id: req.params.userID}});
+      await Note.deleteMany({user: {id: req.params.userID}});
       res.send('Notes deleted');
     } else {
       res.status(404).send('User has no notes');
@@ -107,7 +106,7 @@ module.exports = {
     res.send(user);
   },
 
-  deleteClass: (req, res) => {
+  deleteClass: async(req, res) => {
     const user = await User.find({id: req.params.userID});
 
     user.classes = user.classes.filter(
