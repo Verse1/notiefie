@@ -10,7 +10,7 @@ const User = mongoose.model('User');
 const File = mongoose.model('File');
 
 const Note = new mongoose.Schema({
-    uuid: {type: String, required: true, unique: true},
+    id: {type: String, required: true, unique: true},
     className: {type: String, required: true, unique: true},
     noteTitle: {type: String, required: true},
     user: User,

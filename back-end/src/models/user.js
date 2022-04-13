@@ -6,9 +6,10 @@ const Class = mongoose.model('Class');
 const Note = mongoose.model('Note');
 
 const User = new mongoose.Schema({
-    uuid: {type: String, required: true, unique: true},
-    username: {type: String, required: true, unique: true},
+    id: {type: String, required: true, unique: true},
+    name: {type: String, required: true, unique: true},
     password: {type: String, required: true},
+    university: {type: String, required: true, unique: true},
     postedNotes: [Note],
     likedNotes: [Note],
     likes: {type: Number, required: true, default: 0},

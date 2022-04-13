@@ -1,4 +1,9 @@
 const fake = require('../fake');
+const mongoose = require('mongoose');
+const userModel = require('./models/user');
+const User = mongoose.model('User', User);
+const Note = mongoose.model('Note', Note);
+const Class = mongoose.model('Class', Class);
 
 const users = fake.fakeUsers;
 const notes = fake.fakeNotes;
@@ -8,26 +13,26 @@ const faker = require('faker');
 
 module.exports = {
   // /users
-  get: (req, res) => {
+  get: async (req, res) => {
+    const users = await User.find()
     res.send(users);
   },
 
-  post: (req, res) => {
-    const user = {
+  post: async (req, res) => {
+    const user = new User ({
       id: faker.datatype.uuid(),
       name: req.body.name,
       university: req.body.university,
       email: req.body.email,
-      password: req.body.password,
-      createdAt: faker.date.past(),
-    };
-    users.push(user);
+      password: req.body.password, // this needs to be hashes but idk how to with jwt
+    });
+    await user.save();
     res.send(user);
   },
 
   // /users/:id
-  getById: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  getById: async (req, res) => {
+    const user = await User.find({id: req.params.userID});
     if (user) {
       res.send(user);
     } else {
@@ -35,19 +40,20 @@ module.exports = {
     }
   },
 
-  put: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  put: async (req, res) => {
+    const user = await User.find({id: req.params.userID});
 
     user.name = req.body.name;
+    await user.save();
 
     res.send(user);
   },
 
-  delete: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  delete: async (req, res) => {
+    const user = await User.find({id: req.params.userID});
 
     if (user) {
-      users.splice(users.indexOf(user), 1);
+      await User.deleteOne({ id: req.params.id });
       res.send('User deleted');
     } else {
       res.status(404).send('User not found');
@@ -56,8 +62,8 @@ module.exports = {
 
   // /users/:id/notes
 
-  getNotes: (req, res) => {
-    let usersNotes = notes.filter((note) => note.user === req.params.id);
+  getNotes: async (req, res) => {
+    const usersNotes = await Note.find({id: req.params.userID});
     if (usersNotes.length > 0) {
       res.send(usersNotes);
     } else {
@@ -65,11 +71,11 @@ module.exports = {
     }
   },
 
-  deleteNotes: (req, res) => {
-    let usersNotes = notes.filter((note) => note.user === req.params.id);
+  deleteNotes: async (req, res) => {
+    const usersNotes = await Note.find({id: req.params.userID});
 
     if (usersNotes.length > 0) {
-      notes = notes.filter((note) => note.id !== req.params.noteId);
+      notes = await Note.deleteMany({user: {id: req.params.userID}});
       res.send('Notes deleted');
     } else {
       res.status(404).send('User has no notes');
@@ -78,16 +84,16 @@ module.exports = {
 
   // /users/:id/classes
 
-  getClasses: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  getClasses: async (req, res) => {
+    const user = await User.find({id: req.params.userID});
     if (user) {
-      res.send(user.classes);
+      res.send(user.savedClasses);
     }
   },
   // /users/:id/likes
 
-  getLikes: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  getLikes: async (req, res) => {
+    const user = await User.find({id: req.params.userID});
     if (user) {
       res.send(user.likes);
     } else {
@@ -95,22 +101,23 @@ module.exports = {
     }
   },
 
-  addClass: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  addClass: async (req, res) => {
+    const user = await User.find({id: req.params.userID});
 
-    let classs = classes.find((classCard) => classCard.id === req.body.classId);
+    const classs = await Class.find({ id: req.body.classID });
 
-    user.classes.push({ name: classs.name, enrolled: classs.notes.length });
-
+    user.savedClasses.push(classs);
+    await user.save();
     res.send(user);
   },
 
   deleteClass: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+    const user = await User.find({id: req.params.userID});
 
     user.classes = user.classes.filter(
-      (className) => className !== req.params.class
+      (classID) => classID !== req.params.classID
     );
+    await user.save();
 
     res.send(user);
   },
