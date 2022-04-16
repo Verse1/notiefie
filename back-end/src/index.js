@@ -12,20 +12,17 @@ app.use(express.json());
 
 app.use('/api', require('./routes'));
 
-
-const URI = process.env.MONGO_URI; ;
+const URI = process.env.MONGO_URI;
 try {
-    // Connect to the MongoDB cluster
-     mongoose.connect(
-      uri,
-      { useNewUrlParser: true, useUnifiedTopology: true },
-      () => console.log(" Mongoose is connected")
-    );
-
-  } catch (e) {
-    console.log("could not connect");
-  }
-
+  // Connect to the MongoDB cluster
+  mongoose.connect(
+    uri,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => console.log(' Mongoose is connected')
+  );
+} catch {
+  console.log('could not connect');
+}
 
 app.listen(port);
 
