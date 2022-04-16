@@ -13,7 +13,7 @@ app.use(express.json());
 app.use('/api', require('./routes'));
 
 
-const uri = "mongodb+srv://admin:<password>@cluster0.vkfx5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const URI = process.env.MONGO_URI; ;
 try {
     // Connect to the MongoDB cluster
      mongoose.connect(
