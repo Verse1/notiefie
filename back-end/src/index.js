@@ -16,12 +16,12 @@ const URI = process.env.MONGO_URI;
 try {
   // Connect to the MongoDB cluster
   mongoose.connect(
-    uri,
+    URI,
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log(' Mongoose is connected')
   );
-} catch {
-  console.log('could not connect');
+} catch (err) {
+  console.log('could not connect, error: ', err);
 }
 
 app.listen(port);

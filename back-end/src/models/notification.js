@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
 
-const Notification = new mongoose.Schema({
-    id: {type: String, required: true, unique: true},
-    title: {type: String, required: true},
-    user: User,
-    seen: {type: Boolean, default: false},
-    date: {type: Date},
-    createdAt: {type: Date, default: Date.now}
+const notification = new mongoose.Schema({
+  title: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+  seen: { type: Boolean, default: false },
+  date: { type: Date },
+  createdAt: { type: Date, default: Date.now },
 });
 
-mongoose.model('Notification', Notification);
+mongoose.model('notification', notification);

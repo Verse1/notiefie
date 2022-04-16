@@ -1,18 +1,15 @@
 const fake = require('../fake');
 const mongoose = require('mongoose');
-const Notification = mongoose.model('Notification', Notification);
-
-const notifications = fake.fakeNotifications;
-const faker = require('faker');
+const notification = require('../models/notification');
 
 module.exports = {
   get: async (req, res) => {
-    const notifs = await Notification.find()
+    const notifs = await notification.find();
     res.send(notifs);
   },
-  
+
   post: async (req, res) => {
-    const notification = new Notification({
+    const notification = new notification({
       id: faker.datatype.uuid(),
       title: req.body.title,
       user: req.body.user,
@@ -21,19 +18,23 @@ module.exports = {
     await notification.save();
     res.status(201).send(notification);
   },
-  
+
   getById: async (req, res) => {
-    const notification = await Notification.find({id: req.params.notificationID});
+    const notification = await notification.find({
+      id: req.params.notificationID,
+    });
     if (notification) {
       res.send(notification);
     } else {
-      res.status(404).send('Notification not found');
+      res.status(404).send('notification not found');
     }
   },
-  
+
   put: async (req, res) => {
-    const notification = await Notification.find({id: req.params.notificationID});
-  
+    const notification = await notification.find({
+      id: req.params.notificationID,
+    });
+
     if (req.body.title) {
       notification.title = req.body.title;
       await notification.save();
@@ -41,7 +42,6 @@ module.exports = {
     if (req.body.date) {
       notification.date = req.body.date;
       await notification.save();
-
     }
     if (req.body.seen) {
       notification.seen = req.body.seen;
@@ -49,15 +49,17 @@ module.exports = {
     }
     res.send(notification);
   },
-  
+
   delete: async (req, res) => {
-    const notification = await Notification.find({id: req.params.notificationID});
-  
+    const notification = await notification.find({
+      id: req.params.notificationID,
+    });
+
     if (notification) {
-      await Notification.deleteOne({user: {id: req.params.userID}});
-      res.status(204).send('Notification deleted');
+      await notification.deleteOne({ user: { id: req.params.userID } });
+      res.status(204).send('notification deleted');
     } else {
-      res.status(404).send('Notification not found');
+      res.status(404).send('notification not found');
     }
   },
 };

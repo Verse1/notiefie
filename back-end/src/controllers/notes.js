@@ -1,22 +1,19 @@
 const fake = require('../fake');
 const mongoose = require('mongoose');
-const Note = mongoose.model('Note', Note);
-const User = mongoose.model('User', User);
-const Comment = mongoose.model('Comment', Comment)
-;
 const notes = fake.fakeNotes;
 const faker = require('faker');
 const users = require('./users');
+const note = require('../models/note');
+const comment = require('../models/comment');
 
 module.exports = {
-  get: async(req, res) => {
-    const notes = await Note.find()
+  get: async (req, res) => {
+    const notes = await Note.find();
     res.send(notes);
   },
 
-  post: (req, res) => {
-    const note = new Note({
-      id: faker.datatype.uuid(),
+  post: async (req, res) => {
+    const note = new note({
       className: req.body.class,
       noteTitle: req.body.title,
       user: req.body.user,
@@ -29,7 +26,7 @@ module.exports = {
   },
 
   getById: async (req, res) => {
-    const note = await Note.find({id: req.params.noteID});
+    const note = await Note.find({ id: req.params.noteID });
     if (note) {
       res.send(note);
     } else {
@@ -38,21 +35,21 @@ module.exports = {
   },
 
   put: async (req, res) => {
-    const note = await Note.find({id: req.params.noteID});
+    const note = await Note.find({ id: req.params.noteID });
 
     if (req.body.noteTitle) {
       note.noteTitle = req.body.noteTitle;
-      await note.save(); 
+      await note.save();
     }
     if (req.body.text) {
       note.text = req.body.text;
-      await note.save(); 
+      await note.save();
     }
     res.send(note);
   },
 
   delete: async (req, res) => {
-    const note = await Note.find({id: req.params.noteID});
+    const note = await Note.find({ id: req.params.noteID });
 
     if (note) {
       notes.splice(notes.indexOf(note));
@@ -63,7 +60,7 @@ module.exports = {
   },
 
   like: async (req, res) => {
-    const note = await Note.find({id: req.params.noteID});
+    const note = await Note.find({ id: req.params.noteID });
     let liked = req.body.liked;
 
     if (note && liked) {
@@ -71,7 +68,6 @@ module.exports = {
       await note.save();
 
       res.send(note);
-      
     } else if (note && !liked) {
       note.likes -= 1;
       await note.save();
@@ -83,8 +79,8 @@ module.exports = {
   },
 
   comment: async (res, req) => {
-    const note = await Note.find({id: req.params.noteID});
-    const user = await User.find({id: req.body.userID});
+    const note = await Note.find({ id: req.params.noteID });
+    const user = await User.find({ id: req.body.userID });
 
     if (user) {
       const comment = new Comment({
@@ -98,12 +94,11 @@ module.exports = {
       await note.save();
     } else {
       res.status(404).send('Unable to post comment');
-
     }
   },
 
   likeComment: async (res, req) => {
-    const comment = await Comment.find({id: req.params.commentID});
+    const comment = await Comment.find({ id: req.params.commentID });
     let liked = req.body.liked;
 
     if (comment && liked) {
@@ -111,7 +106,6 @@ module.exports = {
       await comment.save();
 
       res.send(comment);
-      
     } else if (comment && !liked) {
       comment.likes -= 1;
       await comment.save();
@@ -123,11 +117,13 @@ module.exports = {
   },
 
   getComments: async (res, req) => {
-    const noteComments = await Comment.find({note: {id: req.params.noteID}});
+    const noteComments = await Comment.find({
+      note: { id: req.params.noteID },
+    });
     if (noteComments.length > 0) {
       res.send(noteComments);
     } else {
       res.status(404).send('Note has no comments');
     }
-  }
+  },
 };

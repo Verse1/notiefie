@@ -1,17 +1,15 @@
-
 const mongoose = require('mongoose');
-const user = require('./user');
 
-const User = mongoose.model('User', User);
-const Note = mongoose.model('Note', Note);
+const comment = new mongoose.Schema(
+  {
+    note: { type: mongoose.Schema.Types.ObjectId, ref: 'note' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    likes: { type: Number, required: true, default: 1 },
+    comment: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const Comment = new mongoose.Schema({
-    id: {type: String, required: true, unique: true},
-    note: Note,
-    user: User,
-    likes: {type: Number, required: true, default: 1},
-    comment: {type: String, required: true},
-    createdAt: {type: Date, default: Date.now}
-});
-
-mongoose.model('Comment', Comment);
+module.exports = mongoose.model('comment', comment);

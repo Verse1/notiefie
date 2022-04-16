@@ -1,17 +1,15 @@
 const fake = require('../fake');
-const Class = mongoose.model('Class', Class);
-
-const classes = fake.fakeClasses;
+const classs = require('../models/class');
 const faker = require('faker');
 
 module.exports = {
   get: async (req, res) => {
-    const classes = await Class.find()
+    const classes = await Class.find();
     res.send(classes);
   },
 
   post: async (req, res) => {
-    const c = new Class({
+    const c = new classs({
       id: faker.datatype.uuid(),
       className: req.body.name,
       classCode: req.body.classCode,
@@ -23,7 +21,7 @@ module.exports = {
   },
 
   getById: async (req, res) => {
-    const c = await Class.find({id: req.params.classID} );
+    const c = await Class.find({ id: req.params.classID });
     if (c) {
       res.send(c);
     } else {
@@ -32,14 +30,14 @@ module.exports = {
   },
 
   put: async (req, res) => {
-    const c = await Class.find({id: req.params.classID} );
+    const c = await Class.find({ id: req.params.classID });
     c.className = req.body.className;
 
     res.send(c);
   },
 
   delete: async (req, res) => {
-    const c = await Class.find({id: req.params.classID} );
+    const c = await Class.find({ id: req.params.classID });
 
     if (c) {
       await Class.deleteOne({ id: req.params.classID });
