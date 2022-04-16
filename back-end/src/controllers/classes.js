@@ -1,27 +1,27 @@
-const fake = require('../fake');
-const classs = require('../models/class');
-const faker = require('faker');
+const classes = require('../models/class');
 
 module.exports = {
   get: async (req, res) => {
-    const classes = await Class.find();
+    const classess = await classes.find();
     res.send(classes);
   },
 
   post: async (req, res) => {
-    const c = new classs({
-      id: faker.datatype.uuid(),
-      className: req.body.name,
-      classCode: req.body.classCode,
-      university: req.body.university,
-      numEnrolled: 0,
-    });
-    await c.save();
-    res.send(c);
+    try {
+      const c = new classes({
+        className: req.body.className,
+        classCode: req.body.classCode,
+        university: req.body.university,
+      });
+      await c.save();
+      res.send(c);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   getById: async (req, res) => {
-    const c = await Class.find({ id: req.params.classID });
+    const c = await classes.find({ id: req.params.classID });
     if (c) {
       res.send(c);
     } else {
@@ -37,13 +37,17 @@ module.exports = {
   },
 
   delete: async (req, res) => {
-    const c = await Class.find({ id: req.params.classID });
+    try {
+      const c = await classes.findById(req.params.id);
 
-    if (c) {
-      await Class.deleteOne({ id: req.params.classID });
-      res.send('Class deleted');
-    } else {
-      res.status(404).send('Class not found');
+      if (c) {
+        await classes.deleteOne({ id: req.params.id });
+        res.send('Class deleted');
+      } else {
+        res.status(404).send('Class not found');
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
 };

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const user = new mongoose.Schema(
   {
-    name: { type: String, required: true, unique: true },
-    university: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
+    university: { type: String, required: true },
     postedNotes: { type: Array, default: [] },
     likedNotes: { type: Array, default: [] },
     likes: { type: Number, required: true, default: 0 },
@@ -16,4 +16,3 @@ const user = new mongoose.Schema(
 );
 
 module.exports = mongoose.model('user', user);
-

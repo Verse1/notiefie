@@ -1,27 +1,26 @@
-const fake = require('../fake');
-const mongoose = require('mongoose');
-const notes = fake.fakeNotes;
-const faker = require('faker');
 const users = require('./users');
-const note = require('../models/note');
+const notes = require('../models/note');
 const comment = require('../models/comment');
 
 module.exports = {
   get: async (req, res) => {
-    const notes = await Note.find();
+    const notess = await notes.find();
     res.send(notes);
   },
 
   post: async (req, res) => {
-    const note = new note({
-      className: req.body.class,
-      noteTitle: req.body.title,
-      user: req.body.user,
-      text: req.body.text,
-      attachments: req.body.attachments,
-    });
-    await note.save();
-    res.send(note);
+    try {
+      const note = new notes({
+        className: req.body.className,
+        title: req.body.title,
+        user: req.body.user,
+        text: req.body.text,
+      });
+      await note.save();
+      res.send(note);
+    } catch (err) {
+      console.log(err);
+    }
     // res.redirect('http://localhost:3000/class');
   },
 
@@ -49,13 +48,13 @@ module.exports = {
   },
 
   delete: async (req, res) => {
-    const note = await Note.find({ id: req.params.noteID });
+    try {
+      const note = await notes.findById(req.params.id);
 
-    if (note) {
-      notes.splice(notes.indexOf(note));
-      res.send('Note deleted');
-    } else {
-      res.status(404).send('Note not found');
+      await note.remove();
+      res.send("Note deleted");
+    } catch (err) {
+      console.log(err);
     }
   },
 
