@@ -197,7 +197,6 @@ describe('Users API', () => {
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.text, 'Class deleted from user');
-        console.log(res.body);
         done();
       });
   });
