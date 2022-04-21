@@ -1,6 +1,7 @@
 const users = require('./../models/user');
 const notes = require('../models/note');
 const comments = require('../models/comment');
+const mongoose = require('mongoose');
 
 module.exports = {
   get: async (req, res) => {
@@ -81,31 +82,25 @@ module.exports = {
     }
   },
 
-  comment: async (res, req) => {
+  comment: async (req, res) => {
     try {
       const note = await notes.findById(req.params.id);
-      const user = await users.findById(req.body.user);
 
-      if (user) {
-        const comment = new Comment({
-          id: faker.datatype.uuid(),
-          note: note,
-          user: user,
-          comment: req.body.comment,
-        });
-        await comment.save();
-        note.comments.push(comment);
-        await note.save();
-      } else {
-        res.status(404).send('Unable to post comment');
-      }
+      note.comments.push({
+        _id: mongoose.Types.ObjectId(),
+        user: req.body.user,
+        text: req.body.text,
+        likes: 0,
+      });
+      await note.save();
       res.send(note);
     } catch (err) {
+      console.log(err);
       res.status(404).send('Unable to post comment');
     }
   },
 
-  likeComment: async (res, req) => {
+  likeComment: async (req, res) => {
     try {
       const comment = await comments.findById(req.params.id);
       let liked = req.body.liked;
@@ -128,11 +123,15 @@ module.exports = {
     }
   },
 
-  getComments: async (res, req) => {
-    const noteComments = await comments.find({ note: req.params.id });
-    if (noteComments.length > 0) {
-      res.send(noteComments);
-    } else {
+  getComments: async (req, res) => {
+    try {
+      const noteComments = await notes.findById(req.params.id);
+      if (noteComments.comments.length > 0) {
+        res.send(noteComments.comments);
+      } else {
+        res.status(404).send('Note has no comments');
+      }
+    } catch (err) {
       res.status(404).send('Note has no comments');
     }
   },

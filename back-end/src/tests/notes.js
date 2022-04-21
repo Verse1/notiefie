@@ -1,5 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const { it } = require('mocha');
 const server = require('../index');
 
 chai.use(chaiHttp);
@@ -16,18 +17,6 @@ describe('Notes API', () => {
         title: 'Test Note',
         user: '2005b873-dd55-4ebe-8165-76ce6d9b83a6',
         text: 'This is about test',
-        comments: [
-          {
-            user: '021f8995-a864-4fa8-a101-6a6aa3ffd198',
-            comment: 'test comment 1',
-            likes: 10,
-          },
-          {
-            user: '6d946621-602c-4b78-bcb8-71689827034b',
-            comment: 'test comment 2',
-            likes: 20,
-          },
-        ],
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -39,6 +28,40 @@ describe('Notes API', () => {
         assert.property(res.body, 'comments');
         assert.property(res.body, 'createdAt');
         note = res.body._id;
+        done();
+      });
+  });
+
+  it('should post comment', (done) => {
+    chai
+      .request(server)
+      .post('/api/notes/' + note + '/comment')
+      .send({
+        user: 'Test User',
+        text: 'test comment',
+      })
+
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.property(res.body, '_id');
+        assert.property(res.body, 'text');
+        assert.property(res.body, 'user');
+        assert.property(res.body, 'likes');
+        assert.property(res.body, 'createdAt');
+        done();
+      });
+  });
+
+  it('should get comments', (done) => {
+    chai
+      .request(server)
+      .get('/api/notes/' + note + '/comments')
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.isArray(res.body);
+        assert.property(res.body[0], 'user');
+        assert.property(res.body[0], 'text');
+        assert.property(res.body[0], 'likes');
         done();
       });
   });
@@ -70,6 +93,69 @@ describe('Notes API', () => {
         assert.equal(res.status, 404);
         assert.equal(res.text, 'Note not found');
 
+        done();
+      });
+  });
+
+  it('should return note by id', (done) => {
+    chai
+      .request(server)
+      .get('/api/notes/' + note)
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.property(res.body, '_id');
+        assert.property(res.body, 'className');
+        assert.property(res.body, 'title');
+        assert.property(res.body, 'user');
+        assert.property(res.body, 'text');
+        assert.property(res.body, 'comments');
+        assert.property(res.body, 'likes');
+        assert.property(res.body, 'createdAt');
+        done();
+      });
+  });
+
+  it('should like note', (done) => {
+    chai
+
+      .request(server)
+      .put('/api/notes/' + note + '/like')
+      .send({
+        liked: true,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.property(res.body, '_id');
+        assert.property(res.body, 'className');
+        assert.property(res.body, 'title');
+        assert.property(res.body, 'user');
+        assert.property(res.body, 'text');
+        assert.property(res.body, 'comments');
+        assert.property(res.body, 'likes');
+        assert.property(res.body, 'createdAt');
+        assert.equal(res.body.likes, 2);
+        done();
+      });
+  });
+
+  it('should unlike note', (done) => {
+    chai
+      .request(server)
+      .put('/api/notes/' + note + '/like')
+      .send({
+        liked: false,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.property(res.body, '_id');
+        assert.property(res.body, 'className');
+        assert.property(res.body, 'title');
+        assert.property(res.body, 'user');
+        assert.property(res.body, 'text');
+        assert.property(res.body, 'comments');
+        assert.property(res.body, 'likes');
+        assert.property(res.body, 'createdAt');
+        assert.equal(res.body.likes, 1);
         done();
       });
   });

@@ -11,6 +11,9 @@ router
 
 router.route('/create').post(controller.post);
 
+router.route('/:id/comment').post(controller.comment);
+router.route('/:id/comments').get(controller.getComments);
+
 router.route('/:id/like').put(controller.like);
 
 module.exports = router;
