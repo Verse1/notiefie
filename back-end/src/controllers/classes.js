@@ -34,10 +34,15 @@ module.exports = {
   },
 
   put: async (req, res) => {
-    const c = await Class.find({ id: req.params.classID });
-    c.className = req.body.className;
+    try {
+      const c = await classes.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      });
 
-    res.send(c);
+      res.send(c);
+    } catch (err) {
+      res.status(404).send('Class not found');
+    }
   },
 
   delete: async (req, res) => {

@@ -73,10 +73,30 @@ describe('Classes API', () => {
       });
   });
 
+  it('should update class', (done) => {
+    chai
+      .request(server)
+      .put('/api/classes/' + classs)
+      .send({
+        className: 'Test Class 102',
+        classCode: 'Test-102',
+        university: 'Test College',
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.property(res.body, '_id');
+        assert.property(res.body, 'className');
+        assert.property(res.body, 'classCode');
+        assert.property(res.body, 'university');
+        assert.property(res.body, 'createdAt');
+        done();
+      });
+  });
+
   it('should delete class by id', (done) => {
     chai
       .request(server)
-      .delete('/api/classes/'+classs)
+      .delete('/api/classes/' + classs)
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.text, 'Class deleted');
@@ -86,7 +106,7 @@ describe('Classes API', () => {
   it('should not find deleted class', (done) => {
     chai
       .request(server)
-      .get('/api/classes/'+classs)
+      .get('/api/classes/' + classs)
       .end((err, res) => {
         assert.equal(res.status, 404);
         assert.equal(res.text, 'Class not found');
