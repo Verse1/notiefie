@@ -30,33 +30,33 @@ describe('Classes API', () => {
       });
   });
 
-  // it('should return all classes', (done) => {
-  //   chai
-  //     .request(server)
-  //     .get('/api/classes')
-  //     .end((err, res) => {
-  //       assert.equal(res.status, 200);
-  //       assert.isArray(res.body);
-  //       assert.property(res.body[0], 'id');
-  //       assert.property(res.body[0], 'name');
-  //       assert.property(res.body[0], 'classCode');
-  //       assert.property(res.body[0], 'university');
-  //       assert.property(res.body[0], 'createdAt');
-  //       done();
-  //     });
-  // });
+  it('should return all classes', (done) => {
+    chai
+      .request(server)
+      .get('/api/classes')
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.isArray(res.body);
+        assert.property(res.body[0], '_id');
+        assert.property(res.body[0], 'className');
+        assert.property(res.body[0], 'classCode');
+        assert.property(res.body[0], 'university');
+        assert.property(res.body[0], 'createdAt');
+        done();
+      });
+  });
 
-  // it('should not return any classes', (done) => {
-  //   chai
-  //     .request(server)
-  //     .get('/api/classes/1')
-  //     .end((err, res) => {
-  //       assert.equal(res.status, 404);
-  //       assert.equal(res.text, 'Class not found');
+  it('should not return any classes', (done) => {
+    chai
+      .request(server)
+      .get('/api/classes/1')
+      .end((err, res) => {
+        assert.equal(res.status, 404);
+        assert.equal(res.text, 'Class not found');
 
-  //       done();
-  //     });
-  // });
+        done();
+      });
+  });
 
   // it('should return class by id', (done) => {
   //   chai

@@ -21,10 +21,14 @@ module.exports = {
   },
 
   getById: async (req, res) => {
-    const c = await classes.find({ id: req.params.classID });
-    if (c) {
-      res.send(c);
-    } else {
+    try {
+      const c = await classes.findById(req.params.id);
+      if (c) {
+        res.send(c);
+      } else {
+        res.status(404).send('Class not found');
+      }
+    } catch (err) {
       res.status(404).send('Class not found');
     }
   },
