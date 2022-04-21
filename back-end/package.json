@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "nyc mocha src/tests/**/*.js --recursive --exit --timeout 100000",
+    "test": "nyc mocha src/tests/**/*.js --recursive --exit",
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
