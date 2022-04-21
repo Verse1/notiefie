@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const file = require('./file');
 
 const note = new mongoose.Schema(
   {
@@ -9,7 +8,6 @@ const note = new mongoose.Schema(
     text: { type: String },
     likes: { type: Number, required: true, default: 1 },
     comments: { type: Array, default: [] },
-    attachments: { type: Array, default: [] },
   },
   {
     timestamps: true,
