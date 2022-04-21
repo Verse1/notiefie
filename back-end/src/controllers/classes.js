@@ -3,7 +3,7 @@ const classes = require('../models/class');
 module.exports = {
   get: async (req, res) => {
     const classess = await classes.find();
-    res.send(classes);
+    res.send(classess);
   },
 
   post: async (req, res) => {
