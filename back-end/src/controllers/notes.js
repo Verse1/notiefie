@@ -62,22 +62,26 @@ module.exports = {
   like: async (req, res) => {
     try {
       const note = await notes.findById(req.params.id);
-      let liked = req.body.liked;
+      const user = await users.findById(req.body.user);
+
+      let liked = !user.likedNotes.includes(note._id);
 
       if (note && liked) {
         note.likes += 1;
+        user.likedNotes.push(note._id);
         await note.save();
-
+        await user.save();
         res.send(note);
       } else if (note && !liked) {
         note.likes -= 1;
+        user.likedNotes = user.likedNotes.filter((like) => like !== note._id);
         await note.save();
-
         res.send(note);
       } else {
         res.status(404).send('Note not found');
       }
     } catch (err) {
+      console.log(err);
       res.status(404).send('Note not found');
     }
   },
