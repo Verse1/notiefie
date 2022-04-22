@@ -1,117 +1,143 @@
-const fake = require('../fake');
-
-const users = fake.fakeUsers;
-const notes = fake.fakeNotes;
-const classes = fake.fakeClasses;
-
-const faker = require('faker');
+const users = require('../models/user');
+const notes = require('../models/note');
+const classes = require('../models/class');
+const mongoose = require('mongoose');
 
 module.exports = {
   // /users
-  get: (req, res) => {
-    res.send(users);
+  get: async (req, res) => {
+    try {
+      const user = await users.find();
+      res.send(user);
+    } catch (err) {
+      res.status(500).send(err);
+    }
   },
 
-  post: (req, res) => {
-    const user = {
-      id: faker.datatype.uuid(),
+  post: async (req, res) => {
+    const user = new users({
       name: req.body.name,
       university: req.body.university,
       email: req.body.email,
-      password: req.body.password,
-      createdAt: faker.date.past(),
-    };
-    users.push(user);
-    res.send(user);
+    });
+    try {
+      await user.save();
+      res.send(user);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   // /users/:id
-  getById: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
-    if (user) {
-      res.send(user);
-    } else {
+  getById: async (req, res) => {
+    try {
+      const user = await users.findById(req.params.id);
+      if (user) {
+        res.send(user);
+      } else {
+        res.status(404).send('User not found');
+      }
+    } catch (err) {
       res.status(404).send('User not found');
     }
   },
 
-  put: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  put: async (req, res) => {
+    try {
+      const user = await users.findById(req.params.id);
 
-    user.name = req.body.name;
+      user.name = req.body.name;
+      await user.save();
 
-    res.send(user);
+      res.send(user);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
-  delete: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  delete: async (req, res) => {
+    const user = await users.findById(req.params.id);
 
-    if (user) {
-      users.splice(users.indexOf(user), 1);
-      res.send('User deleted');
-    } else {
-      res.status(404).send('User not found');
+    try {
+      if (user) {
+        await users.deleteOne({ id: req.params.id });
+        res.send('User deleted');
+      } else {
+        res.status(404).send('User not found');
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
 
   // /users/:id/notes
 
-  getNotes: (req, res) => {
-    let usersNotes = notes.filter((note) => note.user === req.params.id);
-    if (usersNotes.length > 0) {
-      res.send(usersNotes);
-    } else {
-      res.status(404).send('User has no notes');
-    }
-  },
-
-  deleteNotes: (req, res) => {
-    let usersNotes = notes.filter((note) => note.user === req.params.id);
-
-    if (usersNotes.length > 0) {
-      notes = notes.filter((note) => note.id !== req.params.noteId);
-      res.send('Notes deleted');
-    } else {
-      res.status(404).send('User has no notes');
+  getNotes: async (req, res) => {
+    try {
+      const usersNotes = await notes.find({ user: req.params.id });
+      if (usersNotes) {
+        res.send(usersNotes);
+      } else {
+        res.status(404).send('User not found');
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
 
   // /users/:id/classes
 
-  getClasses: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
-    if (user) {
-      res.send(user.classes);
+  getClasses: async (req, res) => {
+    try {
+      const user = await users.findById(req.params.id);
+      if (user) {
+        res.send(user.savedClasses);
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
   // /users/:id/likes
 
-  getLikes: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
-    if (user) {
-      res.send(user.likes);
-    } else {
-      res.status(404).send('User not found');
+  getLikes: async (req, res) => {
+    try {
+      const user = await users.findById(req.params.id);
+      if (user) {
+        res.send(user.likes.toString());
+      } else {
+        res.status(404).send('user not found');
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
 
-  addClass: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  addClass: async (req, res) => {
+    try {
+      const user = await users.findById(req.params.id);
 
-    let classs = classes.find((classCard) => classCard.id === req.body.classId);
+      const classs = await classes.find({ id: req.body.classID });
 
-    user.classes.push({ name: classs.name, enrolled: classs.notes.length });
-
-    res.send(user);
+      user.savedClasses.push(classs);
+      await user.save();
+      res.send('Class added to user');
+    } catch (err) {
+      console.log(err);
+    }
   },
 
-  deleteClass: (req, res) => {
-    let user = users.find((user) => user.id === req.params.id);
+  deleteClass: async (req, res) => {
+    try {
+      const user = await users.findById(req.params.id);
 
-    user.classes = user.classes.filter(
-      (className) => className !== req.params.class
-    );
+      const classs = await classes.find({ id: req.body.classID });
 
-    res.send(user);
+      user.savedClasses.pull(classs);
+      await user.save();
+      res.send('Class deleted from user');
+    } catch (err) {
+      res.status(404).send('Class not found');
+      console.log(err);
+    }
   },
 };

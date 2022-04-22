@@ -1,77 +1,142 @@
-const fake = require('../fake');
-
-const notes = fake.fakeNotes;
-const faker = require('faker');
-const users = require('./users');
+const users = require('./../models/user');
+const notes = require('../models/note');
+const comments = require('../models/comment');
+const mongoose = require('mongoose');
 
 module.exports = {
-  get: (req, res) => {
-    res.send(notes);
+  get: async (req, res) => {
+    const notess = await notes.find();
+    res.send(notess);
   },
 
-  post: (req, res) => {
-    const note = {
-      id: faker.datatype.uuid(),
-      class: req.body.class,
-      title: req.body.title,
-      user: req.body.user,
-      text: req.body.text,
-      attachments: req.body.attachments,
-      likes: 1,
-      comments: {},
-      createdAt: faker.date.past(),
-    };
-    notes.push(note);
-    res.send(note);
-    // res.redirect('http://localhost:3000/class');
-  },
-
-  getById: (req, res) => {
-    let note = notes.find((note) => note.id === req.params.id);
-    if (note) {
+  post: async (req, res) => {
+    try {
+      const note = new notes({
+        className: req.body.className,
+        title: req.body.title,
+        user: req.body.user,
+        text: req.body.text,
+      });
+      await note.save();
       res.send(note);
-    } else {
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  getById: async (req, res) => {
+    try {
+      const note = await notes.findById(req.params.id);
+      if (note) {
+        res.send(note);
+      } else {
+        res.status(404).send('Note not found');
+      }
+    } catch (err) {
       res.status(404).send('Note not found');
     }
   },
 
-  put: (req, res) => {
-    let note = notes.find((note) => (note.id = req.params.id));
-
-    if (req.body.title) {
-      note.title = req.body.title;
+  put: async (req, res) => {
+    try {
+      const note = await notes.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      });
+      res.send(note);
+    } catch (err) {
+      res.status(404).send('Note not found');
     }
-    if (req.body.text) {
-      note.text = req.body.text;
-    }
-    res.send(note);
   },
 
-  delete: (req, res) => {
-    let note = notes.find((note) => note.id === req.params.id);
+  delete: async (req, res) => {
+    try {
+      const note = await notes.findById(req.params.id);
 
-    if (note) {
-      notes.splice(notes.indexOf(note));
+      await note.remove();
       res.send('Note deleted');
-    } else {
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  like: async (req, res) => {
+    try {
+      const note = await notes.findById(req.params.id);
+      const user = await users.findById(req.body.user);
+
+      let liked = !user.likedNotes.includes(note._id);
+
+      if (note && liked) {
+        note.likes += 1;
+        user.likedNotes.push(note._id);
+        await note.save();
+        await user.save();
+        res.send(note);
+      } else if (note && !liked) {
+        note.likes -= 1;
+        user.likedNotes = user.likedNotes.filter((like) => like !== note._id);
+        await note.save();
+        res.send(note);
+      } else {
+        res.status(404).send('Note not found');
+      }
+    } catch (err) {
+      console.log(err);
       res.status(404).send('Note not found');
     }
   },
 
-  like: (req, res) => {
-    let note = notes.find((note) => note.id === req.params.id);
-    let liked = req.body.liked;
+  comment: async (req, res) => {
+    try {
+      const note = await notes.findById(req.params.id);
 
-    if (note && liked) {
-      note.likes += 1;
-
+      note.comments.push({
+        _id: mongoose.Types.ObjectId(),
+        user: req.body.user,
+        text: req.body.text,
+        likes: 0,
+      });
+      await note.save();
       res.send(note);
-    } else if (note && !liked) {
-      note.likes -= 1;
+    } catch (err) {
+      console.log(err);
+      res.status(404).send('Unable to post comment');
+    }
+  },
 
-      res.send(note);
-    } else {
-      res.status(404).send('Note not found');
+  likeComment: async (req, res) => {
+    try {
+      const comment = await comments.findById(req.params.id);
+      let liked = req.body.liked;
+
+      if (comment && liked) {
+        comment.likes += 1;
+        await comment.save();
+
+        res.send(comment);
+      } else if (comment && !liked) {
+        comment.likes -= 1;
+        await comment.save();
+
+        res.send(comment);
+      } else {
+        res.status(404).send('Comment not found');
+      }
+    } catch (err) {
+      res.status(404).send('Comment not found');
+    }
+  },
+
+  getComments: async (req, res) => {
+    try {
+      const noteComments = await notes.findById(req.params.id);
+      if (noteComments.comments.length > 0) {
+        res.send(noteComments.comments);
+      } else {
+        res.status(404).send('Note has no comments');
+      }
+    } catch (err) {
+      res.status(404).send('Note has no comments');
     }
   },
 };
