@@ -1,5 +1,7 @@
 # Notiefi
 
+[![CircleCI](https://circleci.com/gh/software-assignments-spring2022/final-project-notiefi/tree/master.svg?style=svg)](https://circleci.com/gh/software-assignments-spring2022/final-project-notiefi/tree/master)
+
 ## Notiefi Vision Statement
 
 For the student who wants to be better prepared for future or current enrollment, Notiefi is an app that allows students from the same university to upload notes for other current or future students in their classes. 
