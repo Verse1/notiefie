@@ -1,50 +1,62 @@
-const fake = require('../fake');
-
-const classes = fake.fakeClasses;
-const faker = require('faker');
+const classes = require('../models/class');
 
 module.exports = {
-  get: (req, res) => {
-    res.send(classes);
+  get: async (req, res) => {
+    const classess = await classes.find();
+    res.send(classess);
   },
 
-  post: (req, res) => {
-    const c = {
-      id: faker.datatype.uuid(),
-      name: req.body.name,
-      classCode: req.body.classCode,
-      university: req.body.university,
-      createdAt: faker.date.past(),
-    };
-    classes.push(c);
-    res.send(c);
-  },
-
-  getById: (req, res) => {
-    let c = classes.find((c) => c.id === req.params.id);
-    if (c) {
+  post: async (req, res) => {
+    try {
+      const c = new classes({
+        className: req.body.className,
+        classCode: req.body.classCode,
+        university: req.body.university,
+      });
+      await c.save();
       res.send(c);
-    } else {
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  getById: async (req, res) => {
+    try {
+      const c = await classes.findById(req.params.id);
+      if (c) {
+        res.send(c);
+      } else {
+        res.status(404).send('Class not found');
+      }
+    } catch (err) {
       res.status(404).send('Class not found');
     }
   },
 
-  put: (req, res) => {
-    let c = classes.find((c) => c.id === req.params.id);
+  put: async (req, res) => {
+    try {
+      const c = await classes.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      });
 
-    c.name = req.body.name;
-
-    res.send(c);
+      res.send(c);
+    } catch (err) {
+      res.status(404).send('Class not found');
+    }
   },
 
-  delete: (req, res) => {
-    let c = classes.find((c) => c.id === req.params.id);
+  delete: async (req, res) => {
+    try {
+      const c = await classes.findById(req.params.id);
 
-    if (c) {
-      classes.splice(classes.indexOf(c));
-      res.send('Class deleted');
-    } else {
-      res.status(404).send('Class not found');
+      if (c) {
+        await classes.deleteOne({ id: req.params.id });
+        res.send('Class deleted');
+      } else {
+        res.status(404).send('Class not found');
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
 };
