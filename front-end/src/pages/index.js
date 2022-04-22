@@ -20,6 +20,9 @@ export default function Home({ userClasses }) {
 
   const [classes, setClasses] = useState(userClasses);
 
+  console.log(process.env.AUTH0_SECRET);
+  console.log(process.env.API_URL);
+
   return (
     <div className="grid place-items-center">
       {classes
@@ -43,9 +46,21 @@ export default function Home({ userClasses }) {
 }
 
 export const getServerSideProps = async () => {
-  const res = await axios.get(
-    'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6'
-  );
-  const userClasses = await res.data.classes;
+  let res;
+  let userClasses;
+  try {
+    res = await axios.get('http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6');
+    userClasses = await res.data.classes;
+  } catch (err) {
+    userClasses = [{
+      id: '621522b8-22b7-4634-befc-0a5785f53d3d',
+      name: 'Test Class 101',
+      classCode: 'Test-101',
+      university: 'Test University',
+      createdAt: '2019-01-01T00:00:00.000Z',
+      enrolled: 10,
+    }]
+  }
+  
   return { props: { userClasses } };
 };

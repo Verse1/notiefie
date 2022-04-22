@@ -8,9 +8,15 @@ import Link from 'next/link';
 import NavigationBell from './NotificationsBell';
 import Search from './SearchBar';
 import NewSearch from './NewSearch';
+import { useUser } from '@auth0/nextjs-auth0';
+
 
 function Navigation(props) {
   const router = useRouter();
+
+  const { user, error, isLoading } = useUser();
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
 
   return (
     <nav className="relative top-0 z-10 mt-0 mb-8 w-full bg-indigo-800 p-2">
@@ -42,14 +48,11 @@ function Navigation(props) {
               </Link>
             </li>
             <li className="mr-3">
-              <NavigationBell />
-            </li>
-            <li className="mr-3">
-              <Link href="/profile">
+              {user ? <Link href="/profile">
                 <a className="link">
                   <VscAccount size={28} className="mt-1" />
                 </a>
-              </Link>
+              </Link> : <Link href="/api/auth/login">Login</Link>}
             </li>
           </ul>
         </div>

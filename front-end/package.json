@@ -11,11 +11,11 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.7.0",
     "@headlessui/react": "^1.5.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "algoliasearch": "^4.13.0",
     "axios": "^0.26.1",
-    "dotenv": "^16.0.0",
     "mongoose": "^6.2.10",
     "next": "12.1.0",
     "react": "17.0.2",
