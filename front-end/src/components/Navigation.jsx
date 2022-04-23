@@ -52,7 +52,7 @@ function Navigation(props) {
                 <a className="link">
                   <VscAccount size={28} className="mt-1" />
                 </a>
-              </Link> : <Link href="/api/auth/login">Login</Link>}
+              </Link> : <Link className="text-white" href="/api/auth/login">Login</Link>}
             </li>
           </ul>
         </div>
