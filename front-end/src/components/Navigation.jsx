@@ -5,18 +5,14 @@ import { useRouter } from 'next/router';
 import { VscAccount } from 'react-icons/vsc';
 
 import Link from 'next/link';
-import NavigationBell from './NotificationsBell';
 import Search from './SearchBar';
 import NewSearch from './NewSearch';
-import { useUser } from '@auth0/nextjs-auth0';
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Navigation(props) {
   const router = useRouter();
 
-  const { user, error, isLoading } = useUser();
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
+  const { loginWithRedirect } = useAuth0();
 
   return (
     <nav className="relative top-0 z-10 mt-0 mb-8 w-full bg-indigo-800 p-2">
@@ -52,7 +48,7 @@ function Navigation(props) {
                 <a className="link">
                   <VscAccount size={28} className="mt-1" />
                 </a>
-              </Link> : <Link className="text-white" href="/api/auth/login">Login</Link>}
+              </Link> : <button className="text-white" onClick={() => loginWithRedirect()}>Login</button>}
             </li>
           </ul>
         </div>

@@ -63,7 +63,6 @@ export default function Home({ userClasses }) {
 }
 
 export const getServerSideProps = async () => {
-<<<<<<< HEAD
   let res;
   let userClasses;
   try {
@@ -79,17 +78,5 @@ export const getServerSideProps = async () => {
       enrolled: 10,
     }]
   }
-  
-=======
-      const userClasses = [];
-
-  try {
-    const res = await axios.get(
-      'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6'
-    );
-   userClasses = await res.data.classes;
-  } catch (err) {
-  }
->>>>>>> master
   return { props: { userClasses } };
 };
