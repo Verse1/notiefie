@@ -5,10 +5,11 @@ import '../styles/Navigation.css';
 import Navigation from '../components/Navigation';
 import NewSearch from '../components/NewSearch';
 import { UserProvider } from '@auth0/nextjs-auth0';
+import { config } from 'process';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <UserProvider>
+    <UserProvider audience={config.AUTH_AUDIENCE}>
       <Head>
         <title>Notiefi</title>
         <link rel="icon" href="/favicon.ico" />
