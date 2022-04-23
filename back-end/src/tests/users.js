@@ -121,6 +121,51 @@ describe('Users API', () => {
       });
   });
 
+  it('should like note', (done) => {
+    chai
+
+      .request(server)
+      .post('/api/notes/' + note._id + '/like')
+      .send({
+        user: user._id,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.property(res.body, '_id');
+        assert.property(res.body, 'className');
+        assert.property(res.body, 'title');
+        assert.property(res.body, 'user');
+        assert.property(res.body, 'text');
+        assert.property(res.body, 'comments');
+        assert.property(res.body, 'likes');
+        assert.property(res.body, 'createdAt');
+        assert.equal(res.body.likes, 2);
+        done();
+      });
+  });
+
+  it('should unlike note', (done) => {
+    chai
+      .request(server)
+      .post('/api/notes/' + note._id + '/like')
+      .send({
+        user: user._id,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.property(res.body, '_id');
+        assert.property(res.body, 'className');
+        assert.property(res.body, 'title');
+        assert.property(res.body, 'user');
+        assert.property(res.body, 'text');
+        assert.property(res.body, 'comments');
+        assert.property(res.body, 'likes');
+        assert.property(res.body, 'createdAt');
+        assert.equal(res.body.likes, 1);
+        done();
+      });
+  });
+
   it('should delete user notes', (done) => {
     chai
       .request(server)
@@ -197,7 +242,6 @@ describe('Users API', () => {
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.text, 'Class deleted from user');
-        console.log(res.body);
         done();
       });
   });

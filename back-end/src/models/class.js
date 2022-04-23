@@ -6,6 +6,7 @@ const classs = new mongoose.Schema(
     classCode: { type: String, required: true },
     university: { type: String, required: true },
     numEnrolled: { type: Number, required: true, default: 0 },
+    notes: { type: Array, default: [] },
   },
   {
     timestamps: true,
