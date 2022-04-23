@@ -2,8 +2,15 @@ const classes = require('../models/class');
 
 module.exports = {
   get: async (req, res) => {
-    const classess = await classes.find();
-    res.send(classess);
+    const limit = req.query.limit || 20;
+    const offset = req.query.offset || 0;
+    try {
+      const classess = await classes.find({}).limit(limit).skip(offset);
+      res.send(classess);
+    }
+    catch (err) {
+      res.status(500).send(err);
+    }
   },
 
   post: async (req, res) => {
