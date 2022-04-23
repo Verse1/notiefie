@@ -10,10 +10,9 @@ import { config } from 'process';
 function MyApp({ Component, pageProps }) {
   return (
     <Auth0Provider 
-      audience={config.AUTH_AUDIENCE}
-      domain={config.AUTH0_ISSUER_BASE_URL}
-      clientId={config.AUTH0_CLIENT_ID}
-      redirectUri={config.AUTH0_BASE_URL}>
+      domain={process.env.AUTH0_ISSUER_BASE_URL}
+      clientId={process.env.AUTH0_CLIENT_ID}
+      redirectUri={process.env.AUTH0_BASE_URL}>
       <Head>
         <title>Notiefi</title>
         <link rel="icon" href="/favicon.ico" />

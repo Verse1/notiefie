@@ -47,7 +47,7 @@ function Navigation(props) {
                 <a className="link">
                   <VscAccount size={28} className="mt-1" />
                 </a>
-              </Link> : <button className="text-white" onClick={() => loginWithRedirect()}>Login</button>}
+              </Link> : <button className="text-white link" onClick={() => loginWithRedirect()}>Login</button>}
             </li>
           </ul>
         </div>
