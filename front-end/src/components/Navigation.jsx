@@ -10,9 +10,8 @@ import NewSearch from './NewSearch';
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Navigation(props) {
-  const router = useRouter();
 
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
 
   return (
     <nav className="relative top-0 z-10 mt-0 mb-8 w-full bg-indigo-800 p-2">
@@ -44,7 +43,7 @@ function Navigation(props) {
               </Link>
             </li>
             <li className="mr-3">
-              {user ? <Link href="/profile">
+              {isAuthenticated ? <Link href="/profile">
                 <a className="link">
                   <VscAccount size={28} className="mt-1" />
                 </a>
