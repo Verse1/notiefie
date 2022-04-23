@@ -1,10 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 
 export default function Login() {
-  const { isAuthenticated, loginWithPopup, logout, loginWithRedirect } =
-    useAuth0();
-  console.log(isAuthenticated);
+  const { isAuthenticated, loginWithPopup, logout, loginWithRedirect } = useAuth0();
+
+  useEffect( () => { 
+    async function fetchData() {
+        try {
+          if (isAuthenticated) {
+            const res = await axios.post('https://localhost:3001/api/users/create');
+            const data = await res.json();
+            console.log('society');
+            console.log(data);
+          }
+            
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="grid h-[88vh] place-items-center">
       <div className="bg  rounded-3xl bg-white p-7">

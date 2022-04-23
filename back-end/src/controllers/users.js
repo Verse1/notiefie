@@ -2,6 +2,7 @@ const users = require('../models/user');
 const notes = require('../models/note');
 const classes = require('../models/class');
 const mongoose = require('mongoose');
+const jwt = require("express-jwt");
 
 module.exports = {
   // /users
@@ -20,11 +21,18 @@ module.exports = {
       university: req.body.university,
       email: req.body.email,
     });
-    try {
-      await user.save();
-      res.send(user);
-    } catch (err) {
-      console.log(err);
+
+    if (users.exists({ email: req.body.email })) {
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+      res.json({ user, token });
+    } else {
+      try {
+        await user.save();
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+        res.json({ user, token });
+      } catch (err) {
+        console.log(err);
+      }
     }
   },
 

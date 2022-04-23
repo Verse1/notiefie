@@ -3,6 +3,8 @@ require('dotenv').config();
 const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
+const { expressjwt: jwt } = require("express-jwt");
+
 
 const port = process.env.PORT || 3001;
 app.use(cors());
@@ -23,6 +25,9 @@ try {
 } catch (err) {
   console.log('could not connect, error: ', err);
 }
+
+// middleware to verify jwt
+app.use("/api", jwt({ secret: "shhhhhhared-secret", algorithms: ["HS256"] }));
 
 app.listen(port);
 
