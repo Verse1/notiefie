@@ -5,7 +5,6 @@ import '../styles/Navigation.css';
 import Navigation from '../components/Navigation';
 import NewSearch from '../components/NewSearch';
 import { Auth0Provider } from "@auth0/auth0-react";
-import { config } from 'process';
 
 function MyApp({ Component, pageProps }) {
   return (
