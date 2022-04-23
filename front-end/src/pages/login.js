@@ -1,17 +1,26 @@
-import React, {useState} from 'react';
-import Link from 'next/link';
-import { useAuth0 } from "@auth0/auth0-react";
-import axios from 'axios';
+import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Login() {
-
-  const { loginWithRedirect } = useAuth0();
-
+  const { isAuthenticated, loginWithPopup, logout, loginWithRedirect } =
+    useAuth0();
+  console.log(isAuthenticated);
   return (
     <div className="grid h-[88vh] place-items-center">
-      <div className="bg inline-block rounded-3xl bg-white p-7">
-        <h1 className="mb-7 text-center text-2xl">Login to your account</h1>
-          <button onClick={loginWithRedirect}>Log In</button>
+      <div className="bg  rounded-3xl bg-white p-7">
+        <h1 className="mb-7 text-center text-2xl">
+          Login to your school email account
+        </h1>
+        <button
+          className="mt-9 mb-4 cursor-pointer rounded-xl bg-gradient-to-r from-green-300 to-blue-400 p-3 px-9"
+          onClick={loginWithRedirect}>
+          Sign in
+        </button>
+        <button
+          className="mt-9 mb-4 cursor-pointer rounded-xl bg-gradient-to-r from-green-300 to-blue-400 p-3 px-9"
+          onClick={logout}>
+          Logout
+        </button>
       </div>
     </div>
   );
