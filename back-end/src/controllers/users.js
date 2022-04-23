@@ -2,7 +2,8 @@ const users = require('../models/user');
 const notes = require('../models/note');
 const classes = require('../models/class');
 const mongoose = require('mongoose');
-const jwt = require("express-jwt");
+var jwt = require('jsonwebtoken');
+
 
 module.exports = {
   // /users

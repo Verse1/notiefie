@@ -5,8 +5,13 @@ import axios from 'axios';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
 import process from 'process';
+import { useAuth0 } from '@auth0/auth0-react';
 
-export default function Profile({ picture, user, userNotes }) {
+export default function Profile({ picture, userNotes }) {
+
+  const { user } = useAuth0();
+  console.log(user);
+
   let [notes] = useState({
     saved: [
       {
@@ -56,11 +61,11 @@ export default function Profile({ picture, user, userNotes }) {
         </div>
 
         <div className="p-5 text-center text-white">
-          <h1 className="text-left ">Foo</h1>
+          <h1 className="text-left ">hi</h1>
           <p className="flex text-right">New York University</p>
 
-          <p>204 Upvotes</p>
-          <p>Joined {user.createdAt}</p>
+          <p>1</p>
+          <p>Joined 1</p>
         </div>
         <div className="px-6 pb-10">
           <Tab.Group>
@@ -110,6 +115,7 @@ export default function Profile({ picture, user, userNotes }) {
 }
 
 export async function getServerSideProps() {
+
   const picture = await axios
     .get(process.env.PICTURE_API, {
       responseType: 'arraybuffer',
