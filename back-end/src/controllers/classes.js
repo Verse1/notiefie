@@ -2,7 +2,7 @@ const classes = require('../models/class');
 
 module.exports = {
   get: async (req, res) => {
-    const limit = req.query.limit || 10;
+    const limit = req.query.limit || 20;
     const offset = req.query.offset || 0;
     try {
       const classess = await classes.find({}).limit(limit).skip(offset);

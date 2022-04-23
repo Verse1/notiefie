@@ -36,7 +36,7 @@ function Navigation(props) {
             </li>
             <li className="mr-3">
 
-              <Link href="browse">
+              <Link href="/browse">
 
                 <a className={`link ${props.bold}`}>Browse Classes</a>
               </Link>

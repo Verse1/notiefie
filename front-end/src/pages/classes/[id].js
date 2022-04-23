@@ -5,14 +5,13 @@ import ClassHeader from '../../components/ClassHeader';
 import axios from 'axios';
 
 const IndividualClass = ({ classs }) => {
-  const router = useRouter();
-
+ 
   return (
     <div>
       <ClassHeader
         color="bg-sky-500"
-        name={classs.name}
-        code={classs.code}
+        name={classs.className}
+        code={classs.classCcode}
         posts={classs.notes.length}
         enrolled={classs.enrolled}
         notes={classs.notes}

@@ -1,12 +1,24 @@
-import { React, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
+import { React, useState, useEffect } from 'react';
 import BrowseClassCard from '../components/BrowseClassCard';
 import Navigation from '../components/Navigation';
-import Head from 'next/head';
 import axios from 'axios';
 
-function BrowseClasses({ classes }) {
+function BrowseClasses() {
+  async function getClasses(offset) {
+    const res = await axios.get(
+      `http://localhost:3001/api/classes?offset=${offset}`
+    );
+    const classes = await res.data;
+    setClasses(classes);
+  }
+
+  useEffect(() => {
+    getClasses(offset);
+  }, []);
+
+  const [offset, setOffset] = useState(0);
+  const [classes, setClasses] = useState([]);
+
   return (
     <div>
       <div className="mx-auto mt-20 max-w-screen-lg p-4">
@@ -15,8 +27,8 @@ function BrowseClasses({ classes }) {
             <BrowseClassCard
               key={classCard.classCode}
               classCode={classCard.classCode}
-              name={classCard.name}
-              id={classCard.id}
+              name={classCard.className}
+              id={classCard._id}
               colors={randomColor()}
             />
           ))}
@@ -53,13 +65,13 @@ function randomColor() {
   }
 }
 
-export const getServerSideProps = async () => {
-  const res = await axios.get(
-    'http://localhost:3001/api/classes'
-  );
-  const classes = await res.data;
-  return { props: { classes } };
-};
+// export const getServerSideProps = async (offset) => {
+//   const res = await axios.get(
+//     'http://localhost:3001/api/classes?limit=10&offset=' + offset
+//   );
+//   const classes = await res.data;
+//   return { props: { classes } };
+// };
 
 BrowseClasses.propTypes = {};
 export default BrowseClasses;
