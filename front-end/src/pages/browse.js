@@ -4,20 +4,26 @@ import Navigation from '../components/Navigation';
 import axios from 'axios';
 
 function BrowseClasses() {
+  const [offset, setOffset] = useState(0);
+  const [classes, setClasses] = useState([]);
+
   async function getClasses(offset) {
     const res = await axios.get(
       `http://localhost:3001/api/classes?offset=${offset}`
     );
-    const classes = await res.data;
-    setClasses(classes);
+    const newClasses = await res.data;
+
+    setClasses(classes.concat(newClasses));
   }
 
   useEffect(() => {
     getClasses(offset);
-  }, []);
+  }, [offset]);
 
-  const [offset, setOffset] = useState(0);
-  const [classes, setClasses] = useState([]);
+  function moreClasses(e) {
+    e.preventDefault();
+    setOffset(offset + 20);
+  }
 
   return (
     <div>
@@ -33,6 +39,13 @@ function BrowseClasses() {
             />
           ))}
         </div>
+      </div>
+      <div className="flex justify-center">
+        <button
+          className="rounded-full bg-teal-400 py-2 px-4 font-bold text-white hover:bg-teal-700 my-4"
+          onClick={moreClasses}>
+          More Classes
+        </button>
       </div>
     </div>
   );
