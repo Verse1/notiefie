@@ -13,7 +13,7 @@ const IndividualClass = ({ classs }) => {
         name={classs.className}
         code={classs.classCcode}
         posts={classs.notes.length}
-        enrolled={classs.enrolled}
+        enrolled={classs.numEnrolled}
         notes={classs.notes}
       />
     </div>
