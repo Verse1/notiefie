@@ -8,8 +8,7 @@ import process from 'process';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Profile({ picture, userNotes }) {
-
-  const { user } = useAuth0();
+  const { user, logout } = useAuth0();
   console.log(user);
 
   let [notes] = useState({
@@ -58,6 +57,12 @@ export default function Profile({ picture, userNotes }) {
               />
             </a>
           </Link>
+
+          <button
+            className="float-right mt-9 mb-4 cursor-pointer rounded-xl bg-gradient-to-r from-green-300 to-blue-400 p-3 px-9"
+            onClick={logout}>
+            Logout
+          </button>
         </div>
 
         <div className="p-5 text-center text-white">
@@ -115,7 +120,6 @@ export default function Profile({ picture, userNotes }) {
 }
 
 export async function getServerSideProps() {
-
   const picture = await axios
     .get(process.env.PICTURE_API, {
       responseType: 'arraybuffer',

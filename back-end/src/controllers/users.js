@@ -4,7 +4,6 @@ const classes = require('../models/class');
 const mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
-
 module.exports = {
   // /users
   get: async (req, res) => {
@@ -21,15 +20,20 @@ module.exports = {
       name: req.body.name,
       university: req.body.university,
       email: req.body.email,
+      picture: req.body.picture,
     });
 
-    if (users.exists({ email: req.body.email })) {
+    console.log(user);
+
+    if (await users.exists({ email: req.body.email })) {
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+      console.log('exists');
       res.json({ user, token });
     } else {
       try {
         await user.save();
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+        console.log('saved');
         res.json({ user, token });
       } catch (err) {
         console.log(err);
