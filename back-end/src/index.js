@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/api/users/user', require('./auth'));
+app.use('/api/notes', require('./auth'));
 
 
 app.use('/api', require('./routes'));

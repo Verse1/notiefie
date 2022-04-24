@@ -1,6 +1,7 @@
 const users = require('./../models/user');
 const notes = require('../models/note');
 const comments = require('../models/comment');
+const classes = require('../models/class');
 const mongoose = require('mongoose');
 
 module.exports = {
@@ -12,12 +13,30 @@ module.exports = {
   post: async (req, res) => {
     try {
       const note = new notes({
-        className: req.body.className,
+        className: req.body.classs,
         title: req.body.title,
-        user: req.body.user,
+        user: req.user,
         text: req.body.text,
       });
+
+      const classs = await classes
+        .findOne({ className: req.body.classs })
+        .exec();
+
+      const user = await users.findById(req.user);
+
+      user.postedNotes.push(note);
+      user.likedNotes.push(note);
+
+      console.log(note);
+
+      console.log(user);
+      classs.notes.push(note);
+
+      await user.save();
+      await classs.save();
       await note.save();
+
       res.send(note);
     } catch (err) {
       console.log(err);
@@ -47,7 +66,6 @@ module.exports = {
       res.status(404).send('Note not found');
     }
   },
-
   delete: async (req, res) => {
     try {
       const note = await notes.findById(req.params.id);

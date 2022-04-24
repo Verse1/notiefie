@@ -13,7 +13,7 @@ const NotesCard = (props) => {
             {props.title}
           </h1>
         </Link>
-        <HeartButton likes={props.likes} id={props.id} />
+        <HeartButton likes={props.likes} id={props.id} liked={props.liked} />
       </div>
       <p className="text-slate-800">{props.description}</p>
     </div>
