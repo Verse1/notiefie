@@ -137,7 +137,7 @@ module.exports = {
     try {
       const user = await users.findById(req.user);
 
-      const classs = await classes.findById(req.body.classId);
+      const classs = await classes.findById(req.body.id);
 
       user.savedClasses.push(classs);
       await user.save();

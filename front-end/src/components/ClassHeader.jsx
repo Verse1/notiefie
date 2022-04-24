@@ -16,7 +16,7 @@ const ClassHeader = (props) => {
             {props.name}
           </h1>
           <div className="float-right mt-5 -mb-5 block">
-            <AddClassButton />
+            <AddClassButton added={props.added} id={  props.id}/>
           </div>
 
           <div className="my-4">

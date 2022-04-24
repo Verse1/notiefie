@@ -10,6 +10,7 @@ axios.defaults.withCredentials = true;
 export default function Home({ userClasses }) {
   const [classes, setClasses] = useState([]);
 
+  console.log(userClasses);
 
   const { isAuthenticated, loginWithPopup, logout, loginWithRedirect, user } =
     useAuth0();
@@ -62,17 +63,19 @@ export default function Home({ userClasses }) {
         userClasses
           .sort((a, b) => a.order - b.order)
           .map((classCard) => (
-            <Link href={`/classes/${classCard.id}`} passHref key={classCard.id}>
-              <ClassCard
-                key={classCard.id}
-                id={classCard.id}
-                title={classCard.className}
-                description={classCard.description}
-                enrolled={classCard.numEnrolled}
-                num={classCard.classCode}
-                order={classCard.order}
-                changeOrder={changeOrder}
-              />
+            <Link href={'classes/' + classCard._id} passHref key={classCard.id}>
+              <a>
+                <ClassCard
+                  key={classCard._id}
+                  id={classCard._id}
+                  title={classCard.className}
+                  description={classCard.description}
+                  enrolled={classCard.numEnrolled}
+                  num={classCard.classCode}
+                  order={classCard.order}
+                  changeOrder={changeOrder}
+                />
+              </a>
             </Link>
           ))
       )}
