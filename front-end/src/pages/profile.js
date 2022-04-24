@@ -11,6 +11,9 @@ axios.defaults.withCredentials = true;
 export default function Profile() {
   const { logout } = useAuth0();
   const [user, setUser] = useState({});
+  const [userNotes, setUserNotes] = useState([]);
+  const [userLikeNotes, setUserLikeNotes] = useState([]);
+  const [allNotes, setAllNotes] = useState({});
 
   useEffect(() => {
     axios
@@ -21,6 +24,29 @@ export default function Profile() {
       .catch((err) => {
         console.log('error in request', err);
       });
+
+    axios
+      .get('http://localhost:3001/api/users/user/notes')
+      .then((res) => {
+        setUserNotes(res.data);
+      })
+      .catch((err) => {
+        console.log('error in request', err);
+      });
+
+    axios
+      .get('http://localhost:3001/api/users/user/likes')
+      .then((res) => {
+        setUserLikeNotes(res.data);
+      })
+      .catch((err) => {
+        console.log('error in request', err);
+      });
+
+    setAllNotes({
+      userNotes,
+      userLikeNotes,
+    });
   }, []);
 
   let [notes] = useState({
@@ -79,7 +105,7 @@ export default function Profile() {
 
         <div className="p-5 text-center text-white">
           <h1 className="text-left ">{user.name}</h1>
-          <p className="flex text-right">New York University</p>
+          <p className="flex text-right">{user.university}</p>
 
           <p>{user.likes} likes</p>
           <p>
@@ -106,7 +132,7 @@ export default function Profile() {
               ))}
             </Tab.List>
             <Tab.Panels className="mt-2">
-              {Object.values(notes).map((type, code) => (
+              {Object.values(allNotes).map((type, code) => (
                 <Tab.Panel key={code} className="grid grid-cols-2  gap-4 p-5">
                   {type.map((note) => (
                     <a

@@ -97,7 +97,7 @@ module.exports = {
 
   getNotes: async (req, res) => {
     try {
-      const usersNotes = await notes.find({ user: req.params.id });
+      const usersNotes = await notes.find({ user: req.user });
       if (usersNotes) {
         res.send(usersNotes);
       } else {
@@ -112,7 +112,7 @@ module.exports = {
 
   getClasses: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
       if (user) {
         res.send(user.savedClasses);
       }
@@ -124,7 +124,7 @@ module.exports = {
 
   getLikes: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
       if (user) {
         res.send(user.likes.toString());
       } else {
