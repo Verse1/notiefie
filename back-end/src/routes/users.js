@@ -25,6 +25,7 @@ router.route('/user/classes').get(controller.getClasses);
 
 router.route('/user/likes').get(controller.getLikes);
 
+// POST and DELETE users classes
 router.route('/user/add-class').post(controller.addClass);
 router.route('/user/delete-class').delete(controller.deleteClass);
 

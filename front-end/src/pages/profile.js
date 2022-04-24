@@ -79,13 +79,6 @@ export default function Profile() {
     <div className="grid place-items-center">
       <div className={`relative h-auto w-[28%] rounded-3xl bg-sky-500 text-lg`}>
         <div className="text p-5">
-          {/* <Image
-            src={`data:image/jpeg;charset=utf-8;base64,${picture}`}
-            width={150}
-            height={150}
-            alt="profile picture"
-            className="float-left rounded-full pr-11"
-          /> */}
           <Link href="settings">
             <a>
               <RiSettings4Fill
@@ -107,7 +100,7 @@ export default function Profile() {
           <h1 className="text-left ">{user.name}</h1>
           <p className="flex text-right">{user.university}</p>
 
-          <p>{user.likes} likes</p>
+          <p className='flex'>{user.likes} likes</p>
           <p>
             Joined {moment(user.createdAt).format('MMMM Do YYYY').toString()}
           </p>

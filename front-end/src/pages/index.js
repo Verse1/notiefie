@@ -8,6 +8,10 @@ import ClassCard from '../components/ClassCard';
 axios.defaults.withCredentials = true;
 
 export default function Home({ userClasses }) {
+  const [classes, setClasses] = useState([]);
+
+  console.log(userClasses);
+
   const { isAuthenticated, loginWithPopup, logout, loginWithRedirect, user } =
     useAuth0();
 
@@ -42,11 +46,9 @@ export default function Home({ userClasses }) {
     }
   }, [user, isAuthenticated]);
 
-  const [classes, setClasses] = useState(userClasses);
-
   return (
     <div className="grid place-items-center">
-      {classes.length === 0 ? (
+      {userClasses.length === 0 ? (
         <div className="mt-20 text-center">
           <h1 className="text-3xl font-bold">
             You don&apos;t have any classes yet.
@@ -58,17 +60,17 @@ export default function Home({ userClasses }) {
           </Link>
         </div>
       ) : (
-        classes
+        userClasses
           .sort((a, b) => a.order - b.order)
           .map((classCard) => (
             <Link href={`/classes/${classCard.id}`} passHref key={classCard.id}>
               <ClassCard
                 key={classCard.id}
                 id={classCard.id}
-                title={classCard.name}
+                title={classCard.className}
                 description={classCard.description}
-                enrolled={classCard.enrolled}
-                num={classCard.num}
+                enrolled={classCard.numEnrolled}
+                num={classCard.classCode}
                 order={classCard.order}
                 changeOrder={changeOrder}
               />
@@ -79,14 +81,32 @@ export default function Home({ userClasses }) {
   );
 }
 
-export const getServerSideProps = async () => {
-  const userClasses = [];
-
+export const getServerSideProps = async ({ req }) => {
+  let userClasses = [];
   try {
     const res = await axios.get(
-      'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6'
+      'http://localhost:3001/api/users/user/classes',
+
+      {
+        headers: {
+          Cookie: req.headers.cookie,
+        },
+      }
     );
-    userClasses = await res.data.classes;
-  } catch (err) {}
+    userClasses = await res.data;
+  } catch (err) {
+    console.log(err);
+  }
   return { props: { userClasses } };
 };
+
+// useEffect(() => {
+//   axios
+//     .get('http://localhost:3001/api/users/user/classes')
+//     .then((res) => {
+//       setClasses(res.data);
+//     })
+//     .catch((err) => {
+//       console.log('error in request', err);
+//     });
+// }, []);

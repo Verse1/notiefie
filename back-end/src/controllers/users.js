@@ -16,25 +16,23 @@ module.exports = {
   },
 
   post: async (req, res) => {
-    const user = new users({
-      name: req.body.name,
-      university: req.body.university,
-      email: req.body.email,
-      picture: req.body.picture,
-    });
-
-    console.log(user);
-
-    if (await users.exists({ email: req.body.email })) {
+    const user = await users.findOne({ email: req.body.email }).exec();
+    if (user) {
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: '1h',
       });
       console.log('exists');
       res.cookie('token', token);
 
-      res.send(user);
+      res.send(token);
     } else {
       try {
+        const user = new users({
+          name: req.body.name,
+          university: req.body.university,
+          email: req.body.email,
+          picture: req.body.picture,
+        });
         await user.save();
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
           expiresIn: '1h',
@@ -137,9 +135,9 @@ module.exports = {
 
   addClass: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
 
-      const classs = await classes.find({ id: req.body.classID });
+      const classs = await classes.findById(req.body.classId);
 
       user.savedClasses.push(classs);
       await user.save();
@@ -151,7 +149,7 @@ module.exports = {
 
   deleteClass: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
 
       const classs = await classes.find({ id: req.body.classID });
 

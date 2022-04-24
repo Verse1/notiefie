@@ -27,7 +27,7 @@ function AddClassButton(props) {
 
     if(!added) {
       axios.post(
-        'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/add-class',
+        'http://localhost:3001/api/users/user/add-class',
         {
           classId: props.classId,
         }
@@ -35,7 +35,7 @@ function AddClassButton(props) {
     }
     else {
       axios.post(
-        'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/remove-class',
+        'http://localhost:3001/api/users/remove-class',
         {
           classId: props.classId,
         }
