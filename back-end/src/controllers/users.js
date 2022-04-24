@@ -53,7 +53,6 @@ module.exports = {
   // /users/:id
   getById: async (req, res) => {
     try {
-      console.log(req.user);
       const user = await users.findById(req.user);
       if (user) {
         res.send(user);

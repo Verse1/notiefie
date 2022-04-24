@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
 import { useAuth0 } from '@auth0/auth0-react';
+import moment from 'moment';
 axios.defaults.withCredentials = true;
 
 export default function Profile() {
@@ -77,11 +78,13 @@ export default function Profile() {
         </div>
 
         <div className="p-5 text-center text-white">
-          <h1 className="text-left ">{ user.name }</h1>
+          <h1 className="text-left ">{user.name}</h1>
           <p className="flex text-right">New York University</p>
 
-          <p>1</p>
-          <p>Joined 1</p>
+          <p>{user.likes} likes</p>
+          <p>
+            Joined {moment(user.createdAt).format('MMMM Do YYYY').toString()}
+          </p>
         </div>
         <div className="px-6 pb-10">
           <Tab.Group>
