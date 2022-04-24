@@ -80,9 +80,9 @@ module.exports = {
   like: async (req, res) => {
     try {
       const note = await notes.findById(req.params.id);
-      const user = await users.findById(req.body.user);
+      const user = await users.findById(req.user);
 
-      let liked = !user.likedNotes.includes(note._id);
+      let liked = req.body.liked;
 
       if (note && liked) {
         note.likes += 1;

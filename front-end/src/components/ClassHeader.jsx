@@ -38,11 +38,11 @@ const ClassHeader = (props) => {
             description={note.text}
             likes={note.likes}
             id={note._id}
-            // liked={
-            //   props.classes.filter(
-            //     (userClass) => userClass.classCode === classCard.classCode
-            //   ).length > 0
-            // }
+            liked={
+              props.userLikes.find((like) => like._id === note._id)
+                ? true
+                : false
+            }
           />
         ))}
       </div>

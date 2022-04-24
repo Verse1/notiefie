@@ -7,7 +7,7 @@ import axios from 'axios';
 const HeartButton = (props) => {
   const router = useRouter();
 
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(props.liked);
   const [likes, setLikes] = useState(props.likes);
 
   const handleClick = async (e) => {
