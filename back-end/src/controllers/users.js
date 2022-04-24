@@ -26,15 +26,25 @@ module.exports = {
     console.log(user);
 
     if (await users.exists({ email: req.body.email })) {
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: '1h',
+      });
       console.log('exists');
-      res.json({ user, token });
+      res.cookie('token', token, {
+        httpOnly: true,
+      });
+      res.json(user);
     } else {
       try {
         await user.save();
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+          expiresIn: '1h',
+        });
         console.log('saved');
-        res.json({ user, token });
+        res.cookie('token', token, {
+          httpOnly: true,
+        });
+        res.json(user);
       } catch (err) {
         console.log(err);
       }
