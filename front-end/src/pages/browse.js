@@ -36,7 +36,11 @@ function BrowseClasses({ userClasses }) {
               name={classCard.className}
               id={classCard._id}
               colors={randomColor()}
-
+              added={
+                userClasses.filter(
+                  (userClass) => userClass.classCode === classCard.classCode
+                ).length > 0
+              }
             />
           ))}
         </div>

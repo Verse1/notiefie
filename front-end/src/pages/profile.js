@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useAuth0 } from '@auth0/auth0-react';
 import moment from 'moment';
 axios.defaults.withCredentials = true;
+import cookies from 'js-cookie';
 
 export default function Profile() {
   const { logout } = useAuth0();
@@ -49,27 +50,12 @@ export default function Profile() {
     });
   }, []);
 
-  let [notes] = useState({
-    saved: [
-      {
-        title: 'Note 1 saved',
-        classCode: 'PSYCH101',
-        upvotes: 0,
-      },
-      {
-        title: 'Note 2 saved',
-        classCode: 'CS101',
-        upvotes: 0,
-      },
-    ],
-    posted: [
-      {
-        title: 'Note 1 posted',
-        classCode: 'PSYCH101',
-        upvotes: 0,
-      },
-    ],
-  });
+  const handleLogout = () => {
+    cookies.remove('token');
+    logout();
+  };
+
+
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -91,7 +77,7 @@ export default function Profile() {
 
           <button
             className="float-right mt-9 mb-4 cursor-pointer rounded-xl bg-gradient-to-r from-green-300 to-blue-400 p-3 px-9"
-            onClick={logout}>
+            onClick={handleLogout}>
             Logout
           </button>
         </div>
@@ -105,7 +91,7 @@ export default function Profile() {
             Joined {moment(user.createdAt).format('MMMM Do YYYY').toString()}
           </p>
         </div>
-        <div className="px-6 pb-10">
+        {/* <div className="px-6 pb-10">
           <Tab.Group>
             <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 ">
               {Object.keys(notes).map((note) => (
@@ -146,7 +132,7 @@ export default function Profile() {
               ))}
             </Tab.Panels>
           </Tab.Group>
-        </div>
+        </div> */}
       </div>
     </div>
   );

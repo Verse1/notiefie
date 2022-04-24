@@ -37,7 +37,7 @@ const ClassHeader = (props) => {
             title={note.title}
             description={note.text}
             likes={note.likes}
-            id={note.id}
+            id={note._id}
             // liked={
             //   props.classes.filter(
             //     (userClass) => userClass.classCode === classCard.classCode

@@ -25,8 +25,8 @@ module.exports = {
 
       const user = await users.findById(req.user);
 
-      user.postedNotes.push(note);
-      user.likedNotes.push(note);
+      user.postedNotes.push(note._id.toString());
+      user.likedNotes.push(note._id.toString());
 
       console.log(note);
 
@@ -41,7 +41,7 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-  },
+  }, 
 
   getById: async (req, res) => {
     try {
