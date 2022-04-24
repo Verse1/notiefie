@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, user } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import AddClassButton from './AddClassButton';
@@ -50,20 +50,20 @@ const ClassHeader = (props) => {
   );
 };
 
-export const getServerSideProps = async ({ req }) => {
-  const res = await axios.get('http://localhost:3001/api/users/user/likes', {
-    headers: {
-      Cookies: req.headers.cookie,
-    },
-  });
+// export const getServerSideProps = async ({ req }) => {
+//   const res = await axios.get('http://localhost:3001/api/users/user/likes', {
+//     headers: {
+//       Cookies: req.headers.cookie,
+//     },
+//   });
 
-  const classes = await res.data;
+//   const classes = await res.data;
 
-  return {
-    props: {
-      classes,
-    },
-  };
-};
+//   return {
+//     props: {
+//       classes,
+//     },
+//   };
+// };
 
 export default ClassHeader;

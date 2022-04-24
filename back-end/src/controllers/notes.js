@@ -31,7 +31,7 @@ module.exports = {
       console.log(note);
 
       console.log(user);
-      classs.notes.push(note);
+      classs.notes.push(note._id.toString());
 
       await user.save();
       await classs.save();
@@ -41,7 +41,7 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-  }, 
+  },
 
   getById: async (req, res) => {
     try {

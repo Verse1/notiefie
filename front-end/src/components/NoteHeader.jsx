@@ -8,17 +8,13 @@ import {
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
 import axios from 'axios';
-import { MdFileDownloadDone } from 'react-icons/md';
-import Attachment from './Attachment';
 import Comment from './Comment';
 import Link from 'next/link';
 
 const NoteHeader = (props) => {
   const [downloaded, setDownloaded] = useState(false);
 
-  const handleBigDownload = () => {
-    setDownloaded(!downloaded);
-  };
+  const router = useRouter();
 
   console.log(props);
 
@@ -27,20 +23,21 @@ const NoteHeader = (props) => {
       <div
         className={`${props.color} relative h-auto w-[100%] min-w-[700px] max-w-[60%] content-center rounded-3xl p-5 text-white`}>
         <div className="width-[100%] my-10 -mx-5 bg-purple-600 p-5">
-          <Link href="/class" passHref>
-            <AiOutlineArrowLeft className=" left-0 top-0 mr-5 cursor-pointer" />
-          </Link>
+          <AiOutlineArrowLeft
+            className=" left-0 top-0 mr-5 cursor-pointer"
+            onClick={() => router.back()}
+          />
         </div>
         <div className="flex justify-between px-5 pb-5 text-2xl">
           <p>{props.title}</p>
           <HeartButton
             likes={props.likes}
             id={props.id}
-            liked={
-              props.classes.filter(
-                (userClass) => userClass.classCode === classCard.classCode
-              ).length > 0
-            }
+            // liked={
+            //   props.classes.filter(
+            //     (userClass) => userClass.classCode === classCard.classCode
+            //   ).length > 0
+            // }
           />
         </div>
 

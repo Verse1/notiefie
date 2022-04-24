@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import ClassHeader from '../../components/ClassHeader';
 import axios from 'axios';
 
-const IndividualClass = ({ classs, userClasses }) => {
+const IndividualClass = ({ classs, userClasses, userLikes }) => {
   return (
     <div>
       <ClassHeader
@@ -15,6 +15,7 @@ const IndividualClass = ({ classs, userClasses }) => {
         enrolled={classs.numEnrolled}
         notes={classs.notes}
         id={classs._id}
+        userLikes={userLikes}
         added={
           userClasses.filter(
             (userClass) => userClass.classCode === classs.classCode
@@ -34,9 +35,17 @@ export const getServerSideProps = async (context) => {
       Cookie: context.req.headers.cookie,
     },
   });
-  const userClasses = await res2.data;
 
-  return { props: { classs, userClasses } };
+  const userClasses = await res2.data;
+  const res3 = await axios.get(`http://localhost:3001/api/users/user/likes`, {
+    headers: {
+      Cookie: context.req.headers.cookie,
+    },
+  });
+
+  const userLikes = await res3.data;
+
+  return { props: { classs, userClasses, userLikes } };
 };
 
 export default IndividualClass;

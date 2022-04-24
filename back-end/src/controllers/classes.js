@@ -1,4 +1,5 @@
 const classes = require('../models/class');
+const notes = require('../models/note');
 
 module.exports = {
   get: async (req, res) => {
@@ -7,8 +8,7 @@ module.exports = {
     try {
       const classess = await classes.find({}).limit(limit).skip(offset);
       res.send(classess);
-    }
-    catch (err) {
+    } catch (err) {
       res.status(500).send(err);
     }
   },
@@ -28,14 +28,26 @@ module.exports = {
   },
 
   getById: async (req, res) => {
+    let classNotes = [];
+
     try {
       const c = await classes.findById(req.params.id);
       if (c) {
+        for (let i = 0; i < c.notes.length; i++) {
+          const note = await notes.findById(c.notes[i]);
+          classNotes.push(note);
+        }
+
+        console.log(classNotes);
+
+        c.notes = classNotes;
+
         res.send(c);
       } else {
         res.status(404).send('Class not found');
       }
     } catch (err) {
+      console.log(err);
       res.status(404).send('Class not found');
     }
   },

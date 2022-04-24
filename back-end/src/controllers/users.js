@@ -126,6 +126,7 @@ module.exports = {
   // /users/:id/likes
 
   getLikes: async (req, res) => {
+    console.log("getLikes");
     let userLikes = [];
     try {
       const user = await users.findById(req.user);
@@ -134,6 +135,8 @@ module.exports = {
           const note = await notes.findById(user.likedNotes[i]);
           userLikes.push(note);
         }
+        console.log(userLikes);
+        res.send(userLikes)
       } else {
         res.status(404).send('user not found');
       }
