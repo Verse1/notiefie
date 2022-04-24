@@ -19,7 +19,7 @@ function BrowseClassCard(props) {
           <p className="ml-5">{props.classCode}</p>
         </div>
         <div className="absolute bottom-0 right-0">
-          <AddClassButton className="mt-50" classId={props.id} />
+          <AddClassButton className="mt-50" id={props.id} added={props.added} />
         </div>
       </div>
     </Link>

@@ -3,7 +3,7 @@ import BrowseClassCard from '../components/BrowseClassCard';
 import Navigation from '../components/Navigation';
 import axios from 'axios';
 
-function BrowseClasses() {
+function BrowseClasses({ userClasses }) {
   const [offset, setOffset] = useState(0);
   const [classes, setClasses] = useState([]);
 
@@ -25,6 +25,8 @@ function BrowseClasses() {
     setOffset(offset + 20);
   }
 
+  console.log(userClasses);
+
   return (
     <div>
       <div className="mx-auto mt-20 max-w-screen-lg p-4">
@@ -36,13 +38,18 @@ function BrowseClasses() {
               name={classCard.className}
               id={classCard._id}
               colors={randomColor()}
+              added={
+                userClasses.filter(
+                  (userClass) => userClass.classCode === classCard.classCode
+                ).length > 0
+              }
             />
           ))}
         </div>
       </div>
       <div className="flex justify-center">
         <button
-          className="rounded-full bg-teal-400 py-2 px-4 font-bold text-white hover:bg-teal-700 my-4"
+          className="my-4 rounded-full bg-teal-400 py-2 px-4 font-bold text-white hover:bg-teal-700"
           onClick={moreClasses}>
           More Classes
         </button>
@@ -78,13 +85,24 @@ function randomColor() {
   }
 }
 
-// export const getServerSideProps = async (offset) => {
-//   const res = await axios.get(
-//     'http://localhost:3001/api/classes?limit=10&offset=' + offset
-//   );
-//   const classes = await res.data;
-//   return { props: { classes } };
-// };
+export const getServerSideProps = async ({ req }) => {
+  let userClasses = [];
+  try {
+    const res = await axios.get(
+      'http://localhost:3001/api/users/user/classes',
+
+      {
+        headers: {
+          Cookie: req.headers.cookie,
+        },
+      }
+    );
+    userClasses = await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+  return { props: { userClasses } };
+};
 
 BrowseClasses.propTypes = {};
 export default BrowseClasses;

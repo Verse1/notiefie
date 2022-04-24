@@ -10,7 +10,6 @@ axios.defaults.withCredentials = true;
 export default function Home({ userClasses }) {
   const [classes, setClasses] = useState([]);
 
-  console.log(userClasses);
 
   const { isAuthenticated, loginWithPopup, logout, loginWithRedirect, user } =
     useAuth0();

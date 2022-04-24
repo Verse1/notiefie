@@ -151,9 +151,10 @@ module.exports = {
     try {
       const user = await users.findById(req.user);
 
-      const classs = await classes.find({ id: req.body.classID });
+      user.savedClasses = user.savedClasses.filter(
+        (classs) => classs._id.toString() !== req.body.id
+      );
 
-      user.savedClasses.pull(classs);
       await user.save();
       res.send('Class deleted from user');
     } catch (err) {
