@@ -27,10 +27,6 @@ module.exports = {
 
       user.postedNotes.push(note._id.toString());
       user.likedNotes.push(note._id.toString());
-
-      console.log(note);
-
-      console.log(user);
       classs.notes.push(note._id.toString());
 
       await user.save();
@@ -86,14 +82,21 @@ module.exports = {
 
       if (note && liked) {
         note.likes += 1;
-        user.likedNotes.push(note);
+        user.likedNotes.push(note._id.toString());
         await note.save();
         await user.save();
         res.send(note);
       } else if (note && !liked) {
         note.likes -= 1;
-        user.likedNotes = user.likedNotes.filter((like) => like !== note._id);
+        console.log(user.likedNotes);
+        user.likedNotes.pull(note);
+        console.log(note._id);
+        user.likedNotes = user.likedNotes.filter(
+          (like) => like.toString() !== note._id.toString()
+        );
+        console.log(user.likedNotes);
         await note.save();
+        await user.save();
         res.send(note);
       } else {
         res.status(404).send('Note not found');
