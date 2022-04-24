@@ -9,7 +9,7 @@ const searchClient = algoliasearch(
 const Hit = ({ hit }) => {
   return (
     <div className="flex justify-center">
-      <div className="flex w-4/12  justify-center bg-gradient-to-r from-green-300 to-blue-400 rounded-md p-1 ">
+      <div className="flex w-4/12  justify-center rounded-md bg-gradient-to-r from-green-300 to-blue-400 p-1 ">
         <div className="justify-center ">{hit.name}</div>
       </div>
     </div>

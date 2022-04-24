@@ -1,6 +1,7 @@
 const users = require('./../models/user');
 const notes = require('../models/note');
 const comments = require('../models/comment');
+const classes = require('../models/class');
 const mongoose = require('mongoose');
 
 module.exports = {
@@ -12,12 +13,26 @@ module.exports = {
   post: async (req, res) => {
     try {
       const note = new notes({
-        className: req.body.className,
+        className: req.body.classs,
         title: req.body.title,
-        user: req.body.user,
+        user: req.user,
         text: req.body.text,
       });
+
+      const classs = await classes
+        .findOne({ className: req.body.classs })
+        .exec();
+
+      const user = await users.findById(req.user);
+
+      user.postedNotes.push(note._id.toString());
+      user.likedNotes.push(note._id.toString());
+      classs.notes.push(note._id.toString());
+
+      await user.save();
+      await classs.save();
       await note.save();
+
       res.send(note);
     } catch (err) {
       console.log(err);
@@ -47,7 +62,6 @@ module.exports = {
       res.status(404).send('Note not found');
     }
   },
-
   delete: async (req, res) => {
     try {
       const note = await notes.findById(req.params.id);
@@ -62,20 +76,27 @@ module.exports = {
   like: async (req, res) => {
     try {
       const note = await notes.findById(req.params.id);
-      const user = await users.findById(req.body.user);
+      const user = await users.findById(req.user);
 
-      let liked = !user.likedNotes.includes(note._id);
+      let liked = req.body.liked;
 
       if (note && liked) {
         note.likes += 1;
-        user.likedNotes.push(note._id);
+        user.likedNotes.push(note._id.toString());
         await note.save();
         await user.save();
         res.send(note);
       } else if (note && !liked) {
         note.likes -= 1;
-        user.likedNotes = user.likedNotes.filter((like) => like !== note._id);
+        console.log(user.likedNotes);
+        user.likedNotes.pull(note);
+        console.log(note._id);
+        user.likedNotes = user.likedNotes.filter(
+          (like) => like.toString() !== note._id.toString()
+        );
+        console.log(user.likedNotes);
         await note.save();
+        await user.save();
         res.send(note);
       } else {
         res.status(404).send('Note not found');

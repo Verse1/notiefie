@@ -115,8 +115,6 @@ describe('Notes API', () => {
       });
   });
 
- 
-
   it('should delete note by id', (done) => {
     chai
       .request(server)

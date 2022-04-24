@@ -6,7 +6,7 @@ router.route('/').get(controller.get);
 
 // GET PUT DELETE /users/:id
 router
-  .route('/:id')
+  .route('/user')
   .get(controller.getById)
   .put(controller.put)
   .delete(controller.delete);
@@ -15,17 +15,18 @@ router
 router.route('/create').post(controller.post);
 
 // GET users notes
-router.route('/:id/notes').get(controller.getNotes);
+router.route('/user/notes').get(controller.getNotes);
 
 // GET all users classes
 
-router.route('/:id/classes').get(controller.getClasses);
+router.route('/user/classes').get(controller.getClasses);
 
 // GET users likes
 
-router.route('/:id/likes').get(controller.getLikes);
+router.route('/user/likes').get(controller.getLikes);
 
-router.route('/:id/add-class').post(controller.addClass);
-router.route('/:id/delete-class').delete(controller.deleteClass);
+// POST and DELETE users classes
+router.route('/user/add-class').post(controller.addClass);
+router.route('/user/delete-class').delete(controller.deleteClass);
 
 module.exports = router;

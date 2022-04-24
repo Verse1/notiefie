@@ -1,33 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RiSettings4Fill } from 'react-icons/ri';
 import Image from 'next/image';
 import axios from 'axios';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
-import process from 'process';
+import { useAuth0 } from '@auth0/auth0-react';
+import moment from 'moment';
+axios.defaults.withCredentials = true;
+import cookies from 'js-cookie';
 
-export default function Profile({ picture, user, userNotes }) {
-  let [notes] = useState({
-    saved: [
-      {
-        title: 'Note 1 saved',
-        classCode: 'PSYCH101',
-        upvotes: 0,
-      },
-      {
-        title: 'Note 2 saved',
-        classCode: 'CS101',
-        upvotes: 0,
-      },
-    ],
-    posted: [
-      {
-        title: 'Note 1 posted',
-        classCode: 'PSYCH101',
-        upvotes: 0,
-      },
-    ],
-  });
+export default function Profile() {
+  const { logout } = useAuth0();
+  const [user, setUser] = useState({});
+  const [userNotes, setUserNotes] = useState([]);
+  const [userLikeNotes, setUserLikeNotes] = useState([]);
+  const [allNotes, setAllNotes] = useState({});
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/api/users/user')
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log('error in request', err);
+      });
+
+    axios
+      .get('http://localhost:3001/api/users/user/notes')
+      .then((res) => {
+        setUserNotes(res.data);
+      })
+      .catch((err) => {
+        console.log('error in request', err);
+      });
+
+    axios
+      .get('http://localhost:3001/api/users/user/likes')
+      .then((res) => {
+        setUserLikeNotes(res.data);
+      })
+      .catch((err) => {
+        console.log('error in request', err);
+      });
+
+    setAllNotes({
+      userNotes,
+      userLikeNotes,
+    });
+  }, []);
+
+  const handleLogout = () => {
+    cookies.remove('token');
+    logout();
+  };
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -37,13 +63,6 @@ export default function Profile({ picture, user, userNotes }) {
     <div className="grid place-items-center">
       <div className={`relative h-auto w-[28%] rounded-3xl bg-sky-500 text-lg`}>
         <div className="text p-5">
-          <Image
-            src={`data:image/jpeg;charset=utf-8;base64,${picture}`}
-            width={150}
-            height={150}
-            alt="profile picture"
-            className="float-left rounded-full pr-11"
-          />
           <Link href="settings">
             <a>
               <RiSettings4Fill
@@ -53,16 +72,24 @@ export default function Profile({ picture, user, userNotes }) {
               />
             </a>
           </Link>
+
+          <button
+            className="float-right mt-9 mb-4 cursor-pointer rounded-xl bg-gradient-to-r from-green-300 to-blue-400 p-3 px-9"
+            onClick={handleLogout}>
+            Logout
+          </button>
         </div>
 
         <div className="p-5 text-center text-white">
-          <h1 className="text-left ">Foo</h1>
-          <p className="flex text-right">New York University</p>
+          <h1 className="text-left ">{user.name}</h1>
+          <p className="flex text-right">{user.university}</p>
 
-          <p>204 Upvotes</p>
-          <p>Joined {user.createdAt}</p>
+          <p className="flex">{user.likes} likes</p>
+          <p>
+            Joined {moment(user.createdAt).format('MMMM Do YYYY').toString()}
+          </p>
         </div>
-        <div className="px-6 pb-10">
+        {/* <div className="px-6 pb-10">
           <Tab.Group>
             <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 ">
               {Object.keys(notes).map((note) => (
@@ -82,7 +109,7 @@ export default function Profile({ picture, user, userNotes }) {
               ))}
             </Tab.List>
             <Tab.Panels className="mt-2">
-              {Object.values(notes).map((type, code) => (
+              {Object.values(allNotes).map((type, code) => (
                 <Tab.Panel key={code} className="grid grid-cols-2  gap-4 p-5">
                   {type.map((note) => (
                     <a
@@ -103,32 +130,31 @@ export default function Profile({ picture, user, userNotes }) {
               ))}
             </Tab.Panels>
           </Tab.Group>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 }
 
-export async function getServerSideProps() {
-  const picture = await axios
-    .get(process.env.PICTURE_API, {
-      responseType: 'arraybuffer',
-    })
-    .then((response) =>
-      Buffer.from(response.data, 'binary').toString('base64')
-    );
+// export async function getServerSideProps() {
+//   // const picture = await axios
+//   //   .get(process.env.PICTURE_API, {
+//   //     responseType: 'arraybuffer',
+//   //   })
+//   //   .then((response) =>
+//   //     Buffer.from(response.data, 'binary').toString('base64')
+//   //   );
 
-  const user = await JSON.stringify(
-    axios.get(
-      'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6'
-    )
-  );
+//   // console.log('cookie', cookies.get('jwt'));
+//   // const user = await JSON.stringify(
+//   //   axios.get('http://localhost:3001/api/users/user')
+//   // );
 
-  const userNotes = await JSON.stringify(
-    axios.get(
-      'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/notes'
-    )
-  );
+//   // const userNotes = await JSON.stringify(
+//   //   axios.get(
+//   //     'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/notes'
+//   //   )
+//   // );
 
-  return { props: { picture, user, userNotes } };
-}
+//   return { props: { user } };
+// }

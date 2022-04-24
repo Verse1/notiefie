@@ -4,6 +4,7 @@ import HeartButton from './HeartButton';
 import Link from 'next/link';
 
 const NotesCard = (props) => {
+  console.log(props);
   let url = `/notes/${props.id}`;
   return (
     <div className={` mb-10 rounded-3xl bg-slate-100 px-10 py-5`}>
@@ -13,7 +14,7 @@ const NotesCard = (props) => {
             {props.title}
           </h1>
         </Link>
-        <HeartButton likes={props.likes} id={props.id} />
+        <HeartButton likes={props.likes} id={props.id} liked={props.liked} />
       </div>
       <p className="text-slate-800">{props.description}</p>
     </div>

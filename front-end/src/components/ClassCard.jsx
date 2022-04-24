@@ -19,13 +19,6 @@ function ClassCard(props) {
     <>
       <div
         className={`linear relative my-3 cursor-pointer rounded-3xl bg-sky-500 p-8 font-sans text-lg transition-all hover:rounded-xl hover:bg-sky-400 order-${props.order}`}>
-        <Image
-          src={placeholder}
-          width={40}
-          height={40}
-          alt="placeholder"
-          className="float-left rounded-full"
-        />
         <button className="float-right">
           {pin ? (
             <AiFillPushpin onClick={() => handlePin()} size={22} />

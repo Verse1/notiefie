@@ -4,45 +4,51 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 
 function AddClassButton(props) {
-  const router = useRouter();
+  const [added, setAdded] = useState(props.added);
+  const [color, setColor] = useState(
+    props.added ? 'bg-green-500' : 'bg-purple-700'
+  );
+  const [hover, setHover] = useState(
+    props.added ? 'hover:bg-emerald-400' : 'hover:bg-purple-600'
+  );
+  const [text, setText] = useState(props.added ? 'Class Added' : 'Add Class');
 
-  const [added, setAdded] = useState(false);
-  const [color, setColor] = useState('bg-purple-700');
-  const [hover, setHover] = useState('hover:bg-purple-600');
-  const [text, setText] = useState('Add Class');
-
-  const handleClick = (ev) => {
+  const handleClick = async (ev) => {
     ev.preventDefault();
     setAdded(!added);
-    const nextColor =
-      color === 'bg-purple-700' ? 'bg-emerald-500' : 'bg-purple-700';
-    const nextHover =
-      hover === 'hover:bg-purple-600'
-        ? 'hover:bg-emerald-400'
-        : 'hover:bg-purple-600';
-    const nextText = text === 'Add Class' ? 'Class Added' : 'Add Class';
-    setColor(nextColor);
-    setHover(nextHover);
-    setText(nextText);
 
-    if(!added) {
-      axios.post(
-        'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/add-class',
-        {
-          classId: props.classId,
-        }
-      );
-    }
-    else {
-      axios.post(
-        'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/remove-class',
-        {
-          classId: props.classId,
-        }
-      );
+    if (!added) {
+      setColor('bg-green-500');
+      setHover('hover:bg-emerald-400');
+      setText('Class Added');
+
+      await axios.post('http://localhost:3001/api/users/user/add-class', {
+        id: props.id,
+      });
+    } else {
+      setColor('bg-purple-700');
+      setHover('hover:bg-purple-600');
+      setText('Add Class');
+
+      console.log(props.id);
+
+      await axios.delete('http://localhost:3001/api/users/user/delete-class', {
+        data: {
+          id: props.id,
+        },
+      });
     }
 
-
+    // // const nextColor =
+    // //   color === 'bg-purple-700' ? 'bg-emerald-500' : 'bg-purple-700';
+    // const nextHover =
+    //   hover === 'hover:bg-purple-600'
+    //     ? 'hover:bg-emerald-400'
+    //     : 'hover:bg-purple-600';
+    // const nextText = text === 'Add Class' ? 'Class Added' : 'Add Class';
+    // // setColor(nextColor);
+    // setHover(nextHover);
+    // // setText(nextText);
   };
 
   const handleColorChange = (ev) => {};
@@ -85,4 +91,4 @@ function AddClassButton(props) {
 
 AddClassButton.propTypes = {};
 
-export default AddClassButton
+export default AddClassButton;

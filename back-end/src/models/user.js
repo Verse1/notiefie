@@ -9,6 +9,7 @@ const user = new mongoose.Schema(
     likes: { type: Number, required: true, default: 0 },
     email: { type: String, required: true, unique: true },
     savedClasses: { type: Array, default: [] },
+    picture: { type: String },
   },
   {
     timestamps: true,

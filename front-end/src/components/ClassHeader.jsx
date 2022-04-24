@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, user } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import AddClassButton from './AddClassButton';
 import NotesCard from './NotesCard';
 
 const ClassHeader = (props) => {
-  const router = useRouter();
+  console.log(props);
 
   return (
     <div className="grid place-items-center ">
@@ -16,7 +16,7 @@ const ClassHeader = (props) => {
             {props.name}
           </h1>
           <div className="float-right mt-5 -mb-5 block">
-            <AddClassButton />
+            <AddClassButton added={props.added} id={props.id} />
           </div>
 
           <div className="my-4">
@@ -37,7 +37,12 @@ const ClassHeader = (props) => {
             title={note.title}
             description={note.text}
             likes={note.likes}
-            id={note.id}
+            id={note._id}
+            liked={
+              props.userLikes.find((like) => like._id === note._id)
+                ? true
+                : false
+            }
           />
         ))}
       </div>
@@ -45,5 +50,20 @@ const ClassHeader = (props) => {
   );
 };
 
-ClassHeader.propTypes = {};
+// export const getServerSideProps = async ({ req }) => {
+//   const res = await axios.get('http://localhost:3001/api/users/user/likes', {
+//     headers: {
+//       Cookies: req.headers.cookie,
+//     },
+//   });
+
+//   const classes = await res.data;
+
+//   return {
+//     props: {
+//       classes,
+//     },
+//   };
+// };
+
 export default ClassHeader;

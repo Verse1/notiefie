@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const note = new mongoose.Schema(
   {
-    className: { type: String, required: true},
+    className: { type: String, required: true },
     title: { type: String, required: true },
     user: { type: String, required: true },
     text: { type: String },

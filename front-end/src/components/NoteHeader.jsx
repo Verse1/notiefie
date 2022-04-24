@@ -8,36 +8,43 @@ import {
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
 import axios from 'axios';
-import { MdFileDownloadDone } from 'react-icons/md';
-import Attachment from './Attachment';
 import Comment from './Comment';
 import Link from 'next/link';
 
 const NoteHeader = (props) => {
   const [downloaded, setDownloaded] = useState(false);
 
-  const handleBigDownload = () => {
-    setDownloaded(!downloaded);
-  };
+  const router = useRouter();
+
+  console.log(props);
 
   return (
     <div className="grid place-items-center">
       <div
         className={`${props.color} relative h-auto w-[100%] min-w-[700px] max-w-[60%] content-center rounded-3xl p-5 text-white`}>
         <div className="width-[100%] my-10 -mx-5 bg-purple-600 p-5">
-          <Link href="/class" passHref>
-            <AiOutlineArrowLeft className=" left-0 top-0 mr-5 cursor-pointer" />
-          </Link>
+          <AiOutlineArrowLeft
+            className=" left-0 top-0 mr-5 cursor-pointer"
+            onClick={() => router.back()}
+          />
         </div>
         <div className="flex justify-between px-5 pb-5 text-2xl">
           <p>{props.title}</p>
-          <HeartButton likes={props.likes} id={props.id} />
+          <HeartButton
+            likes={props.likes}
+            id={props.id}
+            // liked={
+            //   props.classes.filter(
+            //     (userClass) => userClass.classCode === classCard.classCode
+            //   ).length > 0
+            // }
+          />
         </div>
 
         <div className="rounded-3xl bg-white p-5 text-slate-800">
           <p className="pb-10">{props.text}</p>
 
-          <div className="rounded-3xl bg-slate-800 p-5 text-slate-100">
+          {/* <div className="rounded-3xl bg-slate-800 p-5 text-slate-100">
             <div className="mx-10 mb-5 flex justify-between">
               <p className="text-lg">Attachments</p>
               {downloaded ? (
@@ -66,7 +73,7 @@ const NoteHeader = (props) => {
                 );
               })}
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="mt-20">
           <form className="w-full rounded-2xl bg-white px-4 pt-2">
@@ -108,5 +115,20 @@ const NoteHeader = (props) => {
   );
 };
 
-NoteHeader.propTypes = {};
+export const getServerSideProps = async ({ req }) => {
+  const res = await axios.get('http://localhost:3000/api/users/user/likes', {
+    headers: {
+      Cookies: req.headers.cookie,
+    },
+  });
+
+  const classes = res.data;
+
+  return {
+    props: {
+      likes,
+    },
+  };
+};
+
 export default NoteHeader;
