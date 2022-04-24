@@ -48,7 +48,7 @@ export default function Home({ userClasses }) {
 
   return (
     <div className="grid place-items-center">
-      {userClasses.length === 0 ? (
+      {userClasses.length <1 ? (
         <div className="mt-20 text-center">
           <h1 className="text-3xl font-bold">
             You don&apos;t have any classes yet.

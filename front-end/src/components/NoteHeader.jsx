@@ -20,6 +20,8 @@ const NoteHeader = (props) => {
     setDownloaded(!downloaded);
   };
 
+  console.log(props);
+
   return (
     <div className="grid place-items-center">
       <div
@@ -31,7 +33,15 @@ const NoteHeader = (props) => {
         </div>
         <div className="flex justify-between px-5 pb-5 text-2xl">
           <p>{props.title}</p>
-          <HeartButton likes={props.likes} id={props.id} liked={props.classes.filter} />
+          <HeartButton
+            likes={props.likes}
+            id={props.id}
+            liked={
+              props.classes.filter(
+                (userClass) => userClass.classCode === classCard.classCode
+              ).length > 0
+            }
+          />
         </div>
 
         <div className="rounded-3xl bg-white p-5 text-slate-800">
@@ -109,7 +119,7 @@ const NoteHeader = (props) => {
 };
 
 export const getServerSideProps = async ({ req }) => {
-  const res = await axios.get('http://localhost:3000/api/users/user/classes', {
+  const res = await axios.get('http://localhost:3000/api/users/user/likes', {
     headers: {
       Cookies: req.headers.cookie,
     },
@@ -119,7 +129,7 @@ export const getServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      classes,
+      likes,
     },
   };
 };

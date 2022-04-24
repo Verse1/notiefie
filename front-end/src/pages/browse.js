@@ -25,8 +25,6 @@ function BrowseClasses({ userClasses }) {
     setOffset(offset + 20);
   }
 
-  console.log(userClasses);
-
   return (
     <div>
       <div className="mx-auto mt-20 max-w-screen-lg p-4">
@@ -38,11 +36,7 @@ function BrowseClasses({ userClasses }) {
               name={classCard.className}
               id={classCard._id}
               colors={randomColor()}
-              added={
-                userClasses.filter(
-                  (userClass) => userClass.classCode === classCard.classCode
-                ).length > 0
-              }
+
             />
           ))}
         </div>

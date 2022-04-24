@@ -86,7 +86,7 @@ module.exports = {
 
       if (note && liked) {
         note.likes += 1;
-        user.likedNotes.push(note._id);
+        user.likedNotes.push(note);
         await note.save();
         await user.save();
         res.send(note);
