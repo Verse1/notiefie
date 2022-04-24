@@ -22,5 +22,5 @@ module.exports = {
   },
   env: {
     AUTH0_SECRET: process.env.AUTH0_SECRET,
-  }
+  },
 };

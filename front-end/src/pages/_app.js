@@ -4,11 +4,11 @@ import '../styles/globals.css';
 import '../styles/Navigation.css';
 import Navigation from '../components/Navigation';
 import NewSearch from '../components/NewSearch';
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider } from '@auth0/auth0-react';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Auth0Provider 
+    <Auth0Provider
       domain={'dev-z0la8at9.us.auth0.com'}
       clientId={'zFBQbnVXZGYurCRU0FatAyY3CEoeMWjP'}
       redirectUri={'http://localhost:3000/'}>

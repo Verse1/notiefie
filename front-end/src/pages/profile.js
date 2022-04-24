@@ -55,8 +55,6 @@ export default function Profile() {
     logout();
   };
 
-
-
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
   }
@@ -86,7 +84,7 @@ export default function Profile() {
           <h1 className="text-left ">{user.name}</h1>
           <p className="flex text-right">{user.university}</p>
 
-          <p className='flex'>{user.likes} likes</p>
+          <p className="flex">{user.likes} likes</p>
           <p>
             Joined {moment(user.createdAt).format('MMMM Do YYYY').toString()}
           </p>

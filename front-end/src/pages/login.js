@@ -8,8 +8,6 @@ export default function Login() {
 
   console.log(isAuthenticated);
 
-  
-
   return (
     <div className="grid h-[88vh] place-items-center">
       <div className="bg rounded-3xl bg-white p-7">

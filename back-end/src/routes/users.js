@@ -12,7 +12,7 @@ router
   .delete(controller.delete);
 
 // POST to /users
-router.route('/create').post(controller.post,);
+router.route('/create').post(controller.post);
 
 // GET users notes
 router.route('/user/notes').get(controller.getNotes);
