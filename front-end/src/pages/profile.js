@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RiSettings4Fill } from 'react-icons/ri';
 import Image from 'next/image';
 import axios from 'axios';
 import { Tab } from '@headlessui/react';
 import Link from 'next/link';
-import process from 'process';
 import { useAuth0 } from '@auth0/auth0-react';
+axios.defaults.withCredentials = true;
 
-export default function Profile({ picture, userNotes }) {
-  const { user, logout } = useAuth0();
-  console.log(user);
+export default function Profile() {
+  const { logout } = useAuth0();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/api/users/user')
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log('error in request', err);
+      });
+  }, []);
 
   let [notes] = useState({
     saved: [
@@ -41,13 +52,13 @@ export default function Profile({ picture, userNotes }) {
     <div className="grid place-items-center">
       <div className={`relative h-auto w-[28%] rounded-3xl bg-sky-500 text-lg`}>
         <div className="text p-5">
-          <Image
+          {/* <Image
             src={`data:image/jpeg;charset=utf-8;base64,${picture}`}
             width={150}
             height={150}
             alt="profile picture"
             className="float-left rounded-full pr-11"
-          />
+          /> */}
           <Link href="settings">
             <a>
               <RiSettings4Fill
@@ -66,7 +77,7 @@ export default function Profile({ picture, userNotes }) {
         </div>
 
         <div className="p-5 text-center text-white">
-          <h1 className="text-left ">hi</h1>
+          <h1 className="text-left ">{ user.name }</h1>
           <p className="flex text-right">New York University</p>
 
           <p>1</p>
@@ -119,26 +130,25 @@ export default function Profile({ picture, userNotes }) {
   );
 }
 
-export async function getServerSideProps() {
-  const picture = await axios
-    .get(process.env.PICTURE_API, {
-      responseType: 'arraybuffer',
-    })
-    .then((response) =>
-      Buffer.from(response.data, 'binary').toString('base64')
-    );
+// export async function getServerSideProps() {
+//   // const picture = await axios
+//   //   .get(process.env.PICTURE_API, {
+//   //     responseType: 'arraybuffer',
+//   //   })
+//   //   .then((response) =>
+//   //     Buffer.from(response.data, 'binary').toString('base64')
+//   //   );
 
-  const user = await JSON.stringify(
-    axios.get(
-      'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6'
-    )
-  );
+//   // console.log('cookie', cookies.get('jwt'));
+//   // const user = await JSON.stringify(
+//   //   axios.get('http://localhost:3001/api/users/user')
+//   // );
 
-  const userNotes = await JSON.stringify(
-    axios.get(
-      'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/notes'
-    )
-  );
+//   // const userNotes = await JSON.stringify(
+//   //   axios.get(
+//   //     'http://localhost:3001/api/users/2005b873-dd55-4ebe-8165-76ce6d9b83a6/notes'
+//   //   )
+//   // );
 
-  return { props: { picture, user, userNotes } };
-}
+//   return { props: { user } };
+// }

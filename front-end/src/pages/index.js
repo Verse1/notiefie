@@ -5,6 +5,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 import ClassCard from '../components/ClassCard';
 
+axios.defaults.withCredentials = true;
+
 export default function Home({ userClasses }) {
   const { isAuthenticated, loginWithPopup, logout, loginWithRedirect, user } =
     useAuth0();
@@ -24,8 +26,6 @@ export default function Home({ userClasses }) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log(user);
-
       axios
         .post('http://localhost:3001/api/users/create', {
           name: user.name,

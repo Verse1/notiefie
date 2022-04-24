@@ -30,10 +30,9 @@ module.exports = {
         expiresIn: '1h',
       });
       console.log('exists');
-      res.cookie('token', token, {
-        httpOnly: true,
-      });
-      res.json(user);
+      res.cookie('token', token);
+
+      res.send(user);
     } else {
       try {
         await user.save();
@@ -44,7 +43,7 @@ module.exports = {
         res.cookie('token', token, {
           httpOnly: true,
         });
-        res.json(user);
+        res.send(user);
       } catch (err) {
         console.log(err);
       }
@@ -54,13 +53,15 @@ module.exports = {
   // /users/:id
   getById: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      console.log(req.user);
+      const user = await users.findById(req.user);
       if (user) {
         res.send(user);
       } else {
         res.status(404).send('User not found');
       }
     } catch (err) {
+      console.log(err);
       res.status(404).send('User not found');
     }
   },

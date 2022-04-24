@@ -7,11 +7,12 @@ const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT || 3001;
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/api/users/user', require('./auth'));
 
 app.use('/api', require('./routes'));
 
@@ -28,17 +29,6 @@ try {
 }
 
 // middleware to verify jwt
-
-app.use((req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded?.userId;
-    next();
-  } catch (err) {
-    res.status(401).send({ message: 'Please authenticate' });
-  }
-});
 
 // app.use("/api", jwt({ secret: "shhhhhhared-secret", algorithms: ["HS256"] }));
 
