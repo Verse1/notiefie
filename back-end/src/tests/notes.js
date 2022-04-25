@@ -1,4 +1,4 @@
-const chai = require('chai');
+/* const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { it } = require('mocha');
 const server = require('../index');
@@ -136,4 +136,4 @@ describe('Notes API', () => {
         done();
       });
   });
-});
+}); */
