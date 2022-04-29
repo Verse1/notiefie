@@ -1,4 +1,4 @@
-const chai = require('chai');
+/* const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
 const mongoose = require('mongoose');
@@ -112,4 +112,4 @@ describe('Classes API', () => {
         done();
       });
   });
-});
+}); */

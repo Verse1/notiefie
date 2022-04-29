@@ -16,15 +16,21 @@ module.exports = {
   },
 
   post: async (req, res) => {
+    console.log(req.body);
     const user = await users.findOne({ email: req.body.email }).exec();
     if (user) {
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-      });
-      console.log('exists');
-      res.cookie('token', token);
+      try {
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+          expiresIn: '1h',
+        });
+        console.log('exists');
+        console.log(token);
+        res.cookie('token', token);
 
-      res.send(token);
+        res.send(token);
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       try {
         const user = new users({
@@ -45,7 +51,8 @@ module.exports = {
       } catch (err) {
         console.log(err);
       }
-    }
+    } 
+    res.send('hi');
   },
 
   // /users/:id

@@ -1,4 +1,4 @@
-/* const classes = require('../models/class');
+const classes = require('../models/class');
 const notes = require('../models/note');
 const mongoose = require('mongoose');
 
@@ -79,4 +79,4 @@ module.exports = {
       console.log(err);
     }
   },
-}; */
+}; 

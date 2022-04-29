@@ -1,4 +1,4 @@
-const chai = require('chai');
+/* const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
 const mongoose = require('mongoose');
@@ -33,7 +33,7 @@ describe('Users API', () => {
       });
   });
 
-  /* it('should return all users', (done) => {
+  it('should return all users', (done) => {
     chai
       .request(server)
       .get('/api/users')
@@ -277,5 +277,5 @@ describe('Users API', () => {
         assert.equal(res.text, 'User deleted');
         done();
       });
-  }); */
-});
+  });
+});  */
