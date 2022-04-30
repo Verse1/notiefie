@@ -4,16 +4,17 @@ services:
     image: app
     build: ./front-end
     ports:
-      - "3000:3000"
+      - '80:80'
+      - '443:443'
+
     networks:
       - notiefi
-
 
   api:
     image: api
     build: ./back-end
     ports:
-      - "3001:3001"
+      - '3001:3001'
     networks:
       - notiefi
 
