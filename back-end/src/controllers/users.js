@@ -42,9 +42,7 @@ module.exports = {
           expiresIn: '1h',
         });
         console.log('saved');
-        res.cookie('token', token, {
-          httpOnly: true,
-        });
+        res.cookie('token', token);
         res.send( {"user": user, "token": token} );
       } catch (err) {
         console.log(err);
