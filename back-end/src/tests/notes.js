@@ -13,20 +13,23 @@ describe('Notes API', () => {
 
   it('should create user', (done) => {
     chai
-    .request(server)
-    .post('/api/users/create')
-    .send({
-      name: 'Test User',
-      university: 'Test University',
-      email: 'test@test.com',
-    })
-    .end((err, res) => {
-      expect(res).to.have.cookie('token');
-      assert.equal(res.status, 200);
-      console.log(res.text);
-      jwt = res.text;
-      done();
-    });
+      .request(server)
+      .post('/api/users/create')
+      .send({
+        name: 'Test Some User',
+        university: 'Test Some University',
+        email: 'testsome@test.com',
+      })
+      .end(async (err, res) => {
+        assert.equal(res.status, 200);
+        assert.property(res.body.user, 'name');
+        assert.property(res.body.user, 'university');
+        assert.property(res.body.user, 'email');
+        assert.property(res.body.user, 'createdAt');
+        user = res.body.user;
+        jwt = res.body.token;
+        done();
+      });
   });
 
   it('should create class', (done) => {

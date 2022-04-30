@@ -88,13 +88,11 @@ module.exports = {
         res.send(note);
       } else if (note && !liked) {
         note.likes -= 1;
-        console.log(user.likedNotes);
         user.likedNotes.pull(note);
         console.log(note._id);
         user.likedNotes = user.likedNotes.filter(
           (like) => like.toString() !== note._id.toString()
         );
-        console.log(user.likedNotes);
         await note.save();
         await user.save();
         res.send(note);

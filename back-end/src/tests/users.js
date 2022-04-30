@@ -1,4 +1,4 @@
-/* const chai = require('chai');
+const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index');
 const mongoose = require('mongoose');
@@ -18,17 +18,18 @@ describe('Users API', () => {
       .request(server)
       .post('/api/users/create')
       .send({
-        name: 'Test User',
-        university: 'Test University',
-        email: 'test@test.com',
+        name: 'Test Some User',
+        university: 'Test Some University',
+        email: 'testsome@test.com',
       })
       .end(async (err, res) => {
         assert.equal(res.status, 200);
-        assert.property(res.body, 'name');
-        assert.property(res.body, 'university');
-        assert.property(res.body, 'email');
-        assert.property(res.body, 'createdAt');
-        user = res.body;
+        assert.property(res.body.user, 'name');
+        assert.property(res.body.user, 'university');
+        assert.property(res.body.user, 'email');
+        assert.property(res.body.user, 'createdAt');
+        user = res.body.user;
+        jwt = res.body.token;
         done();
       });
   });
@@ -53,6 +54,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .get('/api/users/1')
+      .set('Cookie', 'token='+jwt+';' )
       .end((err, res) => {
         assert.equal(res.status, 404);
         assert.equal(res.text, 'User not found');
@@ -64,10 +66,12 @@ describe('Users API', () => {
     chai
       .request(server)
       .put('/api/users/' + user._id)
+      .set('Cookie', 'token='+jwt+';' )
       .send({
         name: 'Test2',
       })
       .end((err, res) => {
+        console.log(user._id);
         assert.equal(res.status, 200);
         assert.equal(res.body.name, 'Test2');
         done();
@@ -78,7 +82,8 @@ describe('Users API', () => {
     chai
       .request(server)
       .get('/api/users/' + user._id)
-      .end((err, res) => {
+      .set('Cookie', 'token='+jwt+';' )
+      .end( async (err, res) => {
         assert.equal(res.status, 200);
         assert.property(res.body, '_id');
         assert.property(res.body, 'name');
@@ -93,11 +98,12 @@ describe('Users API', () => {
     chai
       .request(server)
       .post('/api/notes/create')
+      .set('Cookie', 'token='+jwt+';' )
       .send({
         user: user._id,
         title: 'Test Note',
         text: 'Test Content',
-        className: 'Test Class',
+        className: 'Test Class 101',
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -114,6 +120,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .get(`/api/users/${user._id}/notes`)
+      .set('Cookie', 'token='+jwt+';' )
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.isArray(res.body);
@@ -125,9 +132,11 @@ describe('Users API', () => {
     chai
 
       .request(server)
-      .post('/api/notes/' + note._id + '/like')
+      .put('/api/notes/' + note._id + '/like')
+      .set('Cookie', 'token='+jwt+';' )
       .send({
         user: user._id,
+        liked: true
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -147,12 +156,14 @@ describe('Users API', () => {
   it('should unlike note', (done) => {
     chai
       .request(server)
-      .post('/api/notes/' + note._id + '/like')
+      .put('/api/notes/' + note._id + '/like')
+      .set('Cookie', 'token='+jwt+';' )
       .send({
         user: user._id,
+        liked: false,
       })
       .end((err, res) => {
-        assert.equal(res.status, 200);
+;       assert.equal(res.status, 200);
         assert.property(res.body, '_id');
         assert.property(res.body, 'className');
         assert.property(res.body, 'title');
@@ -170,6 +181,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .delete(`/api/notes/${note._id}`)
+      .set('Cookie', 'token='+jwt+';' )
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.text, 'Note deleted');
@@ -181,6 +193,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .get(`/api/users/${user._id}/notes`)
+      .set('Cookie', 'token='+jwt+';' )
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.deepEqual(res.body, []);
@@ -192,6 +205,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .post('/api/classes/create')
+      .set('Cookie', 'token='+jwt+';' )
       .send({
         user: user._id,
         className: 'Test Class',
@@ -213,10 +227,12 @@ describe('Users API', () => {
 
       .request(server)
       .post(`/api/users/${user._id}/add-class`)
+      .set('Cookie', 'token='+jwt+';' )
       .send({
         classID: classs._id,
       })
       .end((err, res) => {
+        console.log(classs);
         assert.equal(res.status, 200);
         assert.equal(res.text, 'Class added to user');
         done();
@@ -227,6 +243,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .get(`/api/users/${user._id}/classes`)
+      .set('Cookie', 'token='+jwt+';' )
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.isArray(res.body);
@@ -238,6 +255,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .delete(`/api/users/${user._id}/delete-class`)
+      .set('Cookie', 'token='+jwt+';' )
       .send({ classID: classs._id })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -250,6 +268,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .delete(`/api/classes/${classs._id}`)
+      .set('Cookie', 'token='+jwt+';' )
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.text, 'Class deleted');
@@ -261,6 +280,7 @@ describe('Users API', () => {
     chai
       .request(server)
       .get(`/api/users/${user._id}/likes`)
+      .set('Cookie', 'token='+jwt+';' )
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.isNumber(parseInt(res.body));
@@ -272,10 +292,14 @@ describe('Users API', () => {
     chai
       .request(server)
       .delete('/api/users/' + user._id)
+      .set('Cookie', 'token='+jwt+';' )
       .end((err, res) => {
+        console.log(user._id);
+        console.log('user');
+        console.log(user);
         assert.equal(res.status, 200);
         assert.equal(res.text, 'User deleted');
         done();
       });
   });
-});  */
+}); 

@@ -16,7 +16,6 @@ module.exports = {
   },
 
   post: async (req, res) => {
-    console.log(req.body);
     const user = await users.findOne({ email: req.body.email }).exec();
     if (user) {
       try {
@@ -24,10 +23,9 @@ module.exports = {
           expiresIn: '1h',
         });
         console.log('exists');
-        console.log(token);
         res.cookie('token', token);
 
-        res.send(token);
+        res.send( {"token": token, "user": user} );
       } catch (err) {
         console.log(err);
       }
@@ -47,7 +45,7 @@ module.exports = {
         res.cookie('token', token, {
           httpOnly: true,
         });
-        res.send(user);
+        res.send( {"user": user, "token": token} );
       } catch (err) {
         console.log(err);
       }
@@ -58,7 +56,7 @@ module.exports = {
   // /users/:id
   getById: async (req, res) => {
     try {
-      const user = await users.findById(req.user);
+      const user = await users.findById(req.params.id);
       if (user) {
         res.send(user);
       } else {
@@ -66,7 +64,9 @@ module.exports = {
       }
     } catch (err) {
       console.log(err);
+      console.log('user is not here');
       res.status(404).send('User not found');
+      console.log(res.body);
     }
   },
 
@@ -75,6 +75,7 @@ module.exports = {
       const user = await users.findById(req.params.id);
 
       user.name = req.body.name;
+      console.log(user.name);
       await user.save();
 
       res.send(user);
@@ -85,6 +86,7 @@ module.exports = {
 
   delete: async (req, res) => {
     const user = await users.findById(req.params.id);
+    console.log(req.params.id);
 
     try {
       if (user) {
@@ -118,7 +120,7 @@ module.exports = {
   getClasses: async (req, res) => {
     let userClasses = [];
     try {
-      const user = await users.findById(req.user);
+      const user = await users.findById(req.params.id);
       if (user) {
         for (let i = 0; i < user.savedClasses.length; i++) {
           const classs = await classes.findById(user.savedClasses[i]);
@@ -135,7 +137,7 @@ module.exports = {
   getLikes: async (req, res) => {
     let userLikes = [];
     try {
-      const user = await users.findById(req.user);
+      const user = await users.findById(req.params.id);
       if (user) {
         for (let i = 0; i < user.likedNotes.length; i++) {
           const note = await notes.findById(user.likedNotes[i]);
@@ -152,9 +154,9 @@ module.exports = {
 
   addClass: async (req, res) => {
     try {
-      const user = await users.findById(req.user);
+      const user = await users.findById(req.params.id);
 
-      const classs = await classes.findById(req.body.id);
+      const classs = await classes.findById(req.body.classID);
 
       classs.numEnrolled++;
 
@@ -169,12 +171,12 @@ module.exports = {
 
   deleteClass: async (req, res) => {
     try {
-      const user = await users.findById(req.user);
+      const user = await users.findById(req.params.id);
 
-      const classs = await classes.findById(req.body.id);
+      const classs = await classes.findById(req.body.classID);
 
       user.savedClasses = user.savedClasses.filter(
-        (classs) => classs.toString() !== req.body.id
+        (classs) => classs.toString() !== req.body.classID
       );
 
       console.log(user.savedClasses);
