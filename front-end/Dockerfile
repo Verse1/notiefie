@@ -1,3 +1,4 @@
+# Stage 1: Build
 FROM node:16-alpine
 
 WORKDIR /usr/src/app
@@ -8,6 +9,11 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+# Stage 2: Run
+FROM nginx:latest-alpine
 
-CMD ["npm", "start"]
+COPY --from=app /front-end/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
