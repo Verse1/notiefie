@@ -9,10 +9,12 @@ RUN npm install
 
 COPY . .
 
-# Stage 2: Run
-FROM nginx:latest-alpine
+RUN npm run build
 
-COPY --from=app /front-end/build /usr/share/nginx/html
+RUN npm run start
+
+# Stage 2: Run
+FROM nginx:1.17.0-alpine
 
 EXPOSE 80
 
