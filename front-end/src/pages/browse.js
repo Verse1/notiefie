@@ -97,7 +97,6 @@ export const getServerSideProps = async ({ req }) => {
     );
     userClasses = await res.data;
   } catch (err) {
-    console.log(err);
   }
   return { props: { userClasses } };
 };

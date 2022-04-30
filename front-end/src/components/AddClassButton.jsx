@@ -30,7 +30,6 @@ function AddClassButton(props) {
       setHover('hover:bg-purple-600');
       setText('Add Class');
 
-      console.log(props.id);
 
       await axios.delete('http://localhost:3001/api/users/user/delete-class', {
         data: {

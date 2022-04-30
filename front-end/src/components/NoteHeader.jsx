@@ -16,7 +16,6 @@ const NoteHeader = (props) => {
 
   const router = useRouter();
 
-  console.log(props);
 
   return (
     <div className="grid place-items-center">

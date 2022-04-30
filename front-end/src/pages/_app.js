@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     <Auth0Provider
       domain={'dev-z0la8at9.us.auth0.com'}
       clientId={'zFBQbnVXZGYurCRU0FatAyY3CEoeMWjP'}
-      redirectUri={'http://localhost:3000/'}>
+      redirectUri={'http://localhost/'}>
       <Head>
         <title>Notiefi</title>
         <link rel="icon" href="/favicon.ico" />

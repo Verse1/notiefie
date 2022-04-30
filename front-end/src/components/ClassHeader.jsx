@@ -5,7 +5,6 @@ import AddClassButton from './AddClassButton';
 import NotesCard from './NotesCard';
 
 const ClassHeader = (props) => {
-  console.log(props);
 
   return (
     <div className="grid place-items-center ">

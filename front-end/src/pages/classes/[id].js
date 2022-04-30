@@ -5,7 +5,6 @@ import ClassHeader from '../../components/ClassHeader';
 import axios from 'axios';
 
 const IndividualClass = ({ classs, userClasses, userLikes }) => {
-  console.log(userLikes);
   return (
     <div>
       <ClassHeader

@@ -48,7 +48,6 @@ function Upload({ userClasses }) {
               </option>
             ))}
           </select>
-          {console.log(classs)}
         </div>
         <div className="p-2">
           <textarea

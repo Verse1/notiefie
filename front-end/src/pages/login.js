@@ -6,8 +6,6 @@ export default function Login() {
   const { isAuthenticated, loginWithPopup, logout, loginWithRedirect, user } =
     useAuth0();
 
-  console.log(isAuthenticated);
-
   return (
     <div className="grid h-[88vh] place-items-center">
       <div className="bg rounded-3xl bg-white p-7">
