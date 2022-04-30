@@ -54,6 +54,7 @@ module.exports = {
   getById: async (req, res) => {
     try {
       const user = await users.findById(req.user);
+      console.log(req.user);
       if (user) {
         res.send(user);
       } else {
@@ -83,7 +84,6 @@ module.exports = {
 
   delete: async (req, res) => {
     const user = await users.findById(req.user);
-    console.log(req.params.id);
 
     try {
       if (user) {
