@@ -48,13 +48,12 @@ module.exports = {
         console.log(err);
       }
     } 
-    res.send('hi');
   },
 
   // /users/:id
   getById: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
       if (user) {
         res.send(user);
       } else {
@@ -70,7 +69,7 @@ module.exports = {
 
   put: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
 
       user.name = req.body.name;
       console.log(user.name);
@@ -83,12 +82,12 @@ module.exports = {
   },
 
   delete: async (req, res) => {
-    const user = await users.findById(req.params.id);
+    const user = await users.findById(req.user);
     console.log(req.params.id);
 
     try {
       if (user) {
-        await users.deleteOne({ id: req.params.id });
+        await users.deleteOne({ id: req.user });
         res.send('User deleted');
       } else {
         res.status(404).send('User not found');
@@ -118,7 +117,7 @@ module.exports = {
   getClasses: async (req, res) => {
     let userClasses = [];
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
       if (user) {
         for (let i = 0; i < user.savedClasses.length; i++) {
           const classs = await classes.findById(user.savedClasses[i]);
@@ -135,7 +134,7 @@ module.exports = {
   getLikes: async (req, res) => {
     let userLikes = [];
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
       if (user) {
         for (let i = 0; i < user.likedNotes.length; i++) {
           const note = await notes.findById(user.likedNotes[i]);
@@ -152,7 +151,7 @@ module.exports = {
 
   addClass: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
 
       const classs = await classes.findById(req.body.classID);
 
@@ -169,7 +168,7 @@ module.exports = {
 
   deleteClass: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
 
       const classs = await classes.findById(req.body.classID);
 
