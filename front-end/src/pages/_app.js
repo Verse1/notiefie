@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navigation />
-      <NewSearch />
+      {/* <NewSearch /> */}
 
       <Component {...pageProps} />
     </Auth0Provider>
