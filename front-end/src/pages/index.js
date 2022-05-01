@@ -44,7 +44,7 @@ export default function Home({ userClasses }) {
 
   return (
     <div className="grid place-items-center">
-      {userClasses.length < 1 ? (
+      {userClasses && userClasses.length < 1 ? (
         <div className="mt-20 text-center">
           <h1 className="text-3xl font-bold">
             You don&apos;t have any classes yet.
@@ -83,7 +83,7 @@ export const getServerSideProps = async ({ req }) => {
   let userClasses = [];
   try {
     const res = await axios.get(
-      'http://localhost:3001/api/users/user/classes',
+      'http://api:3001/api/users/user/classes',
 
       {
         headers: {
@@ -95,18 +95,5 @@ export const getServerSideProps = async ({ req }) => {
   } catch (err) {
     console.log(err);
   }
-
-
-  return { props: userClasses };
+  return { props: { userClasses } };
 };
-
-// useEffect(() => {
-//   axios
-//     .get('http://localhost:3001/api/users/user/classes')
-//     .then((res) => {
-//       setClasses(res.data);
-//     })
-//     .catch((err) => {
-//       console.log('error in request', err);
-//     });
-// }, []);

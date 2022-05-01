@@ -114,7 +114,7 @@ const NoteHeader = (props) => {
 };
 
 export const getServerSideProps = async ({ req }) => {
-  const res = await axios.get('http://localhost:3000/api/users/user/likes', {
+  const res = await axios.get('http://api:3001/api/users/user/likes', {
     headers: {
       Cookies: req.headers.cookie,
     },

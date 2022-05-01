@@ -11,6 +11,8 @@ services:
       - MONGO_URI=${MONGO_URI}
     ports:
       - '3001:3001'
+    networks:
+      - notiefi
 
   nextjs:
     image: nextjs
@@ -21,9 +23,17 @@ services:
       - api
     environment:
       WAIT_HOSTS: api:3001
+    networks:
+      - notiefi
 
   nginx:
     image: nginx
     build: ./nginx
     ports:
       - '80:80'
+    networks:
+      - notiefi
+
+networks:
+  notiefi:
+    driver: bridge

@@ -91,7 +91,7 @@ export const getServerSideProps = async ({ req }) => {
   let userClasses = [];
   try {
     const res = await axios.get(
-      'http://localhost:3001/api/users/user/classes',
+      'http://api:3001/api/users/user/classes',
 
       {
         headers: {

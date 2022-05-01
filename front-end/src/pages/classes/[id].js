@@ -27,17 +27,17 @@ const IndividualClass = ({ classs, userClasses, userLikes }) => {
 };
 export const getServerSideProps = async (context) => {
   const id = context.query.id;
-  const res = await axios.get(`http://localhost:3001/api/classes/${id}`);
+  const res = await axios.get(`http://api:3001/api/classes/${id}`);
   const classs = await res.data;
 
-  const res2 = await axios.get(`http://localhost:3001/api/users/user/classes`, {
+  const res2 = await axios.get(`http://api:3001/api/users/user/classes`, {
     headers: {
       Cookie: context.req.headers.cookie,
     },
   });
 
   const userClasses = await res2.data;
-  const res3 = await axios.get(`http://localhost:3001/api/users/user/likes`, {
+  const res3 = await axios.get(`http://api:3001/api/users/user/likes`, {
     headers: {
       Cookie: context.req.headers.cookie,
     },
