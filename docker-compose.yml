@@ -33,6 +33,8 @@ services:
       - '80:80'
     networks:
       - notiefi
+    depends_on:
+      - nextjs
 
 networks:
   notiefi:
