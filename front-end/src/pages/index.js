@@ -95,7 +95,9 @@ export const getServerSideProps = async ({ req }) => {
   } catch (err) {
     console.log(err);
   }
-  return { props: { userClasses } };
+
+
+  return { props: userClasses };
 };
 
 // useEffect(() => {

@@ -3,7 +3,6 @@ require('dotenv').config();
 const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
-const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT || 3001;
@@ -24,20 +23,23 @@ app.use('/api/notes', require('./auth'));
 app.use('/api', require('./routes'));
 
 const URI = process.env.MONGO_URI;
-try {
-  // Connect to the MongoDB cluster
-  mongoose.connect(
-    URI,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    () => console.log('Mongoose is connected')
-  );
-} catch (err) {
-  console.log('could not connect, error: ', err);
-}
 
-// middleware to verify jwt
+(async () => {
+  try {
+    // Connect to the MongoDB cluster
+    await mongoose.connect(
+      URI,
+      { useNewUrlParser: true, useUnifiedTopology: true },
+      () => console.log('Mongoose is connected')
+    );
+  } catch (err) {
+    console.log('could not connect, error: ', err);
+  }
+})();
 
-// app.use("/api", jwt({ secret: "shhhhhhared-secret", algorithms: ["HS256"] }));
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 
 app.listen(port);
 

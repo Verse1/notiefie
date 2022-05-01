@@ -1,35 +1,29 @@
 version: '3'
 services:
+  api:
+    image: api
+    env_file:
+      - ./.env
+    build: ./back-end
+    hostname: api
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - MONGO_URI=${MONGO_URI}
+    ports:
+      - '3001:3001'
 
   nextjs:
     image: nextjs
     build: ./front-end
     ports:
       - '3000:3000'
-    networks:
-      - notiefi
-
-  api:
-    image: api
-    env_file:
-      - ./.env
-    build: ./back-end
+    depends_on:
+      - api
     environment:
-      - JWT_SECRET=${JWT_SECRET}
-      - MONGO_URI=${MONGO_URI}
-    ports:
-      - '3001:3001'
-    networks:
-      - notiefi
+      WAIT_HOSTS: api:3001
 
   nginx:
     image: nginx
     build: ./nginx
     ports:
       - '80:80'
-    networks:
-      - notiefi
-
-networks:
-  notiefi:
-    driver: bridge
