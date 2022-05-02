@@ -92,25 +92,25 @@ describe('Classes API', () => {
       });
   });
 
-  it('should delete class by id', (done) => {
-    chai
-      .request(server)
-      .delete('/api/classes/' + classs)
-      .end((err, res) => {
-        assert.equal(res.status, 200);
-        assert.equal(res.text, 'Class deleted');
-        done();
-      });
-  });
+  // it('should delete class by id', (done) => {
+  //   chai
+  //     .request(server)
+  //     .delete('/api/classes/' + classs)
+  //     .end((err, res) => {
+  //       assert.equal(res.status, 200);
+  //       assert.equal(res.text, 'Class deleted');
+  //       done();
+  //     });
+  // });
 
-  it('should not find deleted class', (done) => {
-    chai
-      .request(server)
-      .get('/api/classes/' + classs)
-      .end((err, res) => {
-        assert.equal(res.status, 404);
-        assert.equal(res.text, 'Class not found');
-        done();
-      });
-  });
+  // it('should not find deleted class', (done) => {
+  //   chai
+  //     .request(server)
+  //     .get('/api/classes/' + classs)
+  //     .end((err, res) => {
+  //       assert.equal(res.status, 404);
+  //       assert.equal(res.text, 'Class not found');
+  //       done();
+  //     });
+  // });
 }); 
