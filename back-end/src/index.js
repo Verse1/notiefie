@@ -9,7 +9,7 @@ const port = process.env.PORT || 3001;
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost',
+    origin: '*',
     optionsSuccessStatus: 200,
   })
 );

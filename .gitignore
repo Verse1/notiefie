@@ -73,3 +73,6 @@ pnpm-lock.yaml
 # Vscode files
 .vscode/
 *.code-workspace
+
+# Certificates and keys
+ssl
