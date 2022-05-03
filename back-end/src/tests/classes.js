@@ -113,4 +113,4 @@ describe('Classes API', () => {
         done();
       });
   });
-}); 
+});

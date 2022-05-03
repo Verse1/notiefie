@@ -25,7 +25,7 @@ module.exports = {
         console.log('exists');
         res.cookie('token', token);
 
-        res.send( {"token": token, "user": user} );
+        res.send({ token: token, user: user });
       } catch (err) {
         console.log(err);
       }
@@ -43,11 +43,11 @@ module.exports = {
         });
         console.log('saved');
         res.cookie('token', token);
-        res.send( {"user": user, "token": token} );
+        res.send({ user: user, token: token });
       } catch (err) {
         console.log(err);
       }
-    } 
+    }
   },
 
   // /users/:id

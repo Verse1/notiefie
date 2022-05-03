@@ -10,7 +10,6 @@ let note;
 let jwt;
 
 describe('Notes API', () => {
-
   it('should create user', (done) => {
     chai
       .request(server)
@@ -57,7 +56,7 @@ describe('Notes API', () => {
     chai
       .request(server)
       .post('/api/notes/create')
-      .set('Cookie', 'token='+jwt+';' )
+      .set('Cookie', 'token=' + jwt + ';')
       .send({
         className: 'Test Class 101',
         title: 'Test Note',
@@ -82,7 +81,7 @@ describe('Notes API', () => {
     chai
       .request(server)
       .post('/api/notes/' + note + '/comment')
-      .set('Cookie', 'token='+jwt+';' )
+      .set('Cookie', 'token=' + jwt + ';')
       .send({
         user: 'Test User',
         text: 'test comment',
@@ -103,7 +102,7 @@ describe('Notes API', () => {
     chai
       .request(server)
       .get('/api/notes/' + note + '/comments')
-      .set('Cookie', 'token='+jwt+';' )
+      .set('Cookie', 'token=' + jwt + ';')
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.isArray(res.body);
@@ -118,7 +117,7 @@ describe('Notes API', () => {
     chai
       .request(server)
       .get('/api/notes')
-      .set('Cookie', 'token='+jwt+';' )
+      .set('Cookie', 'token=' + jwt + ';')
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.isArray(res.body);
@@ -138,7 +137,7 @@ describe('Notes API', () => {
     chai
       .request(server)
       .get('/api/notes/1')
-      .set('Cookie', 'token='+jwt+';' )
+      .set('Cookie', 'token=' + jwt + ';')
       .end((err, res) => {
         assert.equal(res.status, 404);
         assert.equal(res.text, 'Note not found');
@@ -151,7 +150,7 @@ describe('Notes API', () => {
     chai
       .request(server)
       .get('/api/notes/' + note)
-      .set('Cookie', 'token='+jwt+';' )
+      .set('Cookie', 'token=' + jwt + ';')
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.property(res.body, '_id');
@@ -170,7 +169,7 @@ describe('Notes API', () => {
     chai
       .request(server)
       .delete('/api/notes/' + note)
-      .set('Cookie', 'token='+jwt+';' )
+      .set('Cookie', 'token=' + jwt + ';')
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.text, 'Note deleted');
@@ -182,23 +181,23 @@ describe('Notes API', () => {
     chai
       .request(server)
       .get('/api/notes/' + note)
-      .set('Cookie', 'token='+jwt+';' )
+      .set('Cookie', 'token=' + jwt + ';')
       .end((err, res) => {
         assert.equal(res.status, 404);
         assert.equal(res.text, 'Note not found');
         done();
       });
-  }); 
+  });
 
-    it('should delete user', (done) => {
-        chai
-        .request(server)
-        .delete('/api/users/user')
-        .set('Cookie', 'token='+jwt+';' )
-        .end((err, res) => {
-            assert.equal(res.status, 200);
-            assert.equal(res.text, 'User deleted');
-            done();
-        });
-    });
-}); 
+  it('should delete user', (done) => {
+    chai
+      .request(server)
+      .delete('/api/users/user')
+      .set('Cookie', 'token=' + jwt + ';')
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.text, 'User deleted');
+        done();
+      });
+  });
+});
