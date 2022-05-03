@@ -195,17 +195,17 @@ describe('Users API', () => {
       });
   });
 
-  // it('should return empty array if user has no notes', (done) => {
-  //   chai
-  //     .request(server)
-  //     .get(`/api/users/user/notes`)
-  //     .set('Cookie', 'token='+jwt+';' )
-  //     .end((err, res) => {
-  //       assert.equal(res.status, 200);
-  //       assert.deepEqual(res.body, []);
-  //       done();
-  //     });
-  // });
+  it('should return empty array if user has no notes', (done) => {
+    chai
+      .request(server)
+      .get(`/api/users/user/notes`)
+      .set('Cookie', 'token='+jwt+';' )
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.deepEqual(res.body, []);
+        done();
+      });
+  });
 
   it('should create test class for user', (done) => {
     chai
@@ -292,27 +292,27 @@ describe('Users API', () => {
       });
   });
 
-  // it('should delete user', (done) => {
-  //   chai
-  //     .request(server)
-  //     .delete('/api/users/user')
-  //     .set('Cookie', 'token='+jwt+';' )
-  //     .end((err, res) => {
-  //       assert.equal(res.status, 200);
-  //       assert.equal(res.text, 'User deleted');
-  //       done();
-  //     });
-  // });
+  it('should delete user', (done) => {
+    chai
+      .request(server)
+      .delete('/api/users/user')
+      .set('Cookie', 'token='+jwt+';' )
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.text, 'User deleted');
+        done();
+      });
+  });
 
-  //   it('should not return any users', (done) => {
-  //   chai
-  //     .request(server)
-  //     .get('/api/users/user')
-  //     .set('Cookie', 'token='+jwt+';' )
-  //     .end((err, res) => {
-  //       assert.equal(res.status, 404);
-  //       assert.equal(res.text, 'User not found');
-  //       done();
-  //     });
-  // });
+    it('should not return any users', (done) => {
+    chai
+      .request(server)
+      .get('/api/users/user')
+      .set('Cookie', 'token='+jwt+';' )
+      .end((err, res) => {
+        assert.equal(res.status, 404);
+        assert.equal(res.text, 'User not found');
+        done();
+      });
+  });
 }); 

@@ -87,7 +87,7 @@ module.exports = {
 
     try {
       if (user) {
-        await users.deleteOne({ id: req.user });
+        await users.findByIdAndRemove(req.user);
         res.send('User deleted');
       } else {
         res.status(404).send('User not found');
