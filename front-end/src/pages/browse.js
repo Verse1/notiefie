@@ -9,7 +9,7 @@ function BrowseClasses({ userClasses }) {
 
   async function getClasses(offset) {
     const res = await axios.get(
-      `http://localhost:3001/api/classes?offset=${offset}`
+      `/api/classes?offset=${offset}`
     );
     const newClasses = await res.data;
 
@@ -87,7 +87,7 @@ export const getServerSideProps = async ({ req }) => {
   let userClasses = [];
   try {
     const res = await axios.get(
-      'http://api:3001/api/users/user/classes',
+      'https://www.notiefi.com/api/users/user/classes',
 
       {
         headers: {
@@ -96,7 +96,10 @@ export const getServerSideProps = async ({ req }) => {
       }
     );
     userClasses = await res.data;
-  } catch (err) {}
+  } catch (err) {
+  
+    console.log(err);  
+  }
   return { props: { userClasses } };
 };
 

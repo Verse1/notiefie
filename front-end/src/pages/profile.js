@@ -18,7 +18,7 @@ export default function Profile() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/api/users/user')
+      .get('/api/users/user')
       .then((res) => {
         setUser(res.data);
       })
@@ -27,7 +27,7 @@ export default function Profile() {
       });
 
     axios
-      .get('http://localhost:3001/api/users/user/notes')
+      .get('/api/users/user/notes')
       .then((res) => {
         setUserNotes(res.data);
       })
@@ -36,7 +36,7 @@ export default function Profile() {
       });
 
     axios
-      .get('http://localhost:3001/api/users/user/likes')
+      .get('/api/users/user/likes')
       .then((res) => {
         setUserLikeNotes(res.data);
       })

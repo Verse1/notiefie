@@ -25,7 +25,7 @@ const Note = ({ note }) => {
 
 export const getServerSideProps = async (context) => {
   const data = context.query.id;
-  const res = await axios.get(`http://api:3001/api/notes/${data}`, {
+  const res = await axios.get(`http://www.notiefi.com/api/notes/${data}`, {
     headers: {
       Cookie: context.req.headers.cookie,
     },

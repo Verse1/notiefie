@@ -22,7 +22,7 @@ function AddClassButton(props) {
       setHover('hover:bg-emerald-400');
       setText('Class Added');
 
-      await axios.post('http://localhost:3001/api/users/user/add-class', {
+      await axios.post('/api/users/user/add-class', {
         id: props.id,
       });
     } else {
@@ -30,7 +30,7 @@ function AddClassButton(props) {
       setHover('hover:bg-purple-600');
       setText('Add Class');
 
-      await axios.delete('http://localhost:3001/api/users/user/delete-class', {
+      await axios.delete('/api/users/user/delete-class', {
         data: {
           id: props.id,
         },

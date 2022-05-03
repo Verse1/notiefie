@@ -15,7 +15,7 @@ const HeartButton = (props) => {
     setLiked(!liked);
     setLikes(liked ? likes - 1 : likes + 1);
 
-    await axios.put(`http://localhost:3001/api/notes/${props.id}/like`, {
+    await axios.put(`/api/notes/${props.id}/like`, {
       liked: !liked,
     });
   };

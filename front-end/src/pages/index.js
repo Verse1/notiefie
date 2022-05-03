@@ -29,7 +29,7 @@ export default function Home({ userClasses }) {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .post('http://localhost:3001/api/users/create', {
+        .post('/api/users/create', {
           name: user.name,
           email: user.email,
           university: 'New York University',
@@ -83,7 +83,7 @@ export const getServerSideProps = async ({ req }) => {
   let userClasses = [];
   try {
     const res = await axios.get(
-      'http://api:3001/api/users/user/classes',
+      'http://www.notiefi.com/api/users/user/classes',
 
       {
         headers: {

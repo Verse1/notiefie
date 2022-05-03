@@ -11,7 +11,7 @@ function Upload({ userClasses }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:3001/api/notes/create', {
+      .post('/api/notes/create', {
         title,
         text,
         classs,
@@ -91,7 +91,7 @@ export const getServerSideProps = async ({ req }) => {
   let userClasses = [];
   try {
     const res = await axios.get(
-      'http://api:3001/api/users/user/classes',
+      'http://www.notiefi.com/api/users/user/classes',
 
       {
         headers: {
