@@ -7,7 +7,13 @@ const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT || 3001;
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -41,7 +41,6 @@ describe('Classes API', () => {
         assert.property(res.body[0], 'className');
         assert.property(res.body[0], 'classCode');
         assert.property(res.body[0], 'university');
-        assert.property(res.body[0], 'createdAt');
         done();
       });
   });
@@ -103,6 +102,7 @@ describe('Classes API', () => {
         done();
       });
   });
+
   it('should not find deleted class', (done) => {
     chai
       .request(server)

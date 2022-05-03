@@ -1,5 +1,6 @@
 const classes = require('../models/class');
 const notes = require('../models/note');
+const mongoose = require('mongoose');
 
 module.exports = {
   get: async (req, res) => {
@@ -38,8 +39,6 @@ module.exports = {
           classNotes.push(note);
         }
 
-        console.log(classNotes);
-
         c.notes = classNotes;
 
         res.send(c);
@@ -69,7 +68,7 @@ module.exports = {
       const c = await classes.findById(req.params.id);
 
       if (c) {
-        await classes.deleteOne({ id: req.params.id });
+        await c.remove();
         res.send('Class deleted');
       } else {
         res.status(404).send('Class not found');

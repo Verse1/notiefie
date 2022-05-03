@@ -18,13 +18,17 @@ module.exports = {
   post: async (req, res) => {
     const user = await users.findOne({ email: req.body.email }).exec();
     if (user) {
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-      });
-      console.log('exists');
-      res.cookie('token', token);
+      try {
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+          expiresIn: '1h',
+        });
+        console.log('exists');
+        res.cookie('token', token);
 
-      res.send(token);
+        res.send({ token: token, user: user });
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       try {
         const user = new users({
@@ -38,10 +42,8 @@ module.exports = {
           expiresIn: '1h',
         });
         console.log('saved');
-        res.cookie('token', token, {
-          httpOnly: true,
-        });
-        res.send(user);
+        res.cookie('token', token);
+        res.send({ user: user, token: token });
       } catch (err) {
         console.log(err);
       }
@@ -52,6 +54,7 @@ module.exports = {
   getById: async (req, res) => {
     try {
       const user = await users.findById(req.user);
+      console.log(req.user);
       if (user) {
         res.send(user);
       } else {
@@ -59,13 +62,14 @@ module.exports = {
       }
     } catch (err) {
       console.log(err);
+      console.log('user is not here');
       res.status(404).send('User not found');
     }
   },
 
   put: async (req, res) => {
     try {
-      const user = await users.findById(req.params.id);
+      const user = await users.findById(req.user);
 
       user.name = req.body.name;
       await user.save();
@@ -77,11 +81,11 @@ module.exports = {
   },
 
   delete: async (req, res) => {
-    const user = await users.findById(req.params.id);
+    const user = await users.findById(req.user);
 
     try {
       if (user) {
-        await users.deleteOne({ id: req.params.id });
+        await users.findByIdAndRemove(req.user);
         res.send('User deleted');
       } else {
         res.status(404).send('User not found');
@@ -147,7 +151,7 @@ module.exports = {
     try {
       const user = await users.findById(req.user);
 
-      const classs = await classes.findById(req.body.id);
+      const classs = await classes.findById(req.body.classID);
 
       classs.numEnrolled++;
 
@@ -164,13 +168,12 @@ module.exports = {
     try {
       const user = await users.findById(req.user);
 
-      const classs = await classes.findById(req.body.id);
+      const classs = await classes.findById(req.body.classID);
 
       user.savedClasses = user.savedClasses.filter(
-        (classs) => classs.toString() !== req.body.id
+        (classs) => classs.toString() !== req.body.classID
       );
 
-      console.log(user.savedClasses);
       classs.numEnrolled--;
 
       await classs.save();

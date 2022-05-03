@@ -1,26 +1,26 @@
 const users = require('./../models/user');
-const notes = require('../models/note');
+const notesss = require('../models/note');
 const comments = require('../models/comment');
 const classes = require('../models/class');
 const mongoose = require('mongoose');
 
 module.exports = {
   get: async (req, res) => {
-    const notess = await notes.find();
+    const notess = await notesss.find();
     res.send(notess);
   },
 
   post: async (req, res) => {
     try {
-      const note = new notes({
-        className: req.body.classs,
+      const note = new notesss({
+        className: req.body.className,
         title: req.body.title,
         user: req.user,
         text: req.body.text,
       });
 
       const classs = await classes
-        .findOne({ className: req.body.classs })
+        .findOne({ className: req.body.className })
         .exec();
 
       const user = await users.findById(req.user);
@@ -41,7 +41,7 @@ module.exports = {
 
   getById: async (req, res) => {
     try {
-      const note = await notes.findById(req.params.id);
+      const note = await notesss.findById(req.params.id);
       if (note) {
         res.send(note);
       } else {
@@ -64,9 +64,17 @@ module.exports = {
   },
   delete: async (req, res) => {
     try {
-      const note = await notes.findById(req.params.id);
+      const note = await notesss.findById(req.params.id);
+      const user = await users.findById(req.user);
 
       await note.remove();
+      user.postedNotes = user.postedNotes.filter(
+        (note) => note !== req.params.id
+      );
+      user.likedNotes = user.likedNotes.filter(
+        (noteId) => noteId !== req.params.id
+      );
+      await user.save();
       res.send('Note deleted');
     } catch (err) {
       console.log(err);
@@ -75,7 +83,7 @@ module.exports = {
 
   like: async (req, res) => {
     try {
-      const note = await notes.findById(req.params.id);
+      const note = await notesss.findById(req.params.id);
       const user = await users.findById(req.user);
 
       let liked = req.body.liked;
@@ -88,13 +96,10 @@ module.exports = {
         res.send(note);
       } else if (note && !liked) {
         note.likes -= 1;
-        console.log(user.likedNotes);
         user.likedNotes.pull(note);
-        console.log(note._id);
         user.likedNotes = user.likedNotes.filter(
           (like) => like.toString() !== note._id.toString()
         );
-        console.log(user.likedNotes);
         await note.save();
         await user.save();
         res.send(note);
@@ -109,7 +114,7 @@ module.exports = {
 
   comment: async (req, res) => {
     try {
-      const note = await notes.findById(req.params.id);
+      const note = await notesss.findById(req.params.id);
 
       note.comments.push({
         _id: mongoose.Types.ObjectId(),
@@ -150,7 +155,7 @@ module.exports = {
 
   getComments: async (req, res) => {
     try {
-      const noteComments = await notes.findById(req.params.id);
+      const noteComments = await notesss.findById(req.params.id);
       if (noteComments.comments.length > 0) {
         res.send(noteComments.comments);
       } else {
