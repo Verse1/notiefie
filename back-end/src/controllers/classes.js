@@ -70,7 +70,7 @@ module.exports = {
       const c = await classes.findById(req.params.id);
 
       if (c) {
-        await classes.deleteOne({ id: mongoose.Types.ObjectId(req.params.id) });
+        await c.remove();
         res.send('Class deleted');
       } else {
         res.status(404).send('Class not found');
@@ -79,4 +79,4 @@ module.exports = {
       console.log(err);
     }
   },
-}; 
+};

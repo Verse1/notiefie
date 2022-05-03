@@ -268,17 +268,17 @@ describe('Users API', () => {
       });
   });
 
-  // it('should delete class', (done) => {
-  //   chai
-  //     .request(server)
-  //     .delete(`/api/classes/${classs._id}`)
-  //     .set('Cookie', 'token='+jwt+';' )
-  //     .end((err, res) => {
-  //       assert.equal(res.status, 200);
-  //       assert.equal(res.text, 'Class deleted');
-  //       done();
-  //     });
-  // });
+  it('should delete class', (done) => {
+    chai
+      .request(server)
+      .delete(`/api/classes/${classs._id}`)
+      .set('Cookie', 'token='+jwt+';' )
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.text, 'Class deleted');
+        done();
+      });
+  });
 
   it('should get users likes', (done) => {
     chai

@@ -166,39 +166,39 @@ describe('Notes API', () => {
       });
   });
 
-  // it('should delete note by id', (done) => {
-  //   chai
-  //     .request(server)
-  //     .delete('/api/notes/' + note)
-  //     .set('Cookie', 'token='+jwt+';' )
-  //     .end((err, res) => {
-  //       assert.equal(res.status, 200);
-  //       assert.equal(res.text, 'Note deleted');
-  //       done();
-  //     });
-  // });
+  it('should delete note by id', (done) => {
+    chai
+      .request(server)
+      .delete('/api/notes/' + note)
+      .set('Cookie', 'token='+jwt+';' )
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.text, 'Note deleted');
+        done();
+      });
+  });
 
-  // it('should not find deleted note', (done) => {
-  //   chai
-  //     .request(server)
-  //     .get('/api/notes/' + note)
-  //     .set('Cookie', 'token='+jwt+';' )
-  //     .end((err, res) => {
-  //       assert.equal(res.status, 404);
-  //       assert.equal(res.text, 'Note not found');
-  //       done();
-  //     });
-  // }); 
+  it('should not find deleted note', (done) => {
+    chai
+      .request(server)
+      .get('/api/notes/' + note)
+      .set('Cookie', 'token='+jwt+';' )
+      .end((err, res) => {
+        assert.equal(res.status, 404);
+        assert.equal(res.text, 'Note not found');
+        done();
+      });
+  }); 
 
-    // it('should delete user', (done) => {
-    //     chai
-    //     .request(server)
-    //     .delete('/api/users/user')
-    //     .set('Cookie', 'token='+jwt+';' )
-    //     .end((err, res) => {
-    //         assert.equal(res.status, 200);
-    //         assert.equal(res.text, 'User deleted');
-    //         done();
-    //     });
-    // });
+    it('should delete user', (done) => {
+        chai
+        .request(server)
+        .delete('/api/users/user')
+        .set('Cookie', 'token='+jwt+';' )
+        .end((err, res) => {
+            assert.equal(res.status, 200);
+            assert.equal(res.text, 'User deleted');
+            done();
+        });
+    });
 }); 
