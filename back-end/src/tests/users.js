@@ -59,7 +59,6 @@ describe('Users API', () => {
         name: 'Test2',
       })
       .end((err, res) => {
-        console.log(user._id);
         assert.equal(res.status, 200);
         assert.equal(res.body.name, 'Test2');
         done();

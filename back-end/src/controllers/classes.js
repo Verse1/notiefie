@@ -39,8 +39,6 @@ module.exports = {
           classNotes.push(note);
         }
 
-        console.log(classNotes);
-
         c.notes = classNotes;
 
         res.send(c);

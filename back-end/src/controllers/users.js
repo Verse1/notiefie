@@ -64,7 +64,6 @@ module.exports = {
       console.log(err);
       console.log('user is not here');
       res.status(404).send('User not found');
-      console.log(res.body);
     }
   },
 
@@ -73,7 +72,6 @@ module.exports = {
       const user = await users.findById(req.user);
 
       user.name = req.body.name;
-      console.log(user.name);
       await user.save();
 
       res.send(user);
@@ -176,7 +174,6 @@ module.exports = {
         (classs) => classs.toString() !== req.body.classID
       );
 
-      console.log(user.savedClasses);
       classs.numEnrolled--;
 
       await classs.save();

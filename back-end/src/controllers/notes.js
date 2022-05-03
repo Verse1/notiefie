@@ -68,7 +68,6 @@ module.exports = {
       const user = await users.findById(req.user);
 
       await note.remove();
-      console.log(user);
       user.postedNotes = user.postedNotes.filter(
         (note) => note !== req.params.id
       );
@@ -76,7 +75,6 @@ module.exports = {
         (noteId) => noteId !== req.params.id
       );
       await user.save();
-      console.log(user);
       res.send('Note deleted');
     } catch (err) {
       console.log(err);
@@ -99,7 +97,6 @@ module.exports = {
       } else if (note && !liked) {
         note.likes -= 1;
         user.likedNotes.pull(note);
-        console.log(note._id);
         user.likedNotes = user.likedNotes.filter(
           (like) => like.toString() !== note._id.toString()
         );
