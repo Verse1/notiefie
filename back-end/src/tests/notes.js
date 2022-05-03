@@ -16,9 +16,9 @@ describe('Notes API', () => {
       .request(server)
       .post('/api/users/create')
       .send({
-        name: 'Test Some User',
+        name: 'Test User',
         university: 'Test Some University',
-        email: 'testsome@test.com',
+        email: 'test@test.com',
       })
       .end(async (err, res) => {
         assert.equal(res.status, 200);

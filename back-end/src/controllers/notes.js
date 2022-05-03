@@ -22,7 +22,7 @@ module.exports = {
       const classs = await classes
         .findOne({ className: req.body.className })
         .exec();
-      
+
       const user = await users.findById(req.user);
 
       user.postedNotes.push(note._id.toString());
@@ -65,8 +65,18 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const note = await notesss.findById(req.params.id);
+      const user = await users.findById(req.user);
 
       await note.remove();
+      console.log(user);
+      user.postedNotes = user.postedNotes.filter(
+        (note) => note !== req.params.id
+      );
+      user.likedNotes = user.likedNotes.filter(
+        (noteId) => noteId !== req.params.id
+      );
+      await user.save();
+      console.log(user);
       res.send('Note deleted');
     } catch (err) {
       console.log(err);
