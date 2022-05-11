@@ -51,3 +51,10 @@ The Features for the MVP of Notiefi are as follows:
 1. Go into the ```back-end``` directory
 2. Install back-end dependencies with ```npm install```
 3. Launch the back-end with ```npm start``` or start it with dev mode with ```npm run dev```
+
+
+## Docker
+
+There exists docker branch so rather than building the project with ```npm run build``` and ```npm run dev``` you can build and run the project with docker compose. Check out the docker branch and use ```docker-compose up``` to run the project. 
+
+**Note:** You will need to have docker and docker-compose installed on your machine and have the .env file in the root directory of the project which should contain the JWT secret and Mongo URI.
