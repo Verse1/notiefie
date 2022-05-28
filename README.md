@@ -1,6 +1,6 @@
 # Notiefi
 
-[![CircleCI](https://circleci.com/gh/software-assignments-spring2022/final-project-notiefi/tree/master.svg?style=svg)](https://circleci.com/gh/software-assignments-spring2022/final-project-notiefi/tree/master)
+[![CircleCI](https://circleci.com/gh/Verse1/notiefie/tree/master.svg?style=svg)](https://circleci.com/gh/Verse1/notiefie/tree/master)
 
 ## Notiefi Vision Statement
 
@@ -20,21 +20,6 @@ The Features for the MVP of Notiefi are as follows:
 - The ability to search through any class on the home page and classes page.
 - A notifications page, for a user to see if any other users have liked or commented on their posted note. 
 - The ability for a user to post their notes onto a specific class page. 
-
-
-
-## Core Team Members
-
-* [Isabelle](https://github.com/isabelleoktay)
-* [Mehul](https://github.com/Mehul-Aneja)
-* [Mike](https://github.com/mgt306)
-* [Nawaf](https://github.com/Verse1)
-* [Nikhil](https://github.com/Star3Lord)
-
-
-## Contributing
-
-[Click here](CONTRIBUTING.md) to see how you can contribute to Notiefi.
 
 # Building and Testing The Project
 ## Initial setup
