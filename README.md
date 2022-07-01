@@ -1,6 +1,6 @@
 # Notiefi
 
-[![CircleCI](https://circleci.com/gh/software-assignments-spring2022/final-project-notiefi/tree/master.svg?style=svg)](https://circleci.com/gh/software-assignments-spring2022/final-project-notiefi/tree/master)
+[![CircleCI](https://circleci.com/gh/Verse1/notiefie/tree/master.svg?style=svg)](https://circleci.com/gh/Verse1/notiefie/tree/master)
 
 ## Notiefi Vision Statement
 
@@ -21,21 +21,6 @@ The Features for the MVP of Notiefi are as follows:
 - A notifications page, for a user to see if any other users have liked or commented on their posted note. 
 - The ability for a user to post their notes onto a specific class page. 
 
-
-
-## Core Team Members
-
-* [Isabelle](https://github.com/isabelleoktay)
-* [Mehul](https://github.com/Mehul-Aneja)
-* [Mike](https://github.com/mgt306)
-* [Nawaf](https://github.com/Verse1)
-* [Nikhil](https://github.com/Star3Lord)
-
-
-## Contributing
-
-[Click here](CONTRIBUTING.md) to see how you can contribute to Notiefi.
-
 # Building and Testing The Project
 ## Initial setup
 1. Clone the repository onto your local machine with ```git clone```
@@ -51,3 +36,10 @@ The Features for the MVP of Notiefi are as follows:
 1. Go into the ```back-end``` directory
 2. Install back-end dependencies with ```npm install```
 3. Launch the back-end with ```npm start``` or start it with dev mode with ```npm run dev```
+
+
+## Docker
+
+There exists docker branch so rather than building the project with ```npm run build``` and ```npm run dev``` you can build and run the project with docker compose. Check out the docker branch and use ```docker-compose up``` to run the project. 
+
+**Note:** You will need to have docker and docker-compose installed on your machine and have the .env file in the root directory of the project which should contain the JWT secret and Mongo URI.
